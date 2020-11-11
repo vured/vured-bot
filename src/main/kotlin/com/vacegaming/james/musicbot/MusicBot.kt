@@ -30,7 +30,6 @@ fun main() {
     val requiredIntents = GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS).toMutableList()
 
     try {
-
         JDABuilder
             .createDefault(botConfig.botToken, requiredIntents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
