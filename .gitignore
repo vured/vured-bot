@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,intellij+all,gradle,java,kotlin,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,intellij+all,gradle,java,kotlin,git
+# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,intellij+all,git,gradle,kotlin
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,java,intellij+all,git,gradle,kotlin
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:
@@ -233,4 +233,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,intellij+all,gradle,java,kotlin,git
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,java,intellij+all,git,gradle,kotlin
