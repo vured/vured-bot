@@ -1,6 +1,6 @@
-package com.vacegaming.james.musicbot
+package com.vacegaming.james.musicbot.model
 
-data class BotConfig(
+data class BotConfigModel(
     val botLogChannelID: Long,
     val botToken: String,
     val clubMemberID: Long,
