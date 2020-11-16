@@ -1,13 +1,18 @@
 package com.vacegaming.james.musicbot.util.environment
 
-object EnvironmentManager {
-    lateinit var current: Environment
+import java.lang.IllegalArgumentException
 
-    fun set(): String = System.getProperty("env").apply {
+object EnvironmentManager {
+    var current: EnvironmentType = EnvironmentType.DEFAULT
+
+    fun set() = System.getProperty("env")?.apply {
         current = when (this) {
-            "dev" -> Environment.DEV
-            "prod" -> Environment.PROD
-            else -> Environment.DEFAULT
+            "dev" -> EnvironmentType.DEV
+            "prod" -> EnvironmentType.PROD
+            else -> EnvironmentType.DEFAULT
         }
     }
+
+    fun getEnvironmentVariable(name: String) = System.getenv(name)
+        ?: throw IllegalArgumentException("Environment variable ($name) is missing")
 }

@@ -1,5 +1,5 @@
 package com.vacegaming.james.musicbot.util.environment
 
-enum class Environment {
+enum class EnvironmentType {
     DEV, PROD, DEFAULT
 }

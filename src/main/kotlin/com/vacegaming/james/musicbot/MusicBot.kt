@@ -1,7 +1,7 @@
 package com.vacegaming.james.musicbot
 
 import com.vacegaming.james.musicbot.util.DiscordClient
-import com.vacegaming.james.musicbot.util.config.ConfigManager
+import com.vacegaming.james.musicbot.util.ConfigManager
 import com.vacegaming.james.musicbot.util.environment.EnvironmentManager
 
 fun main() {
