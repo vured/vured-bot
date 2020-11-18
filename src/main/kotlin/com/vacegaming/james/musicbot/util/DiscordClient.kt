@@ -1,5 +1,6 @@
 package com.vacegaming.james.musicbot.util
 
+import com.vacegaming.james.musicbot.listener.GuildMessageReceivedLister
 import org.slf4j.LoggerFactory
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -20,7 +21,9 @@ object DiscordClient {
         client = JDABuilder
             .createDefault(token, intents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
-            .addEventListeners()
+            .addEventListeners(
+                GuildMessageReceivedLister()
+            )
             .build()
     } catch (e: Exception) {
         logger.error(e.message)
