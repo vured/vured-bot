@@ -16,6 +16,7 @@ object ConfigManager {
         EnvironmentType.DEFAULT -> "/default.json"
     }.apply {
         data = configLoader.loadConfigOrThrow(this)
+    }.run {
         setBotToken()
     }
 
