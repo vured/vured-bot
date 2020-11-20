@@ -8,6 +8,7 @@ class GuildMessageReceivedLister : ListenerAdapter() {
 
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
         if (event.message.channel.idLong != ConfigManager.data.musicBotChannelID) return
+        if(event.message.author.isBot) return
 
         // TODO add to queue
 
