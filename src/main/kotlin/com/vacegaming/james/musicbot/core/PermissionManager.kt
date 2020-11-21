@@ -1,9 +1,9 @@
-package com.vacegaming.james.musicbot.music
+package com.vacegaming.james.musicbot.core
 
 import com.vacegaming.james.musicbot.util.ConfigManager
 import net.dv8tion.jda.api.entities.Member
 
-object MusicUserPermission {
+object PermissionManager {
 
     fun isMemberPermitted(member: Member): Boolean {
         val clubMemberId = ConfigManager.data.clubMemberID
