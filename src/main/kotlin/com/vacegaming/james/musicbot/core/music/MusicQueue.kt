@@ -1,13 +1,9 @@
 package com.vacegaming.james.musicbot.core.music
 
-import kotlinx.coroutines.channels.Channel
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import java.util.concurrent.BlockingQueue
+import java.util.concurrent.LinkedBlockingQueue
 
 object MusicQueue {
-    private val queue = Channel<String>()
-
-    fun add() {
-
-    }
-
-    private fun get() = queue
+    var queue: BlockingQueue<AudioTrack> = LinkedBlockingQueue()
 }
