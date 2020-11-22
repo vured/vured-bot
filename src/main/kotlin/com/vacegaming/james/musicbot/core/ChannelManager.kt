@@ -1,9 +1,7 @@
 package com.vacegaming.james.musicbot.core
 
-import com.vacegaming.james.musicbot.core.reaction.NextReaction
-import com.vacegaming.james.musicbot.core.reaction.PauseReaction
-import com.vacegaming.james.musicbot.core.reaction.PlayReaction
-import com.vacegaming.james.musicbot.core.reaction.StopReaction
+import com.vacegaming.james.musicbot.core.music.MusicQueue
+import com.vacegaming.james.musicbot.core.reaction.*
 import com.vacegaming.james.musicbot.util.ConfigManager
 import com.vacegaming.james.musicbot.util.DiscordClient
 import kotlinx.coroutines.GlobalScope
@@ -28,10 +26,8 @@ object ChannelManager {
         val channel = jda.getTextChannelById(channelId) ?: return
         val eb = EmbedBuilder()
 
-        eb.setTitle("test title")
-        eb.setColor(Color.green)
-        eb.setDescription("test description")
-        eb.addField("test field", "testfield", false)
+        eb.setTitle("Sende einen Song rein um ihn abzuspielen")
+        eb.setColor(Color.RED)
 
         val message = eb.build()
 
@@ -39,6 +35,30 @@ object ChannelManager {
             staticMessage = it
             createStaticReactions()
         }
+    }
+
+    fun editStaticMessage(title: String, color: Color, volume: Int?) {
+        val eb = EmbedBuilder()
+        val trackQueue = mutableListOf<String>()
+
+        MusicQueue.queue.forEach { audioTrack ->
+            trackQueue.add(audioTrack.info.title)
+        }
+
+        eb.setTitle(title)
+        eb.setColor(color)
+
+        volume?.let {
+            eb.addField("Lautstärke", "$volume%", true)
+        }
+
+        if (trackQueue.size > 0) {
+            eb.addField("Warteschlange", trackQueue.joinToString("\n"), false)
+        }
+
+        val message = eb.build()
+
+        staticMessage.editMessage(message).queue()
     }
 
     fun sendMessage(color: Color, text: String, timeout: Long? = null) {
@@ -65,6 +85,8 @@ object ChannelManager {
         staticMessage.addReaction(PauseReaction.emote).queue()
         staticMessage.addReaction(NextReaction.emote).queue()
         staticMessage.addReaction(StopReaction.emote).queue()
+        staticMessage.addReaction(VolumeDownReaction.emote).queue()
+        staticMessage.addReaction(VolumeUpReaction.emote).queue()
     }
 
     private fun clearMessages() {

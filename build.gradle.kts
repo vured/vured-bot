@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val coroutinesVersion = "1.4.1"
 val jdaVersion = "4.2.0_214"
-val lavaPlayerVersion = "1.3.59"
+val lavaPlayerVersion = "1.3.61"
 val slf4jVersion = "1.6.2"
 val hopliteVersion = "1.3.7"
 

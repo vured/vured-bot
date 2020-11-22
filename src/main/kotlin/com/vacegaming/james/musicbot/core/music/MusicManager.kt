@@ -46,7 +46,7 @@ object MusicManager {
             }
 
             override fun loadFailed(exception: FriendlyException) {
-                println("loadFailed")
+                ChannelManager.sendMessage(Color.RED, "Fehler beim laden", 3000)
             }
         }
     )
