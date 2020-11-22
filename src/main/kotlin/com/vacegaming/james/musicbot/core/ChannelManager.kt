@@ -1,9 +1,17 @@
 package com.vacegaming.james.musicbot.core
 
+import com.vacegaming.james.musicbot.core.reaction.NextReaction
+import com.vacegaming.james.musicbot.core.reaction.PauseReaction
+import com.vacegaming.james.musicbot.core.reaction.PlayReaction
+import com.vacegaming.james.musicbot.core.reaction.StopReaction
 import com.vacegaming.james.musicbot.util.ConfigManager
 import com.vacegaming.james.musicbot.util.DiscordClient
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.VoiceChannel
 import java.awt.Color
 
 object ChannelManager {
@@ -33,8 +41,30 @@ object ChannelManager {
         }
     }
 
+    fun sendMessage(color: Color, text: String, timeout: Long? = null) {
+        val channel = jda.getTextChannelById(channelId) ?: return
+        val eb = EmbedBuilder()
+
+        eb.setColor(color)
+        eb.setDescription(text)
+
+        val message = eb.build()
+
+        channel.sendMessage(message).queue {
+            timeout?.run { deleteAfterTimeout(timeout, it) }
+        }
+    }
+
+    private fun deleteAfterTimeout(timeout: Long, message: Message) = GlobalScope.launch {
+        delay(timeout)
+        message.delete().queue()
+    }
+
     private fun createStaticReactions() {
-        staticMessage.addReaction("U+25B6").queue()
+        staticMessage.addReaction(PlayReaction.emote).queue()
+        staticMessage.addReaction(PauseReaction.emote).queue()
+        staticMessage.addReaction(NextReaction.emote).queue()
+        staticMessage.addReaction(StopReaction.emote).queue()
     }
 
     private fun clearMessages() {

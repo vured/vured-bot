@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
+import com.vacegaming.james.musicbot.core.VoiceChannelManager
 
 object TrackScheduler : AudioEventAdapter() {
 
@@ -15,14 +16,20 @@ object TrackScheduler : AudioEventAdapter() {
         }
     }
 
-    fun nextTrack() = MusicManager.audioPlayer.startTrack(
-        MusicQueue.queue.poll(),
-        false
-    )
+    fun nextTrack() {
+        val queue = MusicQueue.queue
+
+        if (queue.size > 0) {
+            MusicManager.audioPlayer.startTrack(queue.poll(), false)
+        }
+    }
 
     override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
-        println("onTrackEnd")
-        if (endReason.mayStartNext) nextTrack()
+        if (endReason.mayStartNext) {
+            nextTrack()
+        } else {
+            VoiceChannelManager.leave()
+        }
     }
 
     override fun onTrackStart(player: AudioPlayer?, track: AudioTrack?) {

@@ -27,7 +27,7 @@ object DiscordClient {
                 MessageReactionListener()
             )
             .build()
-        client.awaitReady()
+            .awaitReady()
     } catch (e: Exception) {
         logger.error(e.message)
         exitProcess(0)

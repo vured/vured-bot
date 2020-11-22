@@ -7,7 +7,10 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import com.vacegaming.james.musicbot.core.ChannelManager
+import com.vacegaming.james.musicbot.core.VoiceChannelManager
 import net.dv8tion.jda.api.entities.Member
+import java.awt.Color
 import java.util.concurrent.Future
 
 object MusicManager {
@@ -26,6 +29,10 @@ object MusicManager {
     fun play(member: Member, url: String): Future<Void> = playerManager.loadItemOrdered(member.guild, url,
         object : AudioLoadResultHandler {
             override fun trackLoaded(track: AudioTrack) {
+                if(member.guild.audioManager.isConnected.not()) {
+                    VoiceChannelManager.join(member.voiceState?.channel)
+                }
+
                 member.guild.audioManager.sendingHandler = sendHandler
                 TrackScheduler.queue(track)
             }
@@ -35,7 +42,7 @@ object MusicManager {
             }
 
             override fun noMatches() {
-                println("noMatches ($url)")
+                ChannelManager.sendMessage(Color.RED, "Es wurde kein Song gefunden", 3000)
             }
 
             override fun loadFailed(exception: FriendlyException) {
