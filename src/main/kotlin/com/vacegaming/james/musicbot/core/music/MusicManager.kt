@@ -38,6 +38,11 @@ object MusicManager {
             }
 
             override fun playlistLoaded(playlist: AudioPlaylist) {
+                if(member.guild.audioManager.isConnected.not()) {
+                    VoiceChannelManager.join(member.voiceState?.channel)
+                }
+
+                member.guild.audioManager.sendingHandler = sendHandler
                 TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks.get(0))
             }
 

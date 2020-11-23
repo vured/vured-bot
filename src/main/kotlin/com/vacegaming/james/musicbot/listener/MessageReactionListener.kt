@@ -1,8 +1,13 @@
 package com.vacegaming.james.musicbot.listener
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackState
+import com.vacegaming.james.musicbot.core.GuildManager
 import com.vacegaming.james.musicbot.core.MemberManager
+import com.vacegaming.james.musicbot.core.VoiceChannelManager
+import com.vacegaming.james.musicbot.core.music.MusicManager
 import com.vacegaming.james.musicbot.core.reaction.*
 import com.vacegaming.james.musicbot.util.ConfigManager
+import com.vacegaming.james.musicbot.util.DiscordClient
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
@@ -19,7 +24,6 @@ class MessageReactionListener : ListenerAdapter() {
             isBot -> return
             channelId != musicChannelId -> return
             reactionEmote.isEmote -> return event.reaction.removeReaction(event.user).queue()
-
             MemberManager.isPermitted(member).not() -> return event.reaction.removeReaction(event.user).queue()
             MemberManager.isInChannel(member).not() -> return event.reaction.removeReaction(event.user).queue()
         }
