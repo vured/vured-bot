@@ -9,6 +9,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.VoiceChannelManager
+import com.vacegaming.james.musicbot.util.ConfigManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 import java.util.concurrent.Future
@@ -29,7 +32,7 @@ object MusicManager {
     fun play(member: Member, url: String): Future<Void> = playerManager.loadItemOrdered(member.guild, url,
         object : AudioLoadResultHandler {
             override fun trackLoaded(track: AudioTrack) {
-                if(member.guild.audioManager.isConnected.not()) {
+                if (member.guild.audioManager.isConnected.not()) {
                     VoiceChannelManager.join(member.voiceState?.channel)
                 }
 
@@ -38,12 +41,19 @@ object MusicManager {
             }
 
             override fun playlistLoaded(playlist: AudioPlaylist) {
-                if(member.guild.audioManager.isConnected.not()) {
+                val newTracks = playlist.tracks.take(ConfigManager.data.maxPlaylistTracks)
+
+                if (member.guild.audioManager.isConnected.not()) {
                     VoiceChannelManager.join(member.voiceState?.channel)
                 }
 
                 member.guild.audioManager.sendingHandler = sendHandler
+
                 TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks.get(0))
+
+                GlobalScope.launch {
+                    PlaylistManager.asktoAdd(member, newTracks)
+                }
             }
 
             override fun noMatches() {

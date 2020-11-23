@@ -5,5 +5,6 @@
   "memberID": 288849880007311361,
   "clubMemberID": 589201839128313902,
   "musicBotChannelID": 733297619102859354,
-  "musicBotID": 425343251197984
+  "musicBotID": 425343251197984,
+  "maxPlaylistTracks": 20
 }

@@ -2,6 +2,7 @@ package com.vacegaming.james.musicbot.core.music
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
+import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
 import com.vacegaming.james.musicbot.core.ChannelManager
@@ -23,9 +24,9 @@ object TrackScheduler : AudioEventAdapter() {
     }
 
     fun nextTrack() {
-        val queue = MusicQueue.queue
-
-        MusicManager.audioPlayer.startTrack(queue.poll(), false)
+        MusicQueue.queue.remove()?.let {
+            MusicManager.audioPlayer.playTrack(it)
+        }
     }
 
     override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
@@ -59,5 +60,13 @@ object TrackScheduler : AudioEventAdapter() {
         val title = player.playingTrack.info.title
 
         ChannelManager.editStaticMessage(title, Color.GREEN, player.volume)
+    }
+
+    override fun onTrackException(player: AudioPlayer?, track: AudioTrack?, exception: FriendlyException?) {
+        VoiceChannelManager.leave()
+    }
+
+    override fun onTrackStuck(player: AudioPlayer?, track: AudioTrack?, thresholdMs: Long) {
+        VoiceChannelManager.leave()
     }
 }

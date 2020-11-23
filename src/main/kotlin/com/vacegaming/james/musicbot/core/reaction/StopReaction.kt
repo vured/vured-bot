@@ -4,6 +4,7 @@ import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.VoiceChannelManager
 import com.vacegaming.james.musicbot.core.music.MusicManager
 import com.vacegaming.james.musicbot.core.music.MusicQueue
+import com.vacegaming.james.musicbot.core.music.PlaylistManager
 import net.dv8tion.jda.api.entities.Member
 
 object StopReaction {
@@ -14,5 +15,6 @@ object StopReaction {
         MusicQueue.queue.clear()
         MusicManager.audioPlayer.stopTrack()
         VoiceChannelManager.leave()
+        PlaylistManager.deleteQuestionMessage()
     }
 }

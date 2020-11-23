@@ -7,5 +7,6 @@ data class BotConfigModel(
     val musicBotChannelID: Long,
     val musicBotID: Long,
     val vaceGamingGuildId: Long,
-    var botToken: String
+    val maxPlaylistTracks: Int,
+    var botToken: String,
 )

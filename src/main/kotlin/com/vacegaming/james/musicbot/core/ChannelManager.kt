@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.VoiceChannel
 import java.awt.Color
 
 object ChannelManager {
@@ -19,10 +18,6 @@ object ChannelManager {
     private val jda = DiscordClient.client
 
     private lateinit var staticMessage: Message
-
-    init {
-        clearMessages()
-    }
 
     fun createStaticMessage() {
         val channel = jda.getTextChannelById(channelId) ?: return
@@ -92,6 +87,17 @@ object ChannelManager {
         channel.sendMessage(message).queue()
     }
 
+    fun clearMessages() {
+        val history = jda.getTextChannelById(channelId)?.iterableHistory ?: return
+
+        history.takeAsync(50).thenApply {
+            it.forEach { message ->
+                if (message.idLong != staticMessage.idLong)
+                    message.delete().queue()
+            }
+        }
+    }
+
     private fun deleteAfterTimeout(timeout: Long, message: Message) = GlobalScope.launch {
         delay(timeout)
         message.delete().queue()
@@ -104,13 +110,5 @@ object ChannelManager {
         staticMessage.addReaction(StopReaction.emote).queue()
         staticMessage.addReaction(VolumeDownReaction.emote).queue()
         staticMessage.addReaction(VolumeUpReaction.emote).queue()
-    }
-
-    private fun clearMessages() {
-        val history = jda.getTextChannelById(channelId)?.iterableHistory ?: return
-
-        history.takeAsync(50).thenApply {
-            it.forEach { message -> message.delete().queue() }
-        }
     }
 }
