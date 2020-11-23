@@ -50,7 +50,7 @@ object ChannelManager {
         }
 
         if (trackQueue.size > 0) {
-            eb.addField("Warteschlange", trackQueue.joinToString("\n"), false)
+            eb.addField("Warteschlange", trackQueue.joinToString("\n").take(1024), false)
         }
 
         val message = eb.build()

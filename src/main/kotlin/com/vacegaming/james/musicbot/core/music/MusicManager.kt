@@ -52,7 +52,7 @@ object MusicManager {
                 TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks.get(0))
 
                 GlobalScope.launch {
-                    PlaylistManager.asktoAdd(member, newTracks)
+                    PlaylistManager.askToAdd(member, newTracks)
                 }
             }
 

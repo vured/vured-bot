@@ -23,7 +23,7 @@ object PlaylistManager {
 
     var questionAnswers: Channel<Pair<Boolean, Member>> = Channel()
 
-    suspend fun asktoAdd(member: Member, tracks: List<AudioTrack>) {
+    suspend fun askToAdd(member: Member, tracks: List<AudioTrack>) {
         val channel = jda.getTextChannelById(channelId)
         val eb = EmbedBuilder()
 

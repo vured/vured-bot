@@ -24,7 +24,8 @@ object TrackScheduler : AudioEventAdapter() {
     }
 
     fun nextTrack() {
-        MusicQueue.queue.remove()?.let {
+        MusicQueue.queue.poll()?.let {
+            val test = MusicQueue.queue
             MusicManager.audioPlayer.playTrack(it)
         }
     }
