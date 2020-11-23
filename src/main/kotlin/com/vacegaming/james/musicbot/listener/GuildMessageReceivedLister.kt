@@ -1,5 +1,6 @@
 package com.vacegaming.james.musicbot.listener
 
+import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.GuildManager
 import com.vacegaming.james.musicbot.core.MemberManager
 import com.vacegaming.james.musicbot.core.VoiceChannelManager
@@ -29,6 +30,9 @@ class GuildMessageReceivedLister : ListenerAdapter() {
 
         event.message.delete().queue()
 
+        ChannelManager.sendLog("Song hinzugefügt", event.message.contentDisplay, member)
+
+        println("play ${event.message.contentDisplay}")
         MusicManager.play(member, event.message.contentDisplay)
     }
 }

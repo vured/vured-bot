@@ -8,11 +8,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.EmbedBuilder
+import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.VoiceChannel
 import java.awt.Color
 
 object ChannelManager {
+    private val logChannelId = ConfigManager.data.botLogChannelID
     private val channelId = ConfigManager.data.musicBotChannelID
     private val jda = DiscordClient.client
 
@@ -73,6 +75,21 @@ object ChannelManager {
         channel.sendMessage(message).queue {
             timeout?.run { deleteAfterTimeout(timeout, it) }
         }
+    }
+
+    fun sendLog(title: String, text: String?, member: Member) {
+        val channel = jda.getTextChannelById(logChannelId) ?: return
+        val eb = EmbedBuilder()
+
+        eb.setTitle(title)
+        eb.setColor(Color.gray)
+        eb.addField("Member:", member.asMention, true)
+
+        text?.let { eb.setDescription(text) }
+
+        val message = eb.build()
+
+        channel.sendMessage(message).queue()
     }
 
     private fun deleteAfterTimeout(timeout: Long, message: Message) = GlobalScope.launch {

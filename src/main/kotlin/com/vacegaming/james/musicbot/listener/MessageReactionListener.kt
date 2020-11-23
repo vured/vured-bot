@@ -3,8 +3,6 @@ package com.vacegaming.james.musicbot.listener
 import com.vacegaming.james.musicbot.core.MemberManager
 import com.vacegaming.james.musicbot.core.reaction.*
 import com.vacegaming.james.musicbot.util.ConfigManager
-import com.vacegaming.james.musicbot.util.DiscordClient
-import net.dv8tion.jda.api.entities.MessageReaction
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
@@ -21,6 +19,7 @@ class MessageReactionListener : ListenerAdapter() {
             isBot -> return
             channelId != musicChannelId -> return
             reactionEmote.isEmote -> return event.reaction.removeReaction(event.user).queue()
+
             MemberManager.isPermitted(member).not() -> return event.reaction.removeReaction(event.user).queue()
             MemberManager.isInChannel(member).not() -> return event.reaction.removeReaction(event.user).queue()
         }
@@ -28,10 +27,10 @@ class MessageReactionListener : ListenerAdapter() {
         event.reaction.removeReaction(event.user).queue()
 
         when (reactionEmote.asCodepoints) {
-            PlayReaction.emote -> PlayReaction.execute()
-            PauseReaction.emote -> PauseReaction.execute()
-            NextReaction.emote -> NextReaction.execute()
-            StopReaction.emote -> StopReaction.execute()
+            PlayReaction.emote -> PlayReaction.execute(member)
+            PauseReaction.emote -> PauseReaction.execute(member)
+            NextReaction.emote -> NextReaction.execute(member)
+            StopReaction.emote -> StopReaction.execute(member)
             VolumeDownReaction.emote -> VolumeDownReaction.execute()
             VolumeUpReaction.emote -> VolumeUpReaction.execute()
         }

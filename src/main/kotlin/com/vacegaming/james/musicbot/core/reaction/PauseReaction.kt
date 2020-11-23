@@ -1,11 +1,14 @@
 package com.vacegaming.james.musicbot.core.reaction
 
+import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.music.MusicManager
+import net.dv8tion.jda.api.entities.Member
 
 object PauseReaction {
     const val emote = "U+23f8"
 
-    fun execute() {
+    fun execute(member: Member) {
+        ChannelManager.sendLog("Pause", null, member)
         MusicManager.audioPlayer.isPaused = true
     }
 }
