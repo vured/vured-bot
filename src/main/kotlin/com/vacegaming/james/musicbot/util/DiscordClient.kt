@@ -1,6 +1,7 @@
 package com.vacegaming.james.musicbot.util
 
 import com.vacegaming.james.musicbot.listener.GuildMessageReceivedLister
+import com.vacegaming.james.musicbot.listener.GuildVoiceUpdateListener
 import com.vacegaming.james.musicbot.listener.MessageReactionListener
 import org.slf4j.LoggerFactory
 import net.dv8tion.jda.api.JDA
@@ -24,6 +25,7 @@ object DiscordClient {
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .addEventListeners(
                 GuildMessageReceivedLister(),
+                GuildVoiceUpdateListener(),
                 MessageReactionListener()
             )
             .build()

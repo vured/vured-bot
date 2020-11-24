@@ -1,6 +1,7 @@
 package com.vacegaming.james.musicbot.core
 
 import com.vacegaming.james.musicbot.core.music.MusicManager
+import com.vacegaming.james.musicbot.core.music.MusicQueue
 import net.dv8tion.jda.api.entities.VoiceChannel
 import java.awt.Color
 
@@ -31,5 +32,6 @@ object VoiceChannelManager {
         connectedChannel = channel
         GuildManager.current.audioManager.openAudioConnection(channel)
         MusicManager.audioPlayer.volume = 10
+        /*GuildManager.current.selfMember.deafen(true)*/
     }
 }

@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import java.awt.Color
+import java.text.SimpleDateFormat
+import java.util.*
 
 object ChannelManager {
     private val logChannelId = ConfigManager.data.botLogChannelID
@@ -50,7 +52,7 @@ object ChannelManager {
         }
 
         if (trackQueue.size > 0) {
-            eb.addField("Warteschlange", trackQueue.joinToString("\n").take(1024), false)
+            eb.addField("Warteschlange (${trackQueue.size})", trackQueue.joinToString("\n").take(1024), false)
         }
 
         val message = eb.build()
@@ -72,13 +74,17 @@ object ChannelManager {
         }
     }
 
-    fun sendLog(title: String, text: String?, member: Member) {
+    fun sendLog(title: String, text: String?, member: Member?) {
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
         val channel = jda.getTextChannelById(logChannelId) ?: return
         val eb = EmbedBuilder()
 
         eb.setTitle(title)
         eb.setColor(Color.gray)
-        eb.addField("Member:", member.asMention, true)
+
+        member?.let { eb.addField("Member:", member.asMention, true) }
+
+        eb.setFooter("Uhrzeit: ${dateFormat.format(Date())}", null)
 
         text?.let { eb.setDescription(text) }
 
@@ -90,11 +96,8 @@ object ChannelManager {
     fun clearMessages() {
         val history = jda.getTextChannelById(channelId)?.iterableHistory ?: return
 
-        history.takeAsync(50).thenApply {
-            it.forEach { message ->
-                if (message.idLong != staticMessage.idLong)
-                    message.delete().queue()
-            }
+        history.complete().take(50).forEach {
+            it.delete().complete()
         }
     }
 

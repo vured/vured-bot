@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.entities.Message
 import java.awt.Color
 
 object PlaylistManager {
-    private val logChannelId = ConfigManager.data.botLogChannelID
     private val channelId = ConfigManager.data.musicBotChannelID
     private val jda = DiscordClient.client
 
@@ -40,7 +39,13 @@ object PlaylistManager {
         }
 
         withContext(Dispatchers.IO) {
-            questionJob = async { listenForAnswer(member, tracks) }
+            questionJob = async {
+                launch {
+                    delay(10000L)
+                    deleteQuestionMessage()
+                }
+                listenForAnswer(member, tracks)
+            }
         }
     }
 
@@ -55,6 +60,7 @@ object PlaylistManager {
 
         if (questionJob?.isActive == true) questionJob?.cancel()
     }
+
 
     private fun addToQueue(tracks: List<AudioTrack>) {
         val audioPlayer = MusicManager.audioPlayer
@@ -73,6 +79,7 @@ object PlaylistManager {
 
             if (answer.second == member) when (answer.first) {
                 true -> {
+                    ChannelManager.sendLog("Playlist importiert", "${tracks.size} tracks", member)
                     addToQueue(tracks.drop(1))
                     break
                 }
