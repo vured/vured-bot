@@ -12,6 +12,16 @@ plugins {
     kotlin("jvm") version "1.4.20"
 }
 
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
+    }
+}
+
 group = "com.vacegaming.james"
 version = "1.0-SNAPSHOT"
 
@@ -52,6 +62,7 @@ tasks {
     }
 
     named<ShadowJar>("shadowJar") {
+        archiveFileName.set("james-musicbot-reworked.jar")
         manifest.attributes.apply {
             put("Main-Class", "com.vacegaming.james.musicbot.MusicBotKt")
         }
@@ -61,4 +72,8 @@ tasks {
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
     languageVersion = "1.4"
+}
+
+task("stage") {
+    dependsOn("build")
 }
