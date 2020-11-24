@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 val coroutinesVersion = "1.4.1"
 val jdaVersion = "4.2.0_222"
@@ -7,8 +8,10 @@ val slf4jVersion = "1.7.30"
 val hopliteVersion = "1.3.8"
 
 plugins {
+    id("com.github.johnrengelman.shadow") version "6.1.0"
     kotlin("jvm") version "1.4.20"
 }
+
 group = "com.vacegaming.james"
 version = "1.0-SNAPSHOT"
 
@@ -42,6 +45,16 @@ dependencies {
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "11"
+    }
+
+    build {
+        dependsOn(shadowJar)
+    }
+
+    named<ShadowJar>("shadowJar") {
+        manifest.attributes.apply {
+            put("Main-Class", "com.vacegaming.james.musicbot.MusicBotKt")
+        }
     }
 }
 

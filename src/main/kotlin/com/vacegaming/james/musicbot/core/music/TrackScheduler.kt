@@ -30,7 +30,7 @@ object TrackScheduler : AudioEventAdapter() {
     }
 
     override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
-        if(MusicQueue.queue.size <= 0) {
+        if(MusicQueue.queue.size <= 0 && endReason.name != "REPLACED") {
             return VoiceChannelManager.leave()
         }
 

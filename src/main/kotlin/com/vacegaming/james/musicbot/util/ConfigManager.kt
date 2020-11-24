@@ -23,6 +23,6 @@ object ConfigManager {
     private fun setBotToken() {
         if (EnvironmentManager.current == EnvironmentType.DEV) return
 
-        data.botToken = EnvironmentManager.getEnvironmentVariable("botToken")
+        data.botToken = EnvironmentManager.getEnvironmentVariable("BOT_TOKEN")
     }
 }
