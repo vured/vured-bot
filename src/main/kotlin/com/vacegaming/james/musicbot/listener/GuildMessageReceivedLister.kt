@@ -3,7 +3,6 @@ package com.vacegaming.james.musicbot.listener
 import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.GuildManager
 import com.vacegaming.james.musicbot.core.MemberManager
-import com.vacegaming.james.musicbot.core.VoiceChannelManager
 import com.vacegaming.james.musicbot.core.music.MusicManager
 import com.vacegaming.james.musicbot.util.ConfigManager
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent

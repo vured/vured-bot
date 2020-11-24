@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val coroutinesVersion = "1.4.1"
-val jdaVersion = "4.2.0_214"
+val jdaVersion = "4.2.0_222"
 val lavaPlayerVersion = "1.3.61"
-val slf4jVersion = "1.6.2"
-val hopliteVersion = "1.3.7"
+val slf4jVersion = "1.7.30"
+val hopliteVersion = "1.3.8"
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.4.20"
 }
 group = "com.vacegaming.james"
 version = "1.0-SNAPSHOT"

@@ -40,7 +40,7 @@ object PlaylistManager {
         }
 
         withContext(Dispatchers.IO) {
-            questionJob = async { listenforAnswer(member, tracks) }
+            questionJob = async { listenForAnswer(member, tracks) }
         }
     }
 
@@ -67,7 +67,7 @@ object PlaylistManager {
         ChannelManager.editStaticMessage(audioPlayer.playingTrack.info.title, Color.green, audioPlayer.volume)
     }
 
-    private suspend fun listenforAnswer(member: Member, tracks: List<AudioTrack>) {
+    private suspend fun listenForAnswer(member: Member, tracks: List<AudioTrack>) {
         while (questionMessage != null) {
             val answer = questionAnswers.receive()
 
