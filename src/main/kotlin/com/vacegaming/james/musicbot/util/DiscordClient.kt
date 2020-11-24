@@ -14,13 +14,13 @@ import kotlin.system.exitProcess
 object DiscordClient {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    lateinit var client: JDA
+    lateinit var jda: JDA
 
     fun start() = try {
         val token = ConfigManager.data.botToken
         val intents = getRequiredIntents()
 
-        client = JDABuilder
+        jda = JDABuilder
             .createDefault(token, intents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .addEventListeners(

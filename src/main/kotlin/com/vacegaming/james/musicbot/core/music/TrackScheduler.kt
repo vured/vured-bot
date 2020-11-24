@@ -20,7 +20,7 @@ object TrackScheduler : AudioEventAdapter() {
             MusicQueue.queue.offer(track)
         }
 
-        ChannelManager.editStaticMessage(title, Color.green, volume)
+        ChannelManager.editStaticMessage(title, null, Color.green, volume)
     }
 
     fun nextTrack() {
@@ -42,19 +42,19 @@ object TrackScheduler : AudioEventAdapter() {
     override fun onPlayerPause(player: AudioPlayer) {
         val title = player.playingTrack.info.title
 
-        ChannelManager.editStaticMessage(title, Color.ORANGE, player.volume)
+        ChannelManager.editStaticMessage(title, null, Color.ORANGE, player.volume)
     }
 
     override fun onPlayerResume(player: AudioPlayer) {
         val title = player.playingTrack.info.title
 
-        ChannelManager.editStaticMessage(title, Color.GREEN, player.volume)
+        ChannelManager.editStaticMessage(title, null, Color.GREEN, player.volume)
     }
 
     override fun onTrackStart(player: AudioPlayer, track: AudioTrack) {
         val title = player.playingTrack.info.title
 
-        ChannelManager.editStaticMessage(title, Color.GREEN, player.volume)
+        ChannelManager.editStaticMessage(title, null, Color.GREEN, player.volume)
     }
 
     override fun onTrackException(player: AudioPlayer?, track: AudioTrack?, exception: FriendlyException?) {

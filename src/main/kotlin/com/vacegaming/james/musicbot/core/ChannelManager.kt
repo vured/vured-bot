@@ -17,7 +17,7 @@ import java.util.*
 object ChannelManager {
     private val logChannelId = ConfigManager.data.botLogChannelID
     private val channelId = ConfigManager.data.musicBotChannelID
-    private val jda = DiscordClient.client
+    private val jda = DiscordClient.jda
 
     private lateinit var staticMessage: Message
 
@@ -25,7 +25,8 @@ object ChannelManager {
         val channel = jda.getTextChannelById(channelId) ?: return
         val eb = EmbedBuilder()
 
-        eb.setTitle("Sende einen Song rein um ihn abzuspielen")
+        eb.setTitle("Derzeit wird nichts abgespielt")
+        eb.setDescription(ConfigManager.data.defaultMessage)
         eb.setColor(Color.RED)
 
         val message = eb.build()
@@ -36,7 +37,7 @@ object ChannelManager {
         }
     }
 
-    fun editStaticMessage(title: String, color: Color, volume: Int?) {
+    fun editStaticMessage(title: String, description: String?, color: Color, volume: Int?) {
         val eb = EmbedBuilder()
         val trackQueue = mutableListOf<String>()
 
@@ -45,6 +46,9 @@ object ChannelManager {
         }
 
         eb.setTitle(title)
+
+        description?.let { eb.setDescription(it) }
+
         eb.setColor(color)
 
         volume?.let {

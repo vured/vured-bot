@@ -15,7 +15,7 @@ import java.awt.Color
 
 object PlaylistManager {
     private val channelId = ConfigManager.data.musicBotChannelID
-    private val jda = DiscordClient.client
+    private val jda = DiscordClient.jda
 
     private var questionMessage: Message? = null
     private var questionJob: Deferred<Unit>? = null
@@ -70,7 +70,7 @@ object PlaylistManager {
             MusicQueue.queue.offer(it)
         }
 
-        ChannelManager.editStaticMessage(audioPlayer.playingTrack.info.title, Color.green, audioPlayer.volume)
+        ChannelManager.editStaticMessage(audioPlayer.playingTrack.info.title, null, Color.green, audioPlayer.volume)
     }
 
     private suspend fun listenForAnswer(member: Member, tracks: List<AudioTrack>) {

@@ -13,6 +13,6 @@ object VolumeDownReaction {
         val audioPlayer = MusicManager.audioPlayer
         val title = audioPlayer.playingTrack.info.title
 
-        ChannelManager.editStaticMessage(title, Color.green, audioPlayer.volume)
+        ChannelManager.editStaticMessage(title, null, Color.green, audioPlayer.volume)
     }
 }

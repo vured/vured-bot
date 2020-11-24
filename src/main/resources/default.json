@@ -6,5 +6,6 @@
   "clubMemberID": 668896304222437386,
   "musicBotChannelID": 668896380101853205,
   "musicBotID": 668899702145548302,
-  "maxPlaylistTracks": 100
+  "maxPlaylistTracks": 100,
+  "defaultMessage": "Sende einen YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link oder eine direkte URL in diesen Chat um zu starten.\n\nDu kannst auch folgende Befehle nutzen um zu suchen:\n\nytsearch: <Suchbegriff>\nscsearch: <Suchbegriff>"
 }
