@@ -49,7 +49,7 @@ object MusicManager {
 
                 member.guild.audioManager.sendingHandler = sendHandler
 
-                TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks.get(0))
+                TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks[0])
 
                 GlobalScope.launch {
                     PlaylistManager.askToAdd(member, newTracks)

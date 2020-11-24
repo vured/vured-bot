@@ -25,23 +25,13 @@ object TrackScheduler : AudioEventAdapter() {
 
     fun nextTrack() {
         MusicQueue.queue.poll()?.let {
-            val test = MusicQueue.queue
-            MusicManager.audioPlayer.playTrack(it)
+            MusicManager.audioPlayer.startTrack(it, false)
         }
     }
 
     override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
-        val queue = MusicQueue.queue
-
-        when (endReason.name) {
-            "STOPPED" -> return VoiceChannelManager.leave()
-            "FINISHED" -> {
-                if (queue.size == 0) return VoiceChannelManager.leave()
-            }
-        }
-
-        queue.poll()?.let {
-            MusicManager.audioPlayer.playTrack(it)
+        if (endReason.mayStartNext) {
+            nextTrack()
         }
     }
 
