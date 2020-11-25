@@ -1,1 +1,1 @@
-web: java -jar build/libs/james-musicbot-reworked.jar
+web: java $JAVA_OPTS -jar build/libs/james-musicbot-reworked.jar

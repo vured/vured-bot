@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+val kotlinVersion = "1.4.20"
 val coroutinesVersion = "1.4.1"
 val jdaVersion = "4.2.0_222"
 val lavaPlayerVersion = "1.3.61"
@@ -37,6 +38,7 @@ dependencies {
      * Kotlin
      */
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
 
     /**
      * Discord
