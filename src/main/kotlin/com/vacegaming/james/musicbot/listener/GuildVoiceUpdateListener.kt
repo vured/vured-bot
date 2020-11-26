@@ -19,7 +19,7 @@ class GuildVoiceUpdateListener : ListenerAdapter() {
             return
         }
 
-        event.channelJoined?.members?.size?.let {
+        voiceState?.channel?.members?.size?.let {
             if(it <= 1) VoiceChannelManager.leave(title = "Stop", text = "Voicechannel war leer ($it)")
         }
 

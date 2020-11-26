@@ -6,6 +6,7 @@ import com.vacegaming.james.musicbot.core.music.PlaylistManager
 import com.vacegaming.james.musicbot.util.ConfigManager
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.VoiceChannel
+import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color
 
 object VoiceChannelManager {
@@ -31,14 +32,29 @@ object VoiceChannelManager {
         }
     }
 
-    fun join(channel: VoiceChannel?) {
-        val audioManager = GuildManager.current?.audioManager ?: return
+    fun join(member: Member?): AudioManager? {
+        val memberVoiceState = member?.voiceState
+        val selfVoiceState = GuildManager.current?.selfMember?.voiceState
 
-        if (audioManager.isConnected) {
-            return
+        if (selfVoiceState?.inVoiceChannel() == true) {
+            return null
         }
 
-        GuildManager.current.audioManager.openAudioConnection(channel)
-        MusicManager.audioPlayer.volume = 10
+        if (memberVoiceState?.inVoiceChannel() != true) {
+            ChannelManager.sendMessage(Color.blue, "Bitte gehe zuerst in einen Voicechannel", 5000)
+            return null
+        }
+
+        return memberVoiceState.channel?.run(::join)
+    }
+
+    private fun join(channel: VoiceChannel): AudioManager? {
+        val audioManager = GuildManager.current?.audioManager
+        val audioPlayer = MusicManager.audioPlayer
+
+        audioManager?.openAudioConnection(channel)
+        audioPlayer.volume = 10
+
+        return audioManager
     }
 }
