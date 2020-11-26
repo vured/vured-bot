@@ -8,7 +8,7 @@ object PauseReaction {
     const val emote = "U+23f8"
 
     fun execute(member: Member) {
-        ChannelManager.sendLog("Pause", null, member)
+        ChannelManager.sendLog(title = "Pause", member = member)
         MusicManager.audioPlayer.isPaused = true
     }
 }

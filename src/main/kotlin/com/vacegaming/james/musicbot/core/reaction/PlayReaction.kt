@@ -8,7 +8,7 @@ object PlayReaction {
     const val emote = "U+25b6"
 
     fun execute(member: Member) {
-        ChannelManager.sendLog("Play", null, member)
+        ChannelManager.sendLog(title = "Play", member = member)
         MusicManager.audioPlayer.isPaused = false
     }
 }

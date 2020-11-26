@@ -12,6 +12,11 @@ fun main() = runBlocking {
     DiscordClient.start()
 
     ChannelManager.clearMessages()
-
     ChannelManager.createStaticMessage()
+
+    ChannelManager.sendLog(
+        "Musikbot gestartet",
+        "Version ${this::class.java.`package`.implementationVersion}"
+    )
 }
+

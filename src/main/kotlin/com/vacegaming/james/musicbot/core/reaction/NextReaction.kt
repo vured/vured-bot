@@ -8,7 +8,7 @@ object NextReaction {
     const val emote = "U+23ed"
 
     fun execute(member: Member) {
-        ChannelManager.sendLog("Next", null, member)
+        ChannelManager.sendLog("Next", member = member)
         TrackScheduler.nextTrack()
     }
 }

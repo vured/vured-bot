@@ -19,7 +19,12 @@ object VoiceChannelManager {
         audioManager?.closeAudioConnection()
         audioManager?.sendingHandler = null
 
-        ChannelManager.editStaticMessage("Derzeit wird nichts abgespielt", ConfigManager.data.defaultMessage, Color.RED, null)
+        ChannelManager.editStaticMessage(
+            "Derzeit wird nichts abgespielt",
+            ConfigManager.data.defaultMessage,
+            Color.RED,
+            null
+        )
 
         title?.let {
             ChannelManager.sendLog(title, text, member)

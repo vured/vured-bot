@@ -1,6 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+val implementationVersion = "1.1"
+
 val kotlinVersion = "1.4.20"
 val coroutinesVersion = "1.4.1"
 val jdaVersion = "4.2.0_222"
@@ -24,7 +26,6 @@ buildscript {
 }
 
 group = "com.vacegaming.james"
-version = "1.0-SNAPSHOT"
 
 repositories {
     jcenter()
@@ -64,9 +65,11 @@ tasks {
     }
 
     named<ShadowJar>("shadowJar") {
+        archiveVersion.set(implementationVersion)
         archiveFileName.set("james-musicbot-reworked.jar")
         manifest.attributes.apply {
             put("Main-Class", "com.vacegaming.james.musicbot.MusicBotKt")
+            put("Implementation-Version", implementationVersion)
         }
     }
 }

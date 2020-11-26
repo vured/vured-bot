@@ -78,7 +78,7 @@ object ChannelManager {
         }
     }
 
-    fun sendLog(title: String, text: String?, member: Member?) {
+    fun sendLog(title: String, text: String? = null, member: Member? = null) {
         val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
         val channel = jda.getTextChannelById(logChannelId) ?: return
         val eb = EmbedBuilder()
