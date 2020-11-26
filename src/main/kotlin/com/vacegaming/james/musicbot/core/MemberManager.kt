@@ -17,6 +17,6 @@ object MemberManager {
 
     fun isInChannel(member: Member): Boolean {
         val channelId = member.voiceState?.channel?.idLong
-        return VoiceChannelManager.connectedChannel?.idLong == channelId
+        return GuildManager.current?.selfMember?.voiceState?.channel?.idLong == channelId
     }
 }
