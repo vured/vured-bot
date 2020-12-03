@@ -37,7 +37,7 @@ object VoiceChannelManager {
         val selfVoiceState = GuildManager.current?.selfMember?.voiceState
 
         if (selfVoiceState?.inVoiceChannel() == true) {
-            return null
+            return GuildManager.current.audioManager
         }
 
         if (memberVoiceState?.inVoiceChannel() != true) {
