@@ -20,6 +20,7 @@ class MessageReactionListener : ListenerAdapter() {
             channelId != musicChannelId -> return
             reactionEmote.isEmote -> return event.reaction.removeReaction(event.user).queue()
             MemberManager.isPermitted(member).not() -> return event.reaction.removeReaction(event.user).queue()
+            reactionEmote.asCodepoints == RadioReaction.emote -> RadioReaction.execute(member)
             MemberManager.isInChannel(member).not() -> return event.reaction.removeReaction(event.user).queue()
         }
 

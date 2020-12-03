@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val implementationVersion = "1.1"
+val implementationVersion = "1.2"
 
 val kotlinVersion = "1.4.20"
 val coroutinesVersion = "1.4.1"

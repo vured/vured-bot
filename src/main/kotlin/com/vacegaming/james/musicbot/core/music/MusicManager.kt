@@ -17,9 +17,8 @@ import java.awt.Color
 import java.util.concurrent.Future
 
 object MusicManager {
-    private val playerManager = DefaultAudioPlayerManager()
-    private var sendHandler: AudioPlayerSendHandler
-
+    val playerManager = DefaultAudioPlayerManager()
+    var sendHandler: AudioPlayerSendHandler
     val audioPlayer: AudioPlayer = playerManager.createPlayer()
 
     init {

@@ -45,10 +45,10 @@ object TrackScheduler : AudioEventAdapter() {
         ChannelManager.editStaticMessage(title, null, Color.ORANGE, player.volume)
     }
 
-    override fun onPlayerResume(player: AudioPlayer) {
-        val title = player.playingTrack.info.title
+    override fun onPlayerResume(player: AudioPlayer?) {
+        val title = player?.playingTrack?.info?.title ?: ""
 
-        ChannelManager.editStaticMessage(title, null, Color.GREEN, player.volume)
+        ChannelManager.editStaticMessage(title, null, Color.GREEN, player?.volume)
     }
 
     override fun onTrackStart(player: AudioPlayer, track: AudioTrack) {

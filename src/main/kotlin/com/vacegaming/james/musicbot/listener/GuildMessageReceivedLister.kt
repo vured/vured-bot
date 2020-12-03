@@ -29,7 +29,9 @@ class GuildMessageReceivedLister : ListenerAdapter() {
 
         event.message.delete().queue()
 
+
         ChannelManager.sendLog("Song hinzugefügt", event.message.contentDisplay, member)
         MusicManager.play(member, event.message.contentDisplay)
+        MusicManager.audioPlayer.isPaused = false
     }
 }
