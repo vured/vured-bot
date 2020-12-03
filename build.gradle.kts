@@ -6,7 +6,7 @@ val implementationVersion = "1.1"
 val kotlinVersion = "1.4.20"
 val coroutinesVersion = "1.4.1"
 val jdaVersion = "4.2.0_222"
-val lavaPlayerVersion = "1.3.61"
+val lavaPlayerVersion = "1.3.63"
 val slf4jVersion = "1.7.30"
 val hopliteVersion = "1.3.8"
 
