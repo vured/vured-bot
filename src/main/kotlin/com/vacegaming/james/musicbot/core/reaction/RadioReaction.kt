@@ -4,14 +4,12 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import com.sedmelluq.discord.lavaplayer.track.playback.AudioTrackExecutor
 import com.vacegaming.james.musicbot.core.ChannelManager
 import com.vacegaming.james.musicbot.core.GuildManager
 import com.vacegaming.james.musicbot.core.MemberManager
 import com.vacegaming.james.musicbot.core.VoiceChannelManager
 import com.vacegaming.james.musicbot.core.music.MusicManager
 import com.vacegaming.james.musicbot.core.music.MusicQueue
-import com.vacegaming.james.musicbot.core.music.PlaylistManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.entities.Member

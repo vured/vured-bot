@@ -1,7 +1,5 @@
 package com.vacegaming.james.musicbot.util.environment
 
-import java.lang.IllegalArgumentException
-
 object EnvironmentManager {
     var current: EnvironmentType = EnvironmentType.DEFAULT
 

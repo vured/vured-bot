@@ -2,8 +2,8 @@ package com.vacegaming.james.musicbot.util
 
 import com.sksamuel.hoplite.ConfigLoader
 import com.vacegaming.james.musicbot.model.BotConfigModel
-import com.vacegaming.james.musicbot.util.environment.EnvironmentType
 import com.vacegaming.james.musicbot.util.environment.EnvironmentManager
+import com.vacegaming.james.musicbot.util.environment.EnvironmentType
 
 object ConfigManager {
     private val configLoader = ConfigLoader()

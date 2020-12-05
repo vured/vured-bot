@@ -3,12 +3,11 @@ package com.vacegaming.james.musicbot.util
 import com.vacegaming.james.musicbot.listener.GuildMessageReceivedLister
 import com.vacegaming.james.musicbot.listener.GuildVoiceUpdateListener
 import com.vacegaming.james.musicbot.listener.MessageReactionListener
-import org.slf4j.LoggerFactory
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.utils.MemberCachePolicy
-import java.lang.Exception
+import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
 object DiscordClient {

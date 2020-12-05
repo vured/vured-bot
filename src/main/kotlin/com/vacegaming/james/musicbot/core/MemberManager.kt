@@ -1,7 +1,6 @@
 package com.vacegaming.james.musicbot.core
 
 import com.vacegaming.james.musicbot.util.ConfigManager
-import com.vacegaming.james.musicbot.util.DiscordClient
 import net.dv8tion.jda.api.entities.Member
 
 object MemberManager {
