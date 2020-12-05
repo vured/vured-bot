@@ -4,11 +4,11 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 val implementationVersion = "1.2"
 
 val kotlinVersion = "1.4.20"
-val coroutinesVersion = "1.4.1"
+val coroutinesVersion = "1.4.2"
 val jdaVersion = "4.2.0_222"
 val lavaPlayerVersion = "1.3.63"
 val slf4jVersion = "1.7.30"
-val hopliteVersion = "1.3.8"
+val hopliteVersion = "1.3.10"
 
 plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
