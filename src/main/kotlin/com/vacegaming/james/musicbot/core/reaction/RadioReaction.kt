@@ -16,9 +16,9 @@ import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 
 object RadioReaction {
-    private const val url = "http://weihnachten-high.rautemusik.fm/"
-
-    const val emote = "U+1f384"
+    var url = "http://weihnachten-high.rautemusik.fm/"
+    var title = "Weihnachten FM"
+    var desc = "Spritziger als Spritzgebäck"
 
     fun execute(member: Member) = GlobalScope.launch {
         val selfChannel = GuildManager.current?.selfMember?.voiceState?.channel
@@ -40,17 +40,17 @@ object RadioReaction {
                         MusicManager.audioPlayer.startTrack(track, false)
                     }?.also {
                         ChannelManager.editStaticMessage(
-                            "Weihnachten FM",
-                            "Spritziger als Spritzgebäck",
+                            title,
+                            desc,
                             Color(209, 236, 241),
                             audioPlayer.volume
                         )
                     }
             }
 
-            override fun playlistLoaded(playlist: AudioPlaylist?) = Unit
-            override fun noMatches() = Unit
-            override fun loadFailed(exception: FriendlyException?) = Unit
+            override fun playlistLoaded(playlist: AudioPlaylist?) {}
+            override fun noMatches() {}
+            override fun loadFailed(exception: FriendlyException?) {}
         })
     }
 }

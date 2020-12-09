@@ -20,7 +20,15 @@ class MessageReactionListener : ListenerAdapter() {
             channelId != musicChannelId -> return
             reactionEmote.isEmote -> return event.reaction.removeReaction(event.user).queue()
             MemberManager.isPermitted(member).not() -> return event.reaction.removeReaction(event.user).queue()
-            reactionEmote.asCodepoints == RadioReaction.emote -> RadioReaction.execute(member)
+
+            reactionEmote.asCodepoints == "U+1f384" -> RadioReaction.execute(member)
+
+            reactionEmote.asCodepoints == "U+2744" -> RadioReaction.apply {
+                url = "https://ice55.securenetsystems.net/DASH45"
+                title = "Snowsgiving Radio"
+                desc = "by Discord"
+            }.execute(member)
+
             MemberManager.isInChannel(member).not() -> return event.reaction.removeReaction(event.user).queue()
         }
 

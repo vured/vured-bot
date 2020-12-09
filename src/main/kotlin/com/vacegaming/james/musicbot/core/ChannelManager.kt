@@ -117,6 +117,7 @@ object ChannelManager {
         staticMessage.addReaction(StopReaction.emote).queue()
         staticMessage.addReaction(VolumeDownReaction.emote).queue()
         staticMessage.addReaction(VolumeUpReaction.emote).queue()
-        staticMessage.addReaction(RadioReaction.emote).queue()
+        staticMessage.addReaction("U+1f384").queue()
+        staticMessage.addReaction("U+2744").queue()
     }
 }
