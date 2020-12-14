@@ -1,11 +1,10 @@
 {
-  "botToken": "NjY4ODk5NzAyMTQ1NTQ4MzAy.XiX_yw.HNlSMi1XKfLqCbSBNxo6nBJnrjQ",
-  "vaceGamingGuildId": 668888512753565726,
-  "botLogChannelID": 668896332953550897,
-  "memberID": 668896304960634910,
-  "clubMemberID": 668896304222437386,
-  "musicBotChannelID": 668896380101853205,
-  "musicBotID": 668899702145548302,
+  "botToken": "Nzg1NjA1MjM0NTQxMzMwNDQy.X86R4w.TNlzTnehR2WGird6F_N3RYNpc8o",
+  "vaceGamingGuildId": 785606737385881641,
+  "botLogChannelID": 785612627363102730,
+  "memberID": 785607972301701162,
+  "musicBotChannelID": 785611441289691156,
+  "musicBotID": 785605234541330442,
   "maxPlaylistTracks": 100,
   "defaultMessage": "Sende einen YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link oder eine direkte URL in diesen Chat um zu starten.\n\nDu kannst auch folgende Befehle nutzen um zu suchen:\n\nytsearch: <Suchbegriff>\nscsearch: <Suchbegriff>"
 }

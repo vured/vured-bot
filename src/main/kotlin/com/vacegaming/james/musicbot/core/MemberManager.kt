@@ -6,10 +6,10 @@ import net.dv8tion.jda.api.entities.Member
 object MemberManager {
 
     fun isPermitted(member: Member): Boolean {
-        val clubMemberId = ConfigManager.data.clubMemberID
+        val memberId = ConfigManager.data.memberID
         val roleStream = member.roles.stream()
 
-        val role = roleStream.filter { it.idLong == clubMemberId }.findFirst()
+        val role = roleStream.filter { it.idLong == memberId }.findFirst()
 
         return role.isEmpty.not()
     }
