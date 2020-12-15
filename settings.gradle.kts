@@ -1,1 +1,1 @@
-rootProject.name = "james-musicbot-reworked"
+rootProject.name = "vacegaming-musicbot"
