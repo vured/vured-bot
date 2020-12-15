@@ -3,8 +3,9 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.vacegaming.musicbot.gradle.Versions
 
 plugins {
-    id("com.github.johnrengelman.shadow") version "6.1.0"
     kotlin("jvm") version "1.4.21"
+    kotlin("kapt") version "1.4.21"
+    id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 buildscript {
@@ -27,6 +28,8 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
+    kapt("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
+
     /**
      * Kotlin
      */
@@ -42,6 +45,7 @@ dependencies {
     /**
      * Application
      */
+    implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("org.slf4j", "slf4j-simple", Versions.SLF4J)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
     implementation("com.sksamuel.hoplite", "hoplite-json", Versions.HOPLITE)
