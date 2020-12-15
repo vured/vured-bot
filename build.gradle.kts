@@ -1,18 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
-val implementationVersion = "1.2"
-
-val kotlinVersion = "1.4.20"
-val coroutinesVersion = "1.4.2"
-val jdaVersion = "4.2.0_222"
-val lavaPlayerVersion = "1.3.63"
-val slf4jVersion = "1.7.30"
-val hopliteVersion = "1.3.10"
+import com.vacegaming.musicbot.gradle.Versions
 
 plugins {
     id("com.github.johnrengelman.shadow") version "6.1.0"
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm") version "1.4.21"
 }
 
 buildscript {
@@ -25,7 +17,7 @@ buildscript {
     }
 }
 
-group = "com.vacegaming.james"
+group = "com.vacegaming.musicbot"
 
 repositories {
     jcenter()
@@ -38,21 +30,21 @@ dependencies {
     /**
      * Kotlin
      */
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", Versions.KOTLIN_COROUTINES)
+    implementation("org.jetbrains.kotlin", "kotlin-reflect", Versions.KOTLIN)
 
     /**
      * Discord
      */
-    implementation("net.dv8tion:JDA:$jdaVersion")
-    implementation("com.sedmelluq:lavaplayer:$lavaPlayerVersion")
+    implementation("net.dv8tion", "JDA", Versions.JDA)
+    implementation("com.sedmelluq", "lavaplayer", Versions.LAVAPLAYER)
 
     /**
      * Application
      */
-    implementation("org.slf4j:slf4j-simple:$slf4jVersion")
-    implementation("com.sksamuel.hoplite:hoplite-core:$hopliteVersion")
-    implementation("com.sksamuel.hoplite:hoplite-json:$hopliteVersion")
+    implementation("org.slf4j", "slf4j-simple", Versions.SLF4J)
+    implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
+    implementation("com.sksamuel.hoplite", "hoplite-json", Versions.HOPLITE)
 }
 
 tasks {
@@ -65,11 +57,9 @@ tasks {
     }
 
     named<ShadowJar>("shadowJar") {
-        archiveVersion.set(implementationVersion)
-        archiveFileName.set("james-musicbot-reworked.jar")
         manifest.attributes.apply {
-            put("Main-Class", "com.vacegaming.james.musicbot.MusicBotKt")
-            put("Implementation-Version", implementationVersion)
+            put("Main-Class", "com.vacegaming.musicbot.MusicBotKt")
+            put("Implementation-Version", project.version)
         }
     }
 }
