@@ -8,5 +8,5 @@ data class BotConfigModel(
     val vaceGamingGuildId: Long,
     val maxPlaylistTracks: Int,
     val defaultMessage: String,
-    var botToken: String?,
+    var botToken: String?
 )

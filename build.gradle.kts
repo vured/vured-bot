@@ -45,6 +45,7 @@ dependencies {
     /**
      * Application
      */
+    implementation("org.koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("org.slf4j", "slf4j-simple", Versions.SLF4J)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
