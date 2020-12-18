@@ -1,11 +1,7 @@
-package com.vacegaming.musicbot.core.music
+package com.vacegaming.musicbot.service
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import com.vacegaming.musicbot.core.ChannelManager
-import com.vacegaming.musicbot.core.reaction.CancelReaction
-import com.vacegaming.musicbot.core.reaction.ConfirmReaction
-import com.vacegaming.musicbot.util.ConfigManager
-import com.vacegaming.musicbot.util.DiscordClient
+import com.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import net.dv8tion.jda.api.EmbedBuilder
@@ -13,9 +9,11 @@ import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import java.awt.Color
 
-object PlaylistManager {
-    private val channelId = ConfigManager.data.musicBotChannelID
-    private val jda = DiscordClient.jda
+class PlaylistService {
+    private val staticMessageService by genericInject<StaticMessageService>()
+    private val musicChannelService by genericInject<MusicChannelService>()
+    private val musicService by genericInject<MusicService>()
+    private val logService by genericInject<LogService>()
 
     private var questionMessage: Message? = null
     private var questionJob: Deferred<Unit>? = null
@@ -23,7 +21,7 @@ object PlaylistManager {
     var questionAnswers: Channel<Pair<Boolean, Member>> = Channel()
 
     suspend fun askToAdd(member: Member, tracks: List<AudioTrack>) {
-        val channel = jda.getTextChannelById(channelId)
+        val channel = musicChannelService.getTextChannel()
         val eb = EmbedBuilder()
 
         eb.setColor(Color.gray)
@@ -50,7 +48,7 @@ object PlaylistManager {
     }
 
     fun deleteQuestionMessage() {
-        val channel = jda.getTextChannelById(channelId)
+        val channel = musicChannelService.getTextChannel()
 
         questionAnswers = Channel()
         questionMessage?.let { message ->
@@ -61,16 +59,19 @@ object PlaylistManager {
         if (questionJob?.isActive == true) questionJob?.cancel()
     }
 
-
     private fun addToQueue(tracks: List<AudioTrack>) {
-        val audioPlayer = MusicManager.audioPlayer
+        val audioPlayer = musicService.getAudioPlayer()
         deleteQuestionMessage()
 
-        tracks.forEach {
-            MusicQueue.queue.offer(it)
-        }
+        tracks.forEach(musicService::offerToQueue)
 
-        ChannelManager.editStaticMessage(audioPlayer.playingTrack.info.title, null, Color.green, audioPlayer.volume)
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title ?: "untitled",
+            description = null,
+            color = Color.GREEN,
+            volume = audioPlayer.volume,
+            queue = null
+        ).also { staticMessageService.set(it) }
     }
 
     private suspend fun listenForAnswer(member: Member, tracks: List<AudioTrack>) {
@@ -79,7 +80,7 @@ object PlaylistManager {
 
             if (answer.second == member) when (answer.first) {
                 true -> {
-                    ChannelManager.sendLog("Playlist importiert", "${tracks.size} tracks", member)
+                    logService.sendLog("Playlist importiert", "${tracks.size} tracks", member)
                     addToQueue(tracks.drop(1))
                     break
                 }
@@ -92,7 +93,7 @@ object PlaylistManager {
     }
 
     private fun createMessageReactions(message: Message) {
-        message.addReaction(ConfirmReaction.emote).queue()
-        message.addReaction(CancelReaction.emote).queue()
+        //message.addReaction(ConfirmReaction.emote).queue()
+        //message.addReaction(CancelReaction.emote).queue()
     }
 }
