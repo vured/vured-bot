@@ -8,28 +8,33 @@ import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
 
 class StaticMessageService {
+    private val musicChannelService by genericInject<MusicChannelService>()
+
     private lateinit var message: Message
 
-    private val musicChannelService by genericInject<MusicChannelService>()
-    private val reactionService by genericInject<ReactionService>(message)
-
-    fun create() {
+    fun createBaseMessage() = build(
+        title = "Derzeit wird nichts abgespielt",
+        description = ConfigManager.data.defaultMessage,
+        color = Color.RED,
+        volume = null,
+        queue = null
+    ).also {
         val channel = musicChannelService.getTextChannel()
-        val message = build(
-            title = "Derzeit wird nichts abgespielt",
-            description = ConfigManager.data.defaultMessage,
-            color = Color.RED,
-            volume = null,
-            queue = null
-        )
 
-        channel?.sendMessage(message)?.queue {
-            this.message = it
-            // TODO: create reaction
+        musicChannelService.clearMessages()
+        channel?.sendMessage(it)?.queue { message ->
+            this.message = message
+            setReactions()
         }
     }
 
-    private fun build(
+    private fun setReactions() {
+        val reactionService by genericInject<ReactionService>(message)
+
+        reactionService.test()
+    }
+
+    fun build(
         title: String?,
         description: String?,
         color: Color?,
@@ -58,4 +63,6 @@ class StaticMessageService {
             }
         }.run { return@run this.build() }
     }
+
+    fun set(message: MessageEmbed) = this.message.editMessage(message)
 }
