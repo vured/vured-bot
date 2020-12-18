@@ -1,22 +1,25 @@
 package com.vacegaming.musicbot
 
-import com.vacegaming.musicbot.core.ChannelManager
+import com.vacegaming.musicbot.module.mainModule
+import com.vacegaming.musicbot.service.StaticMessageService
 import com.vacegaming.musicbot.util.ConfigManager
 import com.vacegaming.musicbot.util.DiscordClient
 import com.vacegaming.musicbot.util.environment.EnvironmentManager
+import com.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.runBlocking
+import org.koin.core.context.startKoin
 
-fun main() = runBlocking {
+fun main(): Unit = runBlocking {
+    startKoin {
+        modules(mainModule)
+    }
+
     EnvironmentManager.set()
     ConfigManager.setConfigFile()
     DiscordClient.start()
 
-    ChannelManager.clearMessages()
-    ChannelManager.createStaticMessage()
+    val staticMessageService by genericInject<StaticMessageService>()
 
-    ChannelManager.sendLog(
-        "Musikbot gestartet",
-        "Version ${this::class.java.`package`.implementationVersion}"
-    )
+    staticMessageService.createBaseMessage()
 }
 
