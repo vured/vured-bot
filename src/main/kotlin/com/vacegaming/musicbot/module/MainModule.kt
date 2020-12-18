@@ -1,13 +1,16 @@
 package com.vacegaming.musicbot.module
 
-import com.vacegaming.musicbot.service.MusicChannelService
-import com.vacegaming.musicbot.service.ReactionService
-import com.vacegaming.musicbot.service.StaticMessageService
+import com.vacegaming.musicbot.service.*
+import net.dv8tion.jda.api.entities.Message
 import org.koin.dsl.module
 
 val mainModule = module {
-    single { StaticMessageService() }
+    single { LogService() }
     single { MusicChannelService() }
+    single { MusicService() }
+    single { PlaylistService() }
+    single { StaticMessageService() }
+    single { VoiceChannelService() }
 
-    factory { ReactionService(get()) }
+    factory { (message: Message) ->  ReactionService(message) }
 }
