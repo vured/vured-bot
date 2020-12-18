@@ -1,14 +1,17 @@
 package com.vacegaming.musicbot.listener
 
-import com.vacegaming.musicbot.core.ChannelManager
 import com.vacegaming.musicbot.core.GuildManager
 import com.vacegaming.musicbot.core.MemberManager
-import com.vacegaming.musicbot.core.music.MusicManager
+import com.vacegaming.musicbot.service.LogService
+import com.vacegaming.musicbot.service.MusicService
 import com.vacegaming.musicbot.util.ConfigManager
+import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class GuildMessageReceivedLister : ListenerAdapter() {
+    private val musicService by genericInject<MusicService>()
+    private val logService by genericInject<LogService>()
 
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
         val member = event.member ?: return
@@ -29,9 +32,8 @@ class GuildMessageReceivedLister : ListenerAdapter() {
 
         event.message.delete().queue()
 
-
-        ChannelManager.sendLog("Song hinzugefügt", event.message.contentDisplay, member)
-        MusicManager.play(member, event.message.contentDisplay)
-        MusicManager.audioPlayer.isPaused = false
+        logService.sendLog("Song hinzugefügt", event.message.contentDisplay, member)
+        musicService.loadItem(member, event.message.contentDisplay)
+        musicService.setResume()
     }
 }

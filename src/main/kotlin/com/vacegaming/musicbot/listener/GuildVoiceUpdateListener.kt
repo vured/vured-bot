@@ -1,17 +1,22 @@
 package com.vacegaming.musicbot.listener
 
 import com.vacegaming.musicbot.core.GuildManager
-import com.vacegaming.musicbot.core.VoiceChannelManager
-import com.vacegaming.musicbot.core.music.MusicManager
+import com.vacegaming.musicbot.service.MusicService
+import com.vacegaming.musicbot.service.VoiceChannelService
+import com.vacegaming.musicbot.util.ifNotTrue
+import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class GuildVoiceUpdateListener : ListenerAdapter() {
+    private val voiceChannelService by genericInject<VoiceChannelService>()
+    private val musicService by genericInject<MusicService>()
 
     override fun onGuildVoiceUpdate(event: GuildVoiceUpdateEvent) {
         val voiceState = GuildManager.current?.selfMember?.voiceState
+        val audioPlayer = musicService.getAudioPlayer()
 
-        MusicManager.audioPlayer.playingTrack.let {
+        audioPlayer.playingTrack.let {
             if (it == null) return
         }
 
@@ -20,11 +25,11 @@ class GuildVoiceUpdateListener : ListenerAdapter() {
         }
 
         voiceState?.channel?.members?.size?.let {
-            if (it <= 1) VoiceChannelManager.leave(title = "Stop", text = "Voicechannel war leer ($it)")
+            if (it <= 1) voiceChannelService.leave("Sprach-Kanal war leer")
         }
 
-        if (voiceState?.inVoiceChannel() != true) {
-            return VoiceChannelManager.leave()
+        voiceState?.inVoiceChannel()?.ifNotTrue {
+            return voiceChannelService.leave()
         }
     }
 }

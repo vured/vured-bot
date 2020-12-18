@@ -1,4 +1,4 @@
-package com.vacegaming.musicbot.core.music
+package com.vacegaming.musicbot.music
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.track.playback.MutableAudioFrame
