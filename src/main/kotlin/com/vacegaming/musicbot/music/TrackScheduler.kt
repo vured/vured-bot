@@ -5,10 +5,11 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
+import com.vacegaming.musicbot.service.LogService
 import com.vacegaming.musicbot.service.MusicService
 import com.vacegaming.musicbot.service.StaticMessageService
 import com.vacegaming.musicbot.service.VoiceChannelService
-import com.vacegaming.musicbot.util.ifNotTrue
+import com.vacegaming.musicbot.util.data.Translation
 import com.vacegaming.musicbot.util.koin.genericInject
 import java.awt.Color
 
@@ -16,65 +17,71 @@ object TrackScheduler : AudioEventAdapter() {
     private val musicService by genericInject<MusicService>()
     private val voiceChannelService by genericInject<VoiceChannelService>()
     private val staticMessageService by genericInject<StaticMessageService>()
-
-    fun queue(track: AudioTrack) {
-        musicService.startTrack(track, true).run {
-            this.ifNotTrue { musicService.offerToQueue(track) }
-        }
-
-        val playingTrack = musicService.getAudioPlayer().playingTrack
-        val volume = musicService.getVolume()
-
-        staticMessageService.build(
-            title = playingTrack.info.title,
-            description = null,
-            color = Color.GREEN,
-            volume = volume,
-            queue = null
-        ).also { staticMessageService.set(it) }
-    }
-
-    fun nextTrack() {
-        musicService.pollQueue()?.let {
-            musicService.startTrack(it, false)
-        }
-    }
+    private val logService by genericInject<LogService>()
 
     override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
         val queue = musicService.getQueue()
 
         if (queue.size <= 0 && endReason.name != "REPLACED") {
-            return voiceChannelService.leave()
+            voiceChannelService.leave()
+            logService.sendLog(
+                title = Translation.LOG_VOICECHANNEL_LEFT,
+                description = Translation.LOG_PLAYLIST_ENDED,
+                member = null,
+                color = Color.ORANGE
+            )
+            return
         }
 
         if (endReason.mayStartNext) {
-            nextTrack()
+            musicService.nextTrack()
         }
     }
 
-    override fun onPlayerPause(player: AudioPlayer) {
-        val title = player.playingTrack.info.title
-
-        staticMessageService.build(title, null, Color.ORANGE, player.volume, null)
+    override fun onPlayerPause(audioPlayer: AudioPlayer) {
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title,
+            description = audioPlayer.playingTrack.info.author,
+            Color.ORANGE,
+            audioPlayer.volume
+        ).also { staticMessageService.set(it) }
     }
 
-    override fun onPlayerResume(player: AudioPlayer?) {
-        val title = player?.playingTrack?.info?.title ?: ""
-
-        staticMessageService.build(title, null, Color.GREEN, player?.volume, null)
+    override fun onPlayerResume(audioPlayer: AudioPlayer) {
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title,
+            description = audioPlayer.playingTrack.info.author,
+            Color.GREEN,
+            audioPlayer.volume
+        ).also { staticMessageService.set(it) }
     }
 
-    override fun onTrackStart(player: AudioPlayer, track: AudioTrack) {
-        val title = player.playingTrack.info.title
-
-        staticMessageService.build(title, null, Color.GREEN, player.volume, null)
+    override fun onTrackStart(audioPlayer: AudioPlayer, track: AudioTrack) {
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title,
+            description = audioPlayer.playingTrack.info.author,
+            Color.ORANGE,
+            audioPlayer.volume
+        ).also { staticMessageService.set(it) }
     }
 
-    override fun onTrackException(player: AudioPlayer?, track: AudioTrack?, exception: FriendlyException?) {
+    override fun onTrackException(player: AudioPlayer, track: AudioTrack, exception: FriendlyException?) {
         voiceChannelService.leave()
+        logService.sendLog(
+            title = Translation.LOG_VOICECHANNEL_LEFT,
+            description = Translation.LOG_TRACK_EXCEPTION,
+            member = null,
+            color = Color.RED
+        )
     }
 
-    override fun onTrackStuck(player: AudioPlayer?, track: AudioTrack?, thresholdMs: Long) {
+    override fun onTrackStuck(player: AudioPlayer, track: AudioTrack, thresholdMs: Long) {
         voiceChannelService.leave()
+        logService.sendLog(
+            title = Translation.LOG_VOICECHANNEL_LEFT,
+            description = Translation.LOG_TRACK_STUCK,
+            member = null,
+            color = Color.RED
+        )
     }
 }

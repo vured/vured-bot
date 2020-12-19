@@ -1,8 +1,9 @@
-package com.vacegaming.musicbot.util
+package com.vacegaming.musicbot.util.discord
 
 import com.vacegaming.musicbot.listener.GuildMessageReceivedLister
 import com.vacegaming.musicbot.listener.GuildVoiceUpdateListener
 import com.vacegaming.musicbot.listener.MessageReactionListener
+import com.vacegaming.musicbot.util.data.Config
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
@@ -13,14 +14,13 @@ import kotlin.system.exitProcess
 object DiscordClient {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    lateinit var jda: JDA
+    lateinit var JDA: JDA
 
     fun start() = try {
-        val token = ConfigManager.data.botToken
         val intents = getRequiredIntents()
 
-        jda = JDABuilder
-            .createDefault(token, intents)
+        JDA = JDABuilder
+            .createDefault(Config.botToken, intents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .addEventListeners(
                 GuildMessageReceivedLister(),

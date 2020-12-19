@@ -1,6 +1,8 @@
 package com.vacegaming.musicbot.service
 
-import com.vacegaming.musicbot.util.ConfigManager
+import com.vacegaming.musicbot.reaction.ReactionMessageCase
+import com.vacegaming.musicbot.util.data.Translation
+import com.vacegaming.musicbot.util.application.ifFalse
 import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
@@ -9,15 +11,16 @@ import java.awt.Color
 
 class StaticMessageService {
     private val musicChannelService by genericInject<MusicChannelService>()
+    private val reactionService by genericInject<ReactionService>()
+    private val musicService by genericInject<MusicService>()
 
     private lateinit var message: Message
 
     fun createBaseMessage() = build(
-        title = "Derzeit wird nichts abgespielt",
-        description = ConfigManager.data.defaultMessage,
+        title = Translation.NO_TRACK_TITLE,
+        description = Translation.NO_TRACK_DESCRIPTION,
         color = Color.RED,
-        volume = null,
-        queue = null
+        volume = null
     ).also {
         val channel = musicChannelService.getTextChannel()
 
@@ -28,41 +31,57 @@ class StaticMessageService {
         }
     }
 
-    private fun setReactions() {
-        val reactionService by genericInject<ReactionService>(message)
-
-        reactionService.test()
-    }
-
     fun build(
         title: String?,
         description: String?,
         color: Color?,
-        volume: Int?,
-        queue: List<String>?
+        volume: Int?
     ): MessageEmbed {
+        val queue = musicService.getQueue()
+        val trackQueue = mutableListOf<String>()
+
+        queue.forEach { trackQueue.add(it.info.title ?: Translation.UNKNOWN_TITLE) }
+
         return EmbedBuilder().apply {
             title?.let {
-                this.setTitle("Derzeit wird nichts abgespielt")
+                if (title.isBlank()) {
+                    this.setTitle(Translation.UNKNOWN_TITLE)
+                } else {
+                    this.setTitle(title)
+                }
             }
 
             description?.let {
-                this.setDescription(ConfigManager.data.defaultMessage)
+                if (description.isBlank()) {
+                    this.setDescription(Translation.UNKNOWN_DESCRIPTION)
+                } else {
+                    this.setDescription(description)
+                }
             }
 
             color?.let {
-                this.setColor(Color.RED)
+                this.setColor(color)
             }
 
             volume?.let {
-                this.addField("Lautstärke", "$volume%", true)
+                this.addField(Translation.VOLUME, "$volume%", true)
             }
 
-            queue?.let {
-                this.addField("Warteschlange (${queue.size})", queue.joinToString("\n").take(1024), false)
+            queue.isEmpty().ifFalse {
+                this.addField(
+                    "${Translation.QUEUE} (${trackQueue.size})",
+                    trackQueue.joinToString("\n").take(1024),
+                    false
+                )
             }
         }.run { return@run this.build() }
     }
 
-    fun set(message: MessageEmbed) = this.message.editMessage(message)
+    fun set(message: MessageEmbed) = this.message.editMessage(message).queue()
+
+    private fun setReactions() {
+        reactionService.getReactions(ReactionMessageCase.STATIC).run {
+            this.forEach { message.addReaction(it.emote).queue() }
+        }
+    }
 }

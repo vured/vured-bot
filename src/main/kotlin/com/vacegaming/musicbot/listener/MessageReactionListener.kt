@@ -1,28 +1,42 @@
 package com.vacegaming.musicbot.listener
 
-import com.vacegaming.musicbot.core.MemberManager
-import com.vacegaming.musicbot.util.ConfigManager
+import com.vacegaming.musicbot.service.MemberService
+import com.vacegaming.musicbot.service.ReactionService
+import com.vacegaming.musicbot.util.data.Config
+import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class MessageReactionListener : ListenerAdapter() {
+    private val reactionService by genericInject<ReactionService>()
+    private val memberService by genericInject<MemberService>()
 
     override fun onGuildMessageReactionAdd(event: GuildMessageReactionAddEvent) {
-        val member = event.member
-        val isBot = event.user.isBot
-        val channelId = event.channel.idLong
-        val reactionEmote = event.reactionEmote
-        val musicChannelId = ConfigManager.data.musicBotChannelID
+        if (event.user.isBot) {
+            return
+        }
 
-        when {
-            isBot -> return
-            channelId != musicChannelId -> return
-            reactionEmote.isEmote -> return event.reaction.removeReaction(event.user).queue()
-            MemberManager.isPermitted(member).not() -> return event.reaction.removeReaction(event.user).queue()
+        if (event.channel.idLong != Config.data.musicBotChannelID) {
+            return
+        }
 
-            MemberManager.isInChannel(member).not() -> return event.reaction.removeReaction(event.user).queue()
+        if (event.reactionEmote.isEmote) {
+            event.reaction.removeReaction()
+            return
+        }
+
+        if(memberService.isPermitted(event.member).not()) {
+            event.reaction.removeReaction(event.user).queue()
+            return
+        }
+
+        if(memberService.isInChannel(event.member).not()) {
+            event.reaction.removeReaction().queue()
+            return
         }
 
         event.reaction.removeReaction(event.user).queue()
+
+        reactionService.execute(event.reactionEmote.asCodepoints, event.member)
     }
 }

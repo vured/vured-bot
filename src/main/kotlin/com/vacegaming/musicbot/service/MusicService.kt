@@ -7,11 +7,18 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.vacegaming.musicbot.music.AudioPlayerSendHandler
 import com.vacegaming.musicbot.music.AudioLoadResultManager
 import com.vacegaming.musicbot.music.TrackScheduler
+import com.vacegaming.musicbot.util.application.ifNotTrue
+import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.managers.AudioManager
+import java.awt.Color
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 
 class MusicService {
+    private val staticMessageService by genericInject<StaticMessageService>()
+    private val guildService by genericInject<GuildService>()
+
     private lateinit var playerManager: DefaultAudioPlayerManager
     private lateinit var audioPlayer: AudioPlayer
     private lateinit var sendHandler: AudioPlayerSendHandler
@@ -27,12 +34,36 @@ class MusicService {
         audioPlayer.addListener(TrackScheduler)
     }
 
-    fun loadItem(member: Member, url: String) {
+    fun loadItem(member: Member?, url: String) {
+        if (member == null) {
+            return
+        }
+
         val audioLoadResult = AudioLoadResultManager(
             member = member
         )
 
         playerManager.loadItemOrdered(member.guild, url, audioLoadResult)
+    }
+
+    fun queue(track: AudioTrack) {
+        startTrack(track, true).run {
+            this.ifNotTrue { offerToQueue(track) }
+        }
+
+        val playingTrack = getAudioPlayer().playingTrack
+        val volume = getVolume()
+
+        staticMessageService.build(
+            title = playingTrack.info.title,
+            description = playingTrack.info.author,
+            color = Color.GREEN,
+            volume = volume
+        ).also { staticMessageService.set(it) }
+    }
+
+    fun getGuildAudioManager(): AudioManager? {
+        return guildService.getCurrentGuild()?.audioManager
     }
 
     fun setVolume(value: Int) {
@@ -47,7 +78,6 @@ class MusicService {
         audioPlayer.stopTrack()
     }
 
-
     fun offerToQueue(track: AudioTrack) {
         queue.offer(track)
     }
@@ -56,8 +86,16 @@ class MusicService {
         return queue.poll()
     }
 
+    fun clearQueue() {
+        queue.clear()
+    }
+
     fun startTrack(track: AudioTrack, noInterrupt: Boolean): Boolean {
         return audioPlayer.startTrack(track, noInterrupt)
+    }
+
+    fun nextTrack() {
+        pollQueue()?.let { startTrack(it, false) }
     }
 
     fun setPause() = true.also { audioPlayer.isPaused = it }

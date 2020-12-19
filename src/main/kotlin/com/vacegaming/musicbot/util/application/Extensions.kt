@@ -1,4 +1,4 @@
-package com.vacegaming.musicbot.util
+package com.vacegaming.musicbot.util.application
 
 inline fun <T> Boolean?.ifTrue(supplier: () -> T) = if (this == true) supplier() else null
 

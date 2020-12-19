@@ -2,11 +2,12 @@ package com.vacegaming.musicbot.reaction.playlist
 
 import com.vacegaming.musicbot.reaction.Reaction
 import com.vacegaming.musicbot.reaction.ReactionHandler
+import com.vacegaming.musicbot.reaction.ReactionMessageCase
 import com.vacegaming.musicbot.service.PlaylistService
 import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.entities.Member
 
-@Reaction(1, "U+274c")
+@Reaction(2, "U+274c", ReactionMessageCase.PLAYLIST)
 class PlaylistCancelReaction : ReactionHandler {
     private val playlistService by genericInject<PlaylistService>()
 

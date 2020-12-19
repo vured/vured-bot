@@ -8,7 +8,8 @@ import com.vacegaming.musicbot.service.MusicChannelService
 import com.vacegaming.musicbot.service.MusicService
 import com.vacegaming.musicbot.service.PlaylistService
 import com.vacegaming.musicbot.service.VoiceChannelService
-import com.vacegaming.musicbot.util.ConfigManager
+import com.vacegaming.musicbot.util.data.Config
+import com.vacegaming.musicbot.util.data.Translation
 import com.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -29,19 +30,19 @@ class AudioLoadResultManager(
             ?.apply {
                 this.sendingHandler = musicService.getSendHandler()
             }?.run {
-                TrackScheduler.queue(track)
+                musicService.queue(track)
             }
     }
 
     override fun playlistLoaded(playlist: AudioPlaylist) {
-        val newTracks = playlist.tracks.take(ConfigManager.data.maxPlaylistTracks)
+        val newTracks = playlist.tracks.take(Config.data.maxPlaylistTracks)
 
         voiceChannelService
             .join(member)
             ?.apply {
                 this.sendingHandler = musicService.getSendHandler()
             }?.run {
-                TrackScheduler.queue(playlist.selectedTrack ?: playlist.tracks[0])
+                musicService.queue(playlist.selectedTrack ?: playlist.tracks[0])
 
                 GlobalScope.launch {
                     playlistService.askToAdd(member, newTracks)
@@ -50,10 +51,10 @@ class AudioLoadResultManager(
     }
 
     override fun noMatches() {
-        musicChannelService.sendMessage(Color.RED, "Es wurde kein Song gefunden", 3000)
+        musicChannelService.sendMessage(Color.RED, Translation.NO_MATCHES, 3000)
     }
 
     override fun loadFailed(exception: FriendlyException) {
-        musicChannelService.sendMessage(Color.RED, "Fehler beim laden", 3000)
+        musicChannelService.sendMessage(Color.RED, Translation.LOAD_FAILED, 3000)
     }
 }

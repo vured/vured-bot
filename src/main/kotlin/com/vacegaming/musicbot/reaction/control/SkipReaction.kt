@@ -10,16 +10,17 @@ import com.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 
-@Reaction(1, "U+25b6", ReactionMessageCase.STATIC)
-class PlayReaction: ReactionHandler {
+@Reaction(3, "U+23ed", ReactionMessageCase.STATIC)
+class SkipReaction : ReactionHandler {
     private val musicService by genericInject<MusicService>()
     private val logService by genericInject<LogService>()
 
     override fun execute(member: Member) {
+        musicService.nextTrack()
         musicService.setResume()
         logService.sendLog(
-            title = Translation.LOG_RESUMED_TITLE,
-            description = Translation.LOG_RESUMED_DESCRIPTION,
+            title = Translation.LOG_SKIPPED_TITLE,
+            description = Translation.LOG_SKIPPED_DESCRIPTION,
             member = member,
             color = Color.CYAN
         )

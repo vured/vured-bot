@@ -1,6 +1,8 @@
 package com.vacegaming.musicbot.service
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import com.vacegaming.musicbot.reaction.ReactionMessageCase
+import com.vacegaming.musicbot.util.data.Translation
 import com.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -12,6 +14,7 @@ import java.awt.Color
 class PlaylistService {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val musicChannelService by genericInject<MusicChannelService>()
+    private val reactionService by genericInject<ReactionService>()
     private val musicService by genericInject<MusicService>()
     private val logService by genericInject<LogService>()
 
@@ -25,8 +28,8 @@ class PlaylistService {
         val eb = EmbedBuilder()
 
         eb.setColor(Color.gray)
-        eb.setTitle("Playlist hinzufügen?")
-        eb.setDescription("Derzeit wird nur ein einziger Song aus der Playlist abgespielt. Möchtest du die gesammte Playlist (${tracks.size} songs) in die Warteschlange hinzufügen?")
+        eb.setTitle(Translation.PLAYLIST_IMPORT_QUESTION)
+        eb.setDescription(Translation.PLAYLIST_IMPORT_DESCRIPTION.replace("%v,", tracks.size.toString()))
 
         val message = eb.build()
 
@@ -66,11 +69,10 @@ class PlaylistService {
         tracks.forEach(musicService::offerToQueue)
 
         staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title ?: "untitled",
+            title = audioPlayer.playingTrack.info.title ?: Translation.NO_TRACK_TITLE,
             description = null,
             color = Color.GREEN,
-            volume = audioPlayer.volume,
-            queue = null
+            volume = audioPlayer.volume
         ).also { staticMessageService.set(it) }
     }
 
@@ -80,7 +82,12 @@ class PlaylistService {
 
             if (answer.second == member) when (answer.first) {
                 true -> {
-                    logService.sendLog("Playlist importiert", "${tracks.size} tracks", member)
+                    logService.sendLog(
+                        title = Translation.LOG_PLAYLIST_IMPORTED_TITLE,
+                        description = Translation.LOG_PLAYLIST_IMPORTED_DESCRIPTION,
+                        member = member,
+                        color = Color.CYAN
+                    )
                     addToQueue(tracks.drop(1))
                     break
                 }
@@ -93,7 +100,8 @@ class PlaylistService {
     }
 
     private fun createMessageReactions(message: Message) {
-        //message.addReaction(ConfirmReaction.emote).queue()
-        //message.addReaction(CancelReaction.emote).queue()
+        reactionService.getReactions(ReactionMessageCase.PLAYLIST).run {
+            this.forEach { message.addReaction(it.emote).queue() }
+        }
     }
 }
