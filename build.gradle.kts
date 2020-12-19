@@ -56,8 +56,9 @@ tasks {
     }
 
     named<ShadowJar>("shadowJar") {
+        archiveFileName.set("vacegaming-musicbot.jar")
         manifest.attributes.apply {
-            put("Main-Class", "com.vacegaming.musicbot.MusicBotKt")
+            put("Main-Class", "dev.jonaz.vacegaming.musicbot.MusicBotKt")
             put("Implementation-Version", project.version)
         }
     }

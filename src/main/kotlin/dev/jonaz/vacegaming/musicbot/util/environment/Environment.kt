@@ -9,7 +9,8 @@ object Environment {
         type = System.getProperty("env").let {
             when (it) {
                 "dev" -> EnvironmentType.DEV
-                else -> EnvironmentType.PROD
+                "prod" -> EnvironmentType.PROD
+                else -> throw IllegalArgumentException("Invalid environment. Add \"env=prod/dev\" as JVM argument.")
             }
         }
 
