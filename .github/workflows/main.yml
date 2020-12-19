@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: [ master ]
-
   workflow_dispatch:
 
 jobs:
@@ -15,5 +12,5 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.4.6
         with:
           heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
-          heroku_app_name: "vacemusic"
-          heroku_email: "jonaznas@gmail.com"
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
