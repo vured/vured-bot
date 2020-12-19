@@ -1,31 +1,47 @@
 package com.vacegaming.musicbot.service
 
-import com.vacegaming.musicbot.util.koin.genericInject
+import com.vacegaming.musicbot.util.discord.DiscordClient
+import com.vacegaming.musicbot.util.data.Config
+import com.vacegaming.musicbot.util.data.Translation
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.TextChannel
 import java.awt.Color
 import java.text.SimpleDateFormat
 import java.util.*
 
 class LogService {
-    private val musicChannelService by genericInject<MusicChannelService>()
-
-    fun sendLog(title: String, text: String? = null, member: Member? = null) {
+    fun sendLog(title: String, description: String?, member: Member?, color: Color?) {
+        val channel = getTextChannel() ?: return
         val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
-        val channel = musicChannelService.getTextChannel() ?: return
-        val eb = EmbedBuilder()
+        val date = dateFormat.format(Date())
 
-        eb.setTitle(title)
-        eb.setColor(Color.gray)
+        val message = EmbedBuilder().apply {
+            this.setTitle(title)
 
-        member?.let { eb.addField("Member:", member.asMention, true) }
+            color?.let {
+                this.setColor(color)
+            }
 
-        eb.setFooter("Uhrzeit: ${dateFormat.format(Date())}", null)
+            description?.let {
+                if (member == null) {
+                    this.setDescription(description)
+                } else {
+                    this.setDescription(
+                        description.replace("%v", "${member.asMention} (${member.user.asTag})")
+                    )
+                }
+            }
 
-        text?.let { eb.setDescription(text) }
-
-        val message = eb.build()
+            this.setFooter(Translation.LOG_DATE.replace("%v", date))
+        }.run {
+            this.build()
+        }
 
         channel.sendMessage(message).queue()
+    }
+
+    private fun getTextChannel(): TextChannel? {
+        return DiscordClient.JDA.getTextChannelById(Config.data.botLogChannelID)
     }
 }
