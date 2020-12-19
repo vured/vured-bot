@@ -5,12 +5,13 @@ import net.dv8tion.jda.api.entities.Message
 import org.koin.dsl.module
 
 val mainModule = module {
+    single { GuildService() }
     single { LogService() }
+    single { MemberService() }
     single { MusicChannelService() }
     single { MusicService() }
     single { PlaylistService() }
+    single { ReactionService() }
     single { StaticMessageService() }
     single { VoiceChannelService() }
-
-    factory { (message: Message) ->  ReactionService(message) }
 }
