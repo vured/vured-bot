@@ -30,21 +30,15 @@ dependencies {
 
     kapt("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
 
-    /**
-     * Kotlin
-     */
+    /** Kotlin **/
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", Versions.KOTLIN_COROUTINES)
     implementation("org.jetbrains.kotlin", "kotlin-reflect", Versions.KOTLIN)
 
-    /**
-     * Discord
-     */
+    /** Discord **/
     implementation("net.dv8tion", "JDA", Versions.JDA)
     implementation("com.sedmelluq", "lavaplayer", Versions.LAVAPLAYER)
 
-    /**
-     * Application
-     */
+    /** Application **/
     implementation("org.koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("org.slf4j", "slf4j-simple", Versions.SLF4J)

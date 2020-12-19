@@ -1,9 +1,0 @@
-{
-  "vaceGamingGuildId": 785606737385881641,
-  "botLogChannelID": 785612627363102730,
-  "memberID": 785607972301701162,
-  "musicBotChannelID": 785611441289691156,
-  "musicBotID": 785605234541330442,
-  "maxPlaylistTracks": 100,
-  "defaultMessage": "Sende einen YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link oder eine direkte URL in diesen Chat um zu starten.\n\nDu kannst auch folgende Befehle nutzen um zu suchen:\n\nytsearch: <Suchbegriff>\nscsearch: <Suchbegriff>"
-}
