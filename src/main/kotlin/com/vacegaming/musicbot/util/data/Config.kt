@@ -1,26 +1,21 @@
-package com.vacegaming.musicbot.util
+package com.vacegaming.musicbot.util.data
 
 import com.sksamuel.hoplite.ConfigLoader
 import com.vacegaming.musicbot.model.BotConfigModel
 import com.vacegaming.musicbot.util.environment.EnvironmentManager
 import com.vacegaming.musicbot.util.environment.EnvironmentType
 
-object ConfigManager {
-    private val configLoader = ConfigLoader()
-
+object Config {
     lateinit var data: BotConfigModel
+    lateinit var botToken: String
 
-    fun setConfigFile() = when (EnvironmentManager.current) {
+    fun load() = when (EnvironmentManager.current) {
         EnvironmentType.DEV -> "/default.json"
         EnvironmentType.PROD -> "/production.json"
         EnvironmentType.DEFAULT -> "/default.json"
     }.apply {
-        data = configLoader.loadConfigOrThrow(this)
-    }.run {
-        setBotToken()
-    }
-
-    private fun setBotToken() {
-        data.botToken = EnvironmentManager.getEnvironmentVariable("BOT_TOKEN")
+        data = ConfigLoader().loadConfigOrThrow(this)
+    }.also {
+        botToken = EnvironmentManager.getEnvironmentVariable("BOT_TOKEN")
     }
 }
