@@ -13,4 +13,5 @@ object Versions {
     const val CLASSINDEX = "3.4"
     const val SLF4J = "1.7.30"
     const val HOPLITE = "1.3.10"
+    const val SENTRY = "3.2.0"
 }

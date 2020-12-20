@@ -9,6 +9,7 @@ import dev.jonaz.vacegaming.musicbot.util.data.Translation
 import dev.jonaz.vacegaming.musicbot.util.discord.DiscordClient
 import dev.jonaz.vacegaming.musicbot.util.environment.Environment
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import io.sentry.Sentry
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
 import org.koin.core.logger.Level
@@ -35,6 +36,7 @@ class Application(koinApplication: KoinApplication) {
 
         Config.load()
         DiscordClient.start()
+        SentryClient.init()
 
         musicService.createAudioPlayer()
         reactionService.initReactions()
