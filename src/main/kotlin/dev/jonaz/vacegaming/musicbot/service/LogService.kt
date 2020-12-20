@@ -42,6 +42,6 @@ class LogService {
     }
 
     private fun getTextChannel(): TextChannel? {
-        return DiscordClient.JDA.getTextChannelById(Config.data.botLogChannelID)
+        return DiscordClient.JDA.getTextChannelById(Config.logChannel)
     }
 }

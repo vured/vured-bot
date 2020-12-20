@@ -16,7 +16,7 @@ class MessageReactionListener : ListenerAdapter() {
             return
         }
 
-        if (event.channel.idLong != Config.data.musicBotChannelID) {
+        if (event.channel.idLong != Config.musicChannel) {
             return
         }
 

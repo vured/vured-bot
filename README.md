@@ -17,6 +17,11 @@ You have to set the environment as a jvm argument. Choose between ``-Denv=dev`` 
 
 ### Environment variables
 
-Variable | Environment | Description
--------- | ----------- | -----------
-**BOT_TOKEN** | All | The discord bot token
+Variable | Required | Description
+-------- |  -------- | ------------
+**BOT_TOKEN** | true | The discord bot token
+**ROLE** | true | Role id that can access the bot
+**GUILD** | true | Guild id
+**LOG_CHANNEL** | true | Text-Channel id for logs
+**MUSIC_CHANNEL** | true | Text-Channel id for the music bot
+**SENTRY_DSN** | false | DSN for [Sentry](https://sentry.io)

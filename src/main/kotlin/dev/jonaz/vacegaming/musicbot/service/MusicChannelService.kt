@@ -13,7 +13,7 @@ import java.awt.Color
 class MusicChannelService {
 
     fun getTextChannel(): TextChannel? {
-        return DiscordClient.JDA.getTextChannelById(Config.data.musicBotChannelID)
+        return DiscordClient.JDA.getTextChannelById(Config.musicChannel)
     }
 
     fun clearMessages() {
