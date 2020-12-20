@@ -21,7 +21,7 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
 
       - name: discord-webhook-notify when success
-      - uses: rjstone/discord-webhook-notify@v1
+        uses: rjstone/discord-webhook-notify@v1
         if: success()
         with:
           severity: info
