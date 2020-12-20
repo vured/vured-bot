@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.vacegaming.musicbot.gradle.Versions
+import dev.jonaz.vacegaming.musicbot.gradle.Versions
 
 plugins {
     kotlin("jvm") version "1.4.21"
@@ -39,7 +39,7 @@ dependencies {
     implementation("com.sedmelluq", "lavaplayer", Versions.LAVAPLAYER)
 
     /** Logging **/
-    implementation("ch.qos.logback", "logback-classic", "1.2.3")
+    implementation("ch.qos.logback", "logback-classic", Versions.LOGBACK)
     implementation("io.sentry", "sentry-logback", Versions.SENTRY)
 
     /** Application **/
