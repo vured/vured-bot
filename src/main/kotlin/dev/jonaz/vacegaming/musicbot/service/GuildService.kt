@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.entities.Member
 
 class GuildService {
     fun getCurrentGuild(): Guild? {
-        return DiscordClient.JDA.getGuildById(Config.data.vaceGamingGuildId)
+        return DiscordClient.JDA.getGuildById(Config.data.guildId)
     }
 
     fun getSelfMember(): Member? {

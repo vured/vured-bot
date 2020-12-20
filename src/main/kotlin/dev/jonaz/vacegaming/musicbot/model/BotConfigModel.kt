@@ -4,7 +4,6 @@ data class BotConfigModel(
     val botLogChannelID: Long,
     val memberID: Long,
     val musicBotChannelID: Long,
-    val musicBotID: Long,
-    val vaceGamingGuildId: Long,
+    val guildId: Long,
     val maxPlaylistTracks: Int
 )
