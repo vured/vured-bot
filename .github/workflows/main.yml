@@ -9,8 +9,26 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+          severity: info
+          details: Deploying to heroku..
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - uses: akhileshns/heroku-deploy@v3.4.6
         with:
           heroku_api_key: ${{secrets.HEROKU_API_TOKEN}}
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+      - uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          details: Heroku deploy failed
+          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
+      - uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+          severity: warn
+          details: Workflow cancelled
+          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
