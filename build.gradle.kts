@@ -38,10 +38,13 @@ dependencies {
     implementation("net.dv8tion", "JDA", Versions.JDA)
     implementation("com.sedmelluq", "lavaplayer", Versions.LAVAPLAYER)
 
+    /** Logging **/
+    implementation("ch.qos.logback", "logback-classic", "1.2.3")
+    implementation("io.sentry", "sentry-logback", Versions.SENTRY)
+
     /** Application **/
     implementation("org.koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
-    implementation("org.slf4j", "slf4j-simple", Versions.SLF4J)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
     implementation("com.sksamuel.hoplite", "hoplite-json", Versions.HOPLITE)
 }
