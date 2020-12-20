@@ -8,7 +8,7 @@ class MemberService {
     private val guildService by genericInject<GuildService>()
 
     fun isPermitted(member: Member?): Boolean {
-        val memberId = Config.data.memberID
+        val memberId = Config.role
         val roleStream = member?.roles?.stream()
 
         val role = roleStream?.filter { it.idLong == memberId }?.findFirst()
