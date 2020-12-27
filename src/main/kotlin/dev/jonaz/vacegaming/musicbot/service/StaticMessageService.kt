@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
+import java.util.*
 
 class StaticMessageService {
     private val musicChannelService by genericInject<MusicChannelService>()
@@ -17,10 +18,10 @@ class StaticMessageService {
     private lateinit var message: Message
 
     fun createBaseMessage() = build(
-        title = Translation.NO_TRACK_TITLE,
-        description = Translation.NO_TRACK_DESCRIPTION,
-        color = Color.RED,
-        volume = null
+            title = Translation.NO_TRACK_TITLE,
+            description = Translation.NO_TRACK_DESCRIPTION,
+            color = Color.RED,
+            volume = null
     ).also {
         val channel = musicChannelService.getTextChannel()
 
@@ -32,10 +33,10 @@ class StaticMessageService {
     }
 
     fun build(
-        title: String?,
-        description: String?,
-        color: Color?,
-        volume: Int?
+            title: String?,
+            description: String?,
+            color: Color?,
+            volume: Int?
     ): MessageEmbed {
         val queue = musicService.getQueue()
         val trackQueue = mutableListOf<String>()
@@ -69,15 +70,23 @@ class StaticMessageService {
 
             queue.isEmpty().ifFalse {
                 this.addField(
-                    "${Translation.QUEUE} (${trackQueue.size})",
-                    trackQueue.joinToString("\n").take(1024),
-                    false
+                        "${Translation.QUEUE} (${trackQueue.size})",
+                        trackQueue.joinToString("\n").take(1024),
+                        false
                 )
             }
         }.run { return@run this.build() }
     }
 
-    fun set(message: MessageEmbed) = this.message.editMessage(message).queue()
+    fun set(message: MessageEmbed) {
+        try {
+            this.message.editMessage(message).complete()
+        } catch (e: Exception) {
+            createBaseMessage()
+            Thread.sleep(500)
+        }
+
+    }
 
     private fun setReactions() {
         reactionService.getReactions(ReactionMessageCase.STATIC).run {
