@@ -1,8 +1,9 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionMessageCase
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
-import dev.jonaz.vacegaming.musicbot.util.application.ifFalse
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
+import dev.jonaz.vacegaming.musicbot.util.ifFalse
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message

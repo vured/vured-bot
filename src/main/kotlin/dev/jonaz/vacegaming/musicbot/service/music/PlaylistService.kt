@@ -1,8 +1,12 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.music
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionMessageCase
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
+import dev.jonaz.vacegaming.musicbot.service.application.LogService
+import dev.jonaz.vacegaming.musicbot.service.discord.MusicChannelService
+import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
+import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel

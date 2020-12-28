@@ -5,11 +5,11 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
-import dev.jonaz.vacegaming.musicbot.service.LogService
-import dev.jonaz.vacegaming.musicbot.service.MusicService
-import dev.jonaz.vacegaming.musicbot.service.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.service.VoiceChannelService
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
+import dev.jonaz.vacegaming.musicbot.service.application.LogService
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
+import dev.jonaz.vacegaming.musicbot.service.discord.VoiceChannelService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import java.awt.Color
 

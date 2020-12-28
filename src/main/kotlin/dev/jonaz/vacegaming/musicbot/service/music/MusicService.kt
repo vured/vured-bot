@@ -1,4 +1,4 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.music
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
@@ -7,7 +7,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vacegaming.musicbot.music.AudioPlayerSendHandler
 import dev.jonaz.vacegaming.musicbot.music.AudioLoadResultManager
 import dev.jonaz.vacegaming.musicbot.music.TrackScheduler
-import dev.jonaz.vacegaming.musicbot.util.application.ifNotTrue
+import dev.jonaz.vacegaming.musicbot.service.discord.GuildService
+import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
+import dev.jonaz.vacegaming.musicbot.util.ifNotTrue
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.managers.AudioManager

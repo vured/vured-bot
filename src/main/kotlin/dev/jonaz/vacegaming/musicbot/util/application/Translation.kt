@@ -1,4 +1,4 @@
-package dev.jonaz.vacegaming.musicbot.util.data
+package dev.jonaz.vacegaming.musicbot.util.application
 
 object Translation {
     /** User Messages **/

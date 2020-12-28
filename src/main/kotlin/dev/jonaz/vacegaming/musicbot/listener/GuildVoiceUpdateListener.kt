@@ -1,11 +1,11 @@
 package dev.jonaz.vacegaming.musicbot.listener
 
-import dev.jonaz.vacegaming.musicbot.service.GuildService
-import dev.jonaz.vacegaming.musicbot.service.LogService
-import dev.jonaz.vacegaming.musicbot.service.MusicService
-import dev.jonaz.vacegaming.musicbot.service.VoiceChannelService
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
-import dev.jonaz.vacegaming.musicbot.util.application.ifNotTrue
+import dev.jonaz.vacegaming.musicbot.service.discord.GuildService
+import dev.jonaz.vacegaming.musicbot.service.application.LogService
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.service.discord.VoiceChannelService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
+import dev.jonaz.vacegaming.musicbot.util.ifNotTrue
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
