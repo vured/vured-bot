@@ -1,14 +1,14 @@
-package dev.jonaz.vacegaming.musicbot.util.application
+package dev.jonaz.vacegaming.musicbot.service.application
 
 import dev.jonaz.vacegaming.musicbot.util.environment.Environment
-import dev.jonaz.vacegaming.musicbot.util.environment.EnvironmentType
 import io.sentry.Sentry
 import io.sentry.SentryOptions
 import org.slf4j.LoggerFactory
 
-object SentryClient {
+class SentryService {
     private val loggerFactory = LoggerFactory.getLogger(this::class.java)
     private val sentryDsn = System.getenv("SENTRY_DSN")
+    private val config by ConfigService
 
     fun init() = sentryDsn?.let {
         val options = getOptions()
@@ -28,8 +28,8 @@ object SentryClient {
         event
     }
 
-    private fun getSentryEnvironment() = when (Environment.type) {
-        EnvironmentType.DEV -> "development"
+    private fun getSentryEnvironment() = when (config.env) {
+        Environment.DEV -> "development"
         else -> "production"
     }
 }
