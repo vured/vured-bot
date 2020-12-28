@@ -1,15 +1,13 @@
 package dev.jonaz.vacegaming.musicbot.module
 
-import dev.jonaz.vacegaming.musicbot.service.*
+import dev.jonaz.vacegaming.musicbot.service.discord.*
 import org.koin.dsl.module
 
-val mainModule = module {
+val discordModule = module {
+    single { DiscordClientService() }
     single { GuildService() }
-    single { LogService() }
     single { MemberService() }
     single { MusicChannelService() }
-    single { MusicService() }
-    single { PlaylistService() }
     single { ReactionService() }
     single { StaticMessageService() }
     single { VoiceChannelService() }

@@ -1,7 +1,7 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.discord
 
-import dev.jonaz.vacegaming.musicbot.util.discord.DiscordClient
-import dev.jonaz.vacegaming.musicbot.util.data.Config
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
+import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,9 +11,11 @@ import net.dv8tion.jda.api.entities.TextChannel
 import java.awt.Color
 
 class MusicChannelService {
+    private val discordClientService by genericInject<DiscordClientService>()
+    private val config by ConfigService
 
     fun getTextChannel(): TextChannel? {
-        return DiscordClient.JDA.getTextChannelById(Config.musicChannel)
+        return discordClientService.JDA.getTextChannelById(config.discord.musicChannel)
     }
 
     fun clearMessages() {

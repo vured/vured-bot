@@ -1,8 +1,8 @@
 package dev.jonaz.vacegaming.musicbot.listener
 
-import dev.jonaz.vacegaming.musicbot.service.MemberService
-import dev.jonaz.vacegaming.musicbot.service.ReactionService
-import dev.jonaz.vacegaming.musicbot.util.data.Config
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
+import dev.jonaz.vacegaming.musicbot.service.discord.MemberService
+import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
@@ -11,12 +11,14 @@ class MessageReactionListener : ListenerAdapter() {
     private val reactionService by genericInject<ReactionService>()
     private val memberService by genericInject<MemberService>()
 
+    private val config by ConfigService
+
     override fun onGuildMessageReactionAdd(event: GuildMessageReactionAddEvent) {
         if (event.user.isBot) {
             return
         }
 
-        if (event.channel.idLong != Config.musicChannel) {
+        if (event.channel.idLong != config.discord.musicChannel) {
             return
         }
 

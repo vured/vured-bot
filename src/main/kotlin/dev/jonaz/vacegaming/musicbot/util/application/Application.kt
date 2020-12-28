@@ -1,15 +1,13 @@
 package dev.jonaz.vacegaming.musicbot.util.application
 
-import dev.jonaz.vacegaming.musicbot.service.LogService
-import dev.jonaz.vacegaming.musicbot.service.MusicService
-import dev.jonaz.vacegaming.musicbot.service.ReactionService
-import dev.jonaz.vacegaming.musicbot.service.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.util.data.Config
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
-import dev.jonaz.vacegaming.musicbot.util.discord.DiscordClient
-import dev.jonaz.vacegaming.musicbot.util.environment.Environment
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
+import dev.jonaz.vacegaming.musicbot.service.application.LogService
+import dev.jonaz.vacegaming.musicbot.service.application.SentryService
+import dev.jonaz.vacegaming.musicbot.service.discord.DiscordClientService
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
+import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
-import io.sentry.Sentry
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
 import org.koin.core.logger.Level
@@ -20,6 +18,9 @@ class Application(koinApplication: KoinApplication) {
     private val reactionService by genericInject<ReactionService>()
     private val staticMessageService by genericInject<StaticMessageService>()
     private val logService by genericInject<LogService>()
+    private val configService by genericInject<ConfigService>()
+    private val sentryService by genericInject<SentryService>()
+    private val discordClientService by genericInject<DiscordClientService>()
 
     companion object {
         lateinit var koin: KoinApplication
@@ -32,21 +33,12 @@ class Application(koinApplication: KoinApplication) {
     }
 
     private fun start() = runBlocking {
-        val environmentDescription = Environment.set()
-
-        Config.load()
-        DiscordClient.start()
-        SentryClient.init()
-
+        configService.loadConfig()
+        discordClientService.start()
+        sentryService.init()
         musicService.createAudioPlayer()
         reactionService.initReactions()
         staticMessageService.createBaseMessage()
-
-        logService.sendLog(
-            title = Translation.LOG_APPLICATION_STARTED_TITLE,
-            description = environmentDescription,
-            member = null,
-            color = Color(209, 236, 241)
-        )
+        logService.sendStartupMessage()
     }
 }

@@ -1,11 +1,11 @@
 package dev.jonaz.vacegaming.musicbot.listener
 
-import dev.jonaz.vacegaming.musicbot.service.MemberService
-import dev.jonaz.vacegaming.musicbot.service.GuildService
-import dev.jonaz.vacegaming.musicbot.service.LogService
-import dev.jonaz.vacegaming.musicbot.service.MusicService
-import dev.jonaz.vacegaming.musicbot.util.data.Config
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
+import dev.jonaz.vacegaming.musicbot.service.discord.MemberService
+import dev.jonaz.vacegaming.musicbot.service.discord.GuildService
+import dev.jonaz.vacegaming.musicbot.service.application.LogService
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
@@ -17,6 +17,8 @@ class GuildMessageReceivedLister : ListenerAdapter() {
     private val logService by genericInject<LogService>()
     private val memberService by genericInject<MemberService>()
 
+    private val config by ConfigService
+
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
         val guild = guildService.getCurrentGuild()
         val audioManager = guild?.audioManager ?: return
@@ -25,7 +27,7 @@ class GuildMessageReceivedLister : ListenerAdapter() {
             return
         }
 
-        if (event.channel.idLong != Config.musicChannel) {
+        if (event.channel.idLong != config.discord.musicChannel) {
             return
         }
 

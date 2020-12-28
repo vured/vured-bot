@@ -4,12 +4,12 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import dev.jonaz.vacegaming.musicbot.service.MusicChannelService
-import dev.jonaz.vacegaming.musicbot.service.MusicService
-import dev.jonaz.vacegaming.musicbot.service.PlaylistService
-import dev.jonaz.vacegaming.musicbot.service.VoiceChannelService
-import dev.jonaz.vacegaming.musicbot.util.data.Config
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
+import dev.jonaz.vacegaming.musicbot.service.discord.MusicChannelService
+import dev.jonaz.vacegaming.musicbot.service.music.MusicService
+import dev.jonaz.vacegaming.musicbot.service.music.PlaylistService
+import dev.jonaz.vacegaming.musicbot.service.discord.VoiceChannelService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
 import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,6 +23,7 @@ class AudioLoadResultManager(
     private val musicChannelService by genericInject<MusicChannelService>()
     private val playlistService by genericInject<PlaylistService>()
     private val musicService by genericInject<MusicService>()
+    private val config by ConfigService
 
     override fun trackLoaded(track: AudioTrack) {
         voiceChannelService
@@ -35,7 +36,7 @@ class AudioLoadResultManager(
     }
 
     override fun playlistLoaded(playlist: AudioPlaylist) {
-        val newTracks = playlist.tracks.take(Config.data.maxPlaylistTracks)
+        val newTracks = playlist.tracks.take(config.bot.maxPlaylistTracks)
 
         voiceChannelService
             .join(member)

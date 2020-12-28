@@ -1,4 +1,4 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.reaction.Reaction
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionHandler
