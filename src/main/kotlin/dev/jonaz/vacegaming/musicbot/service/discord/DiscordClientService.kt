@@ -1,9 +1,9 @@
-package dev.jonaz.vacegaming.musicbot.util.discord
+package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.listener.GuildMessageReceivedLister
 import dev.jonaz.vacegaming.musicbot.listener.GuildVoiceUpdateListener
 import dev.jonaz.vacegaming.musicbot.listener.MessageReactionListener
-import dev.jonaz.vacegaming.musicbot.util.data.Config
+import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
@@ -11,8 +11,9 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy
 import org.slf4j.LoggerFactory
 import kotlin.system.exitProcess
 
-object DiscordClient {
+class DiscordClientService {
     private val logger = LoggerFactory.getLogger(this::class.java)
+    private val config by ConfigService
 
     lateinit var JDA: JDA
 
@@ -20,7 +21,7 @@ object DiscordClient {
         val intents = getRequiredIntents()
 
         JDA = JDABuilder
-            .createDefault(Config.botToken, intents)
+            .createDefault(config.bot.token, intents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .addEventListeners(
                 GuildMessageReceivedLister(),

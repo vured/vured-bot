@@ -1,8 +1,9 @@
-package dev.jonaz.vacegaming.musicbot.service
+package dev.jonaz.vacegaming.musicbot.service.application
 
-import dev.jonaz.vacegaming.musicbot.util.discord.DiscordClient
-import dev.jonaz.vacegaming.musicbot.util.data.Config
-import dev.jonaz.vacegaming.musicbot.util.data.Translation
+import dev.jonaz.vacegaming.musicbot.service.discord.DiscordClientService
+import dev.jonaz.vacegaming.musicbot.util.application.Translation
+import dev.jonaz.vacegaming.musicbot.util.environment.Environment
+import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel
@@ -11,6 +12,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class LogService {
+    private val discordClientService by genericInject<DiscordClientService>()
+    private val config by ConfigService
+
     fun sendLog(title: String, description: String?, member: Member?, color: Color?) {
         val channel = getTextChannel() ?: return
         val dateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss")
@@ -41,7 +45,23 @@ class LogService {
         channel.sendMessage(message).queue()
     }
 
+    fun sendStartupMessage() = when (config.env) {
+        Environment.DEV -> Translation.LOG_APPLICATION_STARTED_DEVELOPMENT
+        Environment.PROD -> Translation.LOG_APPLICATION_STARTED_PRODUCTION
+    }.run {
+        sendLog(
+            title = Translation.LOG_APPLICATION_STARTED_TITLE,
+            description = this.replace("%v", getImplementationVersion() ?: ""),
+            member = null,
+            color = Color(209, 236, 241)
+        )
+    }
+
+    private fun getImplementationVersion(): String? {
+        return this::class.java.`package`.implementationVersion
+    }
+
     private fun getTextChannel(): TextChannel? {
-        return DiscordClient.JDA.getTextChannelById(Config.logChannel)
+        return discordClientService.JDA.getTextChannelById(config.discord.logChannel)
     }
 }

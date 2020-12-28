@@ -46,7 +46,7 @@ dependencies {
     implementation("org.koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
-    implementation("com.sksamuel.hoplite", "hoplite-json", Versions.HOPLITE)
+    implementation("com.sksamuel.hoplite", "hoplite-hocon", Versions.HOPLITE)
 }
 
 tasks {
