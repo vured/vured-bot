@@ -105,7 +105,7 @@ class PlaylistService {
 
     private fun createMessageReactions(message: Message) {
         reactionService.getReactions(ReactionMessageCase.PLAYLIST).run {
-            this.forEach { message.addReaction(it.emote).queue() }
+            this.forEach { reactionService.addReaction(message, it.emote) }
         }
     }
 }

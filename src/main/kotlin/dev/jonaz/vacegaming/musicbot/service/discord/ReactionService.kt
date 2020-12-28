@@ -5,7 +5,9 @@ import dev.jonaz.vacegaming.musicbot.reaction.ReactionHandler
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionMessageCase
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionModel
 import net.dv8tion.jda.api.entities.Member
+import net.dv8tion.jda.api.entities.Message
 import org.atteo.classindex.ClassIndex
+import kotlin.system.exitProcess
 
 class ReactionService {
     private val reactions = mutableListOf<ReactionModel>()
@@ -17,6 +19,10 @@ class ReactionService {
     fun getReactions(): MutableList<ReactionModel> {
         return reactions
     }
+
+    fun addReaction(message: Message, emote: String) = runCatching {
+        message.addReaction(emote).queue()
+    }.getOrElse { exitProcess(0) }
 
     fun initReactions() {
         val annotation = Reaction::class.java

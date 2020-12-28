@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
+import kotlin.system.exitProcess
 
 class StaticMessageService {
     private val musicChannelService by genericInject<MusicChannelService>()
@@ -78,11 +79,13 @@ class StaticMessageService {
         }.run { return@run this.build() }
     }
 
-    fun set(message: MessageEmbed) = this.message.editMessage(message).queue()
+    fun set(messageEmbed: MessageEmbed) = runCatching {
+        message.editMessage(messageEmbed).complete()
+    }.getOrNull()
 
     private fun setReactions() {
         reactionService.getReactions(ReactionMessageCase.STATIC).run {
-            this.forEach { message.addReaction(it.emote).queue() }
+            this.forEach { reactionService.addReaction(message, it.emote) }
         }
     }
 }
