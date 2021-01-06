@@ -25,13 +25,6 @@ docker run -d \
 ```
 
 
-### 🧱 Heroku setup
-
-The only thing you have to do is to set the variable for the bot token:
-
-![example-heroku](https://i.imgur.com/BTNDdSB.png)
-
-
 ### 🛠 Development
 
 You have to set the environment as a jvm argument. Choose between ``-Denv=dev`` and ``-Denv=prod``.

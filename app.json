@@ -3,5 +3,38 @@
   "description": "A discord music bot based on JDA and Koin",
   "repository": "https://github.com/jonaznas/vacegaming-musicbot",
   "logo": "https://i.imgur.com/RflqQ0I.png",
-  "keywords": ["discord", "discord-bot", "discord-jda", "music-bot", "insert-koin", "kotlin"]
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "discord-jda",
+    "music-bot",
+    "insert-koin",
+    "kotlin"
+  ],
+  "env": {
+    "BOT__TOKEN": {
+      "description": "The discord bot token",
+      "value": ""
+    },
+    "DISCORD__GUILD": {
+      "description": "Discord Guild ID",
+      "value": ""
+    },
+    "DISCORD__ACCESS_ROLE": {
+      "description": "Role ID that can access the bot",
+      "value": ""
+    },
+    "DISCORD__MUSIC_CHANNEL": {
+      "description": "Text-Channel ID for static message",
+      "value": ""
+    },
+    "DISCORD__LOG_CHANNEL": {
+      "description": "Text-Channel ID for logs",
+      "value": ""
+    },
+    "BOT__MAX_PLAYLIST_TRACKS": {
+      "description": "The maximum Tracks that can be in the queue",
+      "value": "100"
+    }
+  }
 }
