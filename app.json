@@ -1,0 +1,7 @@
+{
+  "name": "vacegaming-musicbot",
+  "description": "A discord music bot based on JDA and Koin",
+  "repository": "https://github.com/jonaznas/vacegaming-musicbot",
+  "logo": "https://i.imgur.com/RflqQ0I.png",
+  "keywords": ["discord", "discord-bot", "discord-jda", "music-bot", "insert-koin", "kotlin"]
+}
