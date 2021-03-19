@@ -4,35 +4,35 @@ object Translation {
     /** User Messages **/
     const val NO_TRACK_TITLE = "Derzeit wird nichts abgespielt"
     const val NO_TRACK_DESCRIPTION =
-        "Sende einen YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link oder eine direkte URL in diesen Chat um zu starten.\n" +
+        "Send a YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link or a direct URL to this channel to start music.\n" +
                 "\n" +
-                "Du kannst auch folgende Befehle nutzen um zu suchen:\n" +
+                "You can also use the following commands to search:\n" +
                 "\n" +
-                "ytsearch: <Suchbegriff>\n" +
-                "scsearch: <Suchbegriff>"
+                "yscsearch: <search term>\n" +
+                "scsearch: <search term>"
 
-    const val UNKNOWN_TITLE = "Unbekannter Titel"
-    const val UNKNOWN_DESCRIPTION = "Unbekannte Beschreibung"
+    const val UNKNOWN_TITLE = "Unknown title"
+    const val UNKNOWN_DESCRIPTION = "Unknown description"
 
-    const val VOLUME = "Lautstärke"
-    const val QUEUE = "Warteschlange"
+    const val VOLUME = "volume"
+    const val QUEUE = "Queue"
 
-    const val NO_VOICECHANNEL = "Bitte gehe zuerst in einen Sprach-Kanal."
+    const val NO_VOICECHANNEL = "Please go to a voice channel first."
 
-    const val PLAYLIST_IMPORT_QUESTION = "Playlist hinzufügen?"
+    const val PLAYLIST_IMPORT_QUESTION = "Add a playlist?"
     const val PLAYLIST_IMPORT_DESCRIPTION =
-        "Derzeit wird nur ein einziger Song aus der Playlist abgespielt. Möchtest du die gesammte Playlist (%v songs) in die Warteschlange hinzufügen?"
+        "Currently only one song from the playlist is played.  Would you like to add the entire playlist (% v songs) to the queue?"
 
-    const val NO_MATCHES = "Es wurde kein Song gefunden."
-    const val LOAD_FAILED = "Fehler beim laden."
-    const val TRACK_ADDED = "Song hinzugefügt."
+    const val NO_MATCHES = "No song was found."
+    const val LOAD_FAILED = "Error at loading."
+    const val TRACK_ADDED = "Song added."
 
 
     /** Logging Messages **/
-    const val LOG_DATE = "Zeit: %v"
+    const val LOG_DATE = "Time:% v"
 
-    const val LOG_APPLICATION_STARTED_TITLE = "Gestartet"
-    const val LOG_APPLICATION_STARTED_PRODUCTION = "Der Musikbot wurde auf der Version %v gestartet."
+    const val LOG_APPLICATION_STARTED_TITLE = "Started"
+    const val LOG_APPLICATION_STARTED_PRODUCTION = "The music bot was started on version% v."
     const val LOG_APPLICATION_STARTED_DEVELOPMENT = "Der Musikbot wurde im Entwicklungsmodus gestartet."
 
     const val LOG_PLAYLIST_IMPORTED_TITLE = "Playlist importiert"
