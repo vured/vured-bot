@@ -33,7 +33,7 @@ class PlaylistService {
 
         eb.setColor(Color.gray)
         eb.setTitle(Translation.PLAYLIST_IMPORT_QUESTION)
-        eb.setDescription(Translation.PLAYLIST_IMPORT_DESCRIPTION.replace("%v,", tracks.size.toString()))
+        eb.setDescription(Translation.PLAYLIST_IMPORT_DESCRIPTION.replace("%v", tracks.size.toString()))
 
         val message = eb.build()
 
