@@ -3,8 +3,8 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import dev.jonaz.vacegaming.musicbot.gradle.Versions
 
 plugins {
-    kotlin("jvm") version "1.4.21"
-    kotlin("kapt") version "1.4.21"
+    kotlin("jvm") version "1.4.32"
+    kotlin("kapt") version "1.4.32"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
@@ -21,8 +21,8 @@ buildscript {
 group = "com.vacegaming.musicbot"
 
 repositories {
-    jcenter()
     mavenCentral()
+    maven("https://m2.dv8tion.net/releases")
 }
 
 dependencies {
@@ -43,7 +43,7 @@ dependencies {
     implementation("io.sentry", "sentry-logback", Versions.SENTRY)
 
     /** Application **/
-    implementation("org.koin", "koin-core", Versions.KOIN)
+    implementation("io.insert-koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
     implementation("com.sksamuel.hoplite", "hoplite-hocon", Versions.HOPLITE)
