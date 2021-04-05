@@ -10,7 +10,7 @@ vaceGaming was a registered esport organisation from germany and is now a privat
 
 ![example-gif](https://i.imgur.com/pEhxoqc.gif)
 
-All translations are in german but you can easily edit it in [util/application/Translation.kt](https://github.com/jonaznas/vacegaming-musicbot/blob/master/src/main/kotlin/dev/jonaz/vacegaming/musicbot/util/application/Translation.kt)
+You can edit the translations in [util/application/Translation.kt](https://github.com/jonaznas/vacegaming-musicbot/blob/master/src/main/kotlin/dev/jonaz/vacegaming/musicbot/util/application/Translation.kt)
 
 ### 🚢 Instant deploy with Docker
 
