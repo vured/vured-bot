@@ -1,27 +1,23 @@
-# vaceGaming MusicBot ![CI](https://github.com/jonaznas/vacegaming-musicbot/workflows/CI/badge.svg)
+# Vured Music Bot ![CI](https://github.com/vured/vured-bot/workflows/CI/badge.svg)
 
-<img align="right" src="https://i.imgur.com/RflqQ0I.png" width=25%>
+<img align="right" src="https://i.imgur.com/oRkMRah.png" width=25%>
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/jonaznas/vacegaming-musicbot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vured/vured-bot)
 
-This is a discord music bot based on [JDA](https://github.com/DV8FromTheWorld/JDA) and [Koin](https://github.com/InsertKoinIO/koin) developed for the vaceGaming community server.
-vaceGaming was a registered esport organisation from germany and is now a private community server and invite only.
-
+Updated description coming soon
 
 ![example-gif](https://i.imgur.com/pEhxoqc.gif)
-
-You can edit the translations in [util/application/Translation.kt](https://github.com/jonaznas/vacegaming-musicbot/blob/master/src/main/kotlin/dev/jonaz/vacegaming/musicbot/util/application/Translation.kt)
 
 ### 🚢 Instant deploy with Docker
 
 ```console
 docker run -d \
-    --name vacegaming-musicbot \
+    --name vured-bot \
     -e BOT__TOKEN="" \
     -e DISCORD__GUILD=0 \
     -e DISCORD__MUSIC_CHANNEL=0 \
     -e DISCORD__ACCESS_ROLE=0 \
-    jonaznas/vacegaming-musicbot:latest
+    jonaznas/vured-bot:latest
 ```
 
 
@@ -46,4 +42,4 @@ Variable | Required | Description
 **BOT__MAX_PLAYLIST_TRACKS** | No* | The maximum Tracks that can be in the queue
 **SENTRY_DSN** | No | DSN for [Sentry](https://sentry.io)
 
-*You can set all config variables in the [application.conf](https://github.com/jonaznas/vacegaming-musicbot/tree/master/src/main/resources) and optionally override it as an environment variable but **never put your Discord bot token into the config file**.
+*You can set all config variables in the [application.conf](https://github.com/vured/vured-bot/tree/master/src/main/resources) and optionally override it as an environment variable but **never put your Discord bot token into the config file**.
