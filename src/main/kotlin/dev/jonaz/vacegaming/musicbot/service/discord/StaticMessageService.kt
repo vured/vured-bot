@@ -2,14 +2,13 @@ package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionMessageCase
 import dev.jonaz.vacegaming.musicbot.service.music.MusicService
-import dev.jonaz.vacegaming.musicbot.util.application.Translation
-import dev.jonaz.vacegaming.musicbot.util.ifFalse
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vacegaming.musicbot.application.Translation
+import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.util.extensions.ifFalse
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
 import java.awt.Color
-import kotlin.system.exitProcess
 
 class StaticMessageService {
     private val musicChannelService by genericInject<MusicChannelService>()

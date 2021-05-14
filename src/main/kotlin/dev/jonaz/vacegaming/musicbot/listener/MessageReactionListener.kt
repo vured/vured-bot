@@ -3,7 +3,7 @@ package dev.jonaz.vacegaming.musicbot.listener
 import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
 import dev.jonaz.vacegaming.musicbot.service.discord.MemberService
 import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 

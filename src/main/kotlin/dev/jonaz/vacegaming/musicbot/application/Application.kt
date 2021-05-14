@@ -1,4 +1,4 @@
-package dev.jonaz.vacegaming.musicbot.util.application
+package dev.jonaz.vacegaming.musicbot.application
 
 import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
 import dev.jonaz.vacegaming.musicbot.service.application.LogService
@@ -7,11 +7,10 @@ import dev.jonaz.vacegaming.musicbot.service.discord.DiscordClientService
 import dev.jonaz.vacegaming.musicbot.service.music.MusicService
 import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
 import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
 import org.koin.core.logger.Level
-import java.awt.Color
 
 class Application(koinApplication: KoinApplication) {
     private val musicService by genericInject<MusicService>()

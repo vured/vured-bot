@@ -1,7 +1,7 @@
 package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

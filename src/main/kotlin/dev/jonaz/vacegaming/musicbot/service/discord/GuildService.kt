@@ -1,7 +1,7 @@
 package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.service.application.ConfigService
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 

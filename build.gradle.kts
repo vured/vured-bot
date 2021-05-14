@@ -43,6 +43,7 @@ dependencies {
     implementation("io.sentry", "sentry-logback", Versions.SENTRY)
 
     /** Application **/
+    implementation("dev.jonaz.vured.util:vured-util:1.0")
     implementation("io.insert-koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)

@@ -1,9 +1,9 @@
 package dev.jonaz.vacegaming.musicbot.service.application
 
 import dev.jonaz.vacegaming.musicbot.service.discord.DiscordClientService
-import dev.jonaz.vacegaming.musicbot.util.application.Translation
-import dev.jonaz.vacegaming.musicbot.util.environment.Environment
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vacegaming.musicbot.application.Translation
+import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.util.environment.Environment
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel

@@ -9,8 +9,8 @@ import dev.jonaz.vacegaming.musicbot.music.AudioLoadResultManager
 import dev.jonaz.vacegaming.musicbot.music.TrackScheduler
 import dev.jonaz.vacegaming.musicbot.service.discord.GuildService
 import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.util.ifNotTrue
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.util.extensions.ifNotTrue
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color

@@ -1,6 +1,6 @@
 package dev.jonaz.vacegaming.musicbot.service.application
 
-import dev.jonaz.vacegaming.musicbot.util.environment.Environment
+import dev.jonaz.vured.util.environment.Environment
 import io.sentry.Sentry
 import io.sentry.SentryOptions
 import org.slf4j.LoggerFactory

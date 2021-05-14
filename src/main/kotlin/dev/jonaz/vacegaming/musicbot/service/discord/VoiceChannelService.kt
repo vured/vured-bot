@@ -2,10 +2,10 @@ package dev.jonaz.vacegaming.musicbot.service.discord
 
 import dev.jonaz.vacegaming.musicbot.service.music.MusicService
 import dev.jonaz.vacegaming.musicbot.service.music.PlaylistService
-import dev.jonaz.vacegaming.musicbot.util.application.Translation
-import dev.jonaz.vacegaming.musicbot.util.ifNotTrue
-import dev.jonaz.vacegaming.musicbot.util.ifTrue
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vacegaming.musicbot.application.Translation
+import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.util.extensions.ifNotTrue
+import dev.jonaz.vured.util.extensions.ifTrue
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.VoiceChannel
 import net.dv8tion.jda.api.managers.AudioManager

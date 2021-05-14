@@ -5,8 +5,8 @@ import dev.jonaz.vacegaming.musicbot.service.discord.MemberService
 import dev.jonaz.vacegaming.musicbot.service.discord.GuildService
 import dev.jonaz.vacegaming.musicbot.service.application.LogService
 import dev.jonaz.vacegaming.musicbot.service.music.MusicService
-import dev.jonaz.vacegaming.musicbot.util.application.Translation
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vacegaming.musicbot.application.Translation
+import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.awt.Color

@@ -5,7 +5,7 @@ import dev.jonaz.vacegaming.musicbot.reaction.ReactionHandler
 import dev.jonaz.vacegaming.musicbot.reaction.ReactionMessageCase
 import dev.jonaz.vacegaming.musicbot.service.music.MusicService
 import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 

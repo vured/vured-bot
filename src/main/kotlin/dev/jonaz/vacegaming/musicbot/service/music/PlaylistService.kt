@@ -6,8 +6,8 @@ import dev.jonaz.vacegaming.musicbot.service.application.LogService
 import dev.jonaz.vacegaming.musicbot.service.discord.MusicChannelService
 import dev.jonaz.vacegaming.musicbot.service.discord.ReactionService
 import dev.jonaz.vacegaming.musicbot.service.discord.StaticMessageService
-import dev.jonaz.vacegaming.musicbot.util.application.Translation
-import dev.jonaz.vacegaming.musicbot.util.koin.genericInject
+import dev.jonaz.vacegaming.musicbot.application.Translation
+import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import net.dv8tion.jda.api.EmbedBuilder
