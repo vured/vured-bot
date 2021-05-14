@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import dev.jonaz.vacegaming.musicbot.gradle.Versions
+import dev.jonaz.vured.bot.gradle.Versions
 
 plugins {
     kotlin("jvm") version "1.5.0"
@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-group = "com.vacegaming.musicbot"
+group = "dev.jonaz.vured.bot"
 
 repositories {
     mavenCentral()
@@ -59,9 +59,9 @@ tasks {
     }
 
     named<ShadowJar>("shadowJar") {
-        archiveFileName.set("vacegaming-musicbot.jar")
+        archiveFileName.set("vured-bot.jar")
         manifest.attributes.apply {
-            put("Main-Class", "dev.jonaz.vacegaming.musicbot.MusicBotKt")
+            put("Main-Class", "dev.jonaz.vured.bot.VuredKt")
             put("Implementation-Version", project.version)
         }
     }

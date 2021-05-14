@@ -17,4 +17,4 @@ RUN mkdir /app
 
 COPY --from=build /home/gradle/src/build/libs/ /app/
 
-ENTRYPOINT ["java", "-Denv=prod", "-jar", "/app/vacegaming-musicbot.jar"]
+ENTRYPOINT ["java", "-Denv=prod", "-jar", "/app/vured-bot.jar"]

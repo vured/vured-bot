@@ -1,14 +1,11 @@
 {
-  "name": "vacegaming-musicbot",
-  "description": "A discord music bot based on JDA and Koin",
-  "repository": "https://github.com/jonaznas/vacegaming-musicbot",
-  "logo": "https://i.imgur.com/RflqQ0I.png",
+  "name": "vured",
+  "description": "A command-less high performance discord music bot",
+  "repository": "https://github.com/vured/vured-bot",
+  "logo": "https://i.imgur.com/Lh1wXda.png",
   "keywords": [
     "discord",
     "discord-bot",
-    "discord-jda",
-    "music-bot",
-    "insert-koin",
     "kotlin"
   ],
   "env": {
