@@ -3,18 +3,17 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import dev.jonaz.vacegaming.musicbot.gradle.Versions
 
 plugins {
-    kotlin("jvm") version "1.4.32"
-    kotlin("kapt") version "1.4.32"
+    kotlin("jvm") version "1.5.0"
+    kotlin("kapt") version "1.5.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0")
     }
 }
 
@@ -43,7 +42,7 @@ dependencies {
     implementation("io.sentry", "sentry-logback", Versions.SENTRY)
 
     /** Application **/
-    implementation("dev.jonaz.vured.util:vured-util:1.0")
+    implementation("dev.jonaz.vured.util", "vured-util", Versions.VURED_UTILS)
     implementation("io.insert-koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
