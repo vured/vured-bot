@@ -1,1 +1,1 @@
-worker: java $JAVA_OPTS -jar -Denv=prod build/libs/vacegaming-musicbot.jar
+worker: java $JAVA_OPTS -jar -Denv=prod build/libs/vured-bot.jar
