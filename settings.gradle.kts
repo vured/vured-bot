@@ -1,1 +1,1 @@
-rootProject.name = "vacegaming-musicbot"
+rootProject.name = "vured-bot"
