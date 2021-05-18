@@ -15,4 +15,5 @@ object Versions {
     const val LOGBACK = "1.2.3"
     const val HOPLITE = "1.4.0"
     const val SENTRY = "3.2.0"
+    const val KTOR = "1.5.4"
 }

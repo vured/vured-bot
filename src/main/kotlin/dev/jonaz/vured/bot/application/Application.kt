@@ -3,6 +3,7 @@ package dev.jonaz.vured.bot.application
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.application.SentryService
+import dev.jonaz.vured.bot.service.application.WebService
 import dev.jonaz.vured.bot.service.discord.DiscordClientService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.discord.ReactionService
@@ -20,6 +21,7 @@ class Application(koinApplication: KoinApplication) {
     private val configService by genericInject<ConfigService>()
     private val sentryService by genericInject<SentryService>()
     private val discordClientService by genericInject<DiscordClientService>()
+    private val webService by genericInject<WebService>()
 
     companion object {
         lateinit var koin: KoinApplication
@@ -38,6 +40,7 @@ class Application(koinApplication: KoinApplication) {
         musicService.createAudioPlayer()
         reactionService.initReactions()
         staticMessageService.createBaseMessage()
+        webService.startServer()
         logService.sendStartupMessage()
     }
 }
