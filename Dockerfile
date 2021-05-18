@@ -6,6 +6,8 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11.0-jre-slim
 
+EXPOSE 8080
+
 ENV BOT__TOKEN=""
 ENV BOT__MAX_PLAYLIST_TRACKS=100
 ENV DISCORD__GUILD=0
