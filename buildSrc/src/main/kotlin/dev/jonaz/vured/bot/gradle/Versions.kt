@@ -5,8 +5,8 @@ object Versions {
     const val KOTLIN_COROUTINES = "1.5.0-RC-native-mt"
 
     /** Discord **/
-    const val JDA = "4.2.1_253"
-    const val LAVAPLAYER = "1.3.75"
+    const val JDA = "4.3.0_277"
+    const val LAVAPLAYER = "1.3.77"
 
     /** Application **/
     const val VURED_UTILS = "1.0"
