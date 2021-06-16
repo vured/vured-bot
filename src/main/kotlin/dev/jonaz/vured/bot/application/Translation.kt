@@ -31,6 +31,17 @@ object Translation {
     const val NO_MATCHES = "No song was found."
     const val LOAD_FAILED = "Error at loading."
 
+    /** Command Descriptions **/
+    const val COMMAND_VOLUME_DESC = "Individually set the volume"
+    const val COMMAND_VOLUME_OPTION_NAME = "percent"
+    const val COMMAND_VOLUME_OPTION_DESC = "New volume in %"
+    const val COMMAND_VOLUME_RESPONSE = "Successfully changed the volume"
+
+    const val COMMAND_YOUTUBE_DESC = "Search for a video name on youtube"
+    const val COMMAND_YOUTUBE_OPTION_NAME = "query"
+    const val COMMAND_YOUTUBE_OPTION_DESC = "Video name"
+    const val COMMAND_YOUTUBE_RESPONSE = "Successfully searched on youtube"
+
     /** Logging Messages **/
     const val LOG_DATE = "Time: %v"
 

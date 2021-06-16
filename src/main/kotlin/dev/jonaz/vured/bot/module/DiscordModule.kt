@@ -12,4 +12,5 @@ val discordModule = module {
     single { StaticMessageService() }
     single { VoiceChannelService() }
     single { ButtonService() }
+    single { SlashCommandService() }
 }

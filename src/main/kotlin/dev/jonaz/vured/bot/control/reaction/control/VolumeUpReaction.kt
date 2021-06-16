@@ -18,10 +18,6 @@ class VolumeUpReaction : ReactionHandler {
         val volume = musicService.getVolume()
         val audioPlayer = musicService.getAudioPlayer()
 
-        if(audioPlayer.isPaused) {
-            return
-        }
-
         val newVolume = if (volume > 4) {
             volume + 5
         } else {

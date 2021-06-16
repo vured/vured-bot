@@ -18,10 +18,6 @@ class VolumeDownReaction : ReactionHandler {
         val volume = musicService.getVolume()
         val audioPlayer = musicService.getAudioPlayer()
 
-        if(audioPlayer.isPaused) {
-            return
-        }
-
         val newVolume = if (volume > 5) {
             volume - 5
         } else {

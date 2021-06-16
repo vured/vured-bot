@@ -29,7 +29,7 @@ class ButtonClickListener : ListenerAdapter() {
         if (memberService.isInChannel(event.member).not()) {
             event.reply(Translation.NOT_SAME_VOICE_CHANNEL)
                 .setEphemeral(true)
-                .queue()
+                .complete()
             return
         }
 
