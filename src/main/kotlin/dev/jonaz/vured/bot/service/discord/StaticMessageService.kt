@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.service.discord
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.music.MusicService
@@ -8,7 +9,6 @@ import dev.jonaz.vured.util.extensions.ifFalse
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
-import net.dv8tion.jda.api.interactions.components.Button
 import java.awt.Color
 
 class StaticMessageService {
@@ -22,7 +22,7 @@ class StaticMessageService {
     fun createBaseMessage() = build(
         title = Translation.NO_TRACK_TITLE,
         description = Translation.NO_TRACK_DESCRIPTION,
-        color = Color.RED,
+        color = Color.decode("#2F3136"),
         volume = null
     ).also {
         val channel = musicChannelService.getTextChannel()
@@ -39,19 +39,22 @@ class StaticMessageService {
         title: String?,
         description: String?,
         color: Color?,
-        volume: Int?
+        volume: Int?,
+        audioTrack: AudioTrack? = null
     ): MessageEmbed {
         val queue = musicService.getQueue()
         val trackQueue = mutableListOf<String>()
 
-        queue.forEach { trackQueue.add(it.info.title ?: Translation.UNKNOWN_TITLE) }
+        queue.forEach {
+            trackQueue.add(it.info.title ?: Translation.UNKNOWN_TITLE)
+        }
 
         return EmbedBuilder().apply {
             title?.let {
                 if (title.isBlank()) {
-                    this.setTitle(Translation.UNKNOWN_TITLE)
+                    this.setAuthor(Translation.UNKNOWN_TITLE, audioTrack?.info?.uri)
                 } else {
-                    this.setTitle(title)
+                    this.setAuthor(title, audioTrack?.info?.uri)
                 }
             }
 
@@ -69,6 +72,15 @@ class StaticMessageService {
 
             volume?.let {
                 this.addField(Translation.VOLUME, "$volume%", true)
+            }
+
+            audioTrack?.info?.let {
+                this.setThumbnail("https://www.google.com/s2/favicons?sz=24&domain_url=${it.uri}")
+
+                if (audioTrack.info.uri.startsWith("https://www.youtube.com/")) {
+                    this.addField(Translation.CHANNEL, audioTrack.info.author, true)
+                    this.setImage("https://img.youtube.com/vi/${audioTrack.info.identifier}/mqdefault.jpg")
+                }
             }
 
             queue.isEmpty().ifFalse {

@@ -38,6 +38,7 @@ class ReactionService {
     }
 
     fun execute(emote: String, member: Member) {
+        println("execute emote $emote")
         reactions.findLast { it.emote == emote }?.run {
             val method = clazz.getMethod(ReactionHandler::execute.name, Member::class.java)
             val instance = clazz.getDeclaredConstructor().newInstance()

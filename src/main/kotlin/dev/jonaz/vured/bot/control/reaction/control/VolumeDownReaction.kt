@@ -9,7 +9,7 @@ import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 
-@Reaction(5, "U+2796", ControlMessageCase.STATIC)
+@Reaction(1, "U+1f508", ControlMessageCase.STATIC)
 class VolumeDownReaction : ReactionHandler {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val musicService by genericInject<MusicService>()
@@ -33,8 +33,9 @@ class VolumeDownReaction : ReactionHandler {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title,
             description = audioPlayer.playingTrack.info.author,
-            color = Color.GREEN,
-            volume = newVolume
+            color = Color.decode("#2F3136"),
+            volume = newVolume,
+            audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
     }
 }

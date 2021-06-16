@@ -59,8 +59,9 @@ class MusicService {
         staticMessageService.build(
             title = playingTrack.info.title,
             description = playingTrack.info.author,
-            color = Color.GREEN,
-            volume = volume
+            color = Color.decode("#2F3136"),
+            volume = volume,
+            audioTrack = playingTrack
         ).also { staticMessageService.set(it) }
     }
 

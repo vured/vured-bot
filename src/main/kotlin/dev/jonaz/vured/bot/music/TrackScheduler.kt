@@ -42,8 +42,9 @@ object TrackScheduler : AudioEventAdapter() {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title,
             description = audioPlayer.playingTrack.info.author,
-            Color.ORANGE,
-            audioPlayer.volume
+            color = Color.ORANGE,
+            volume = audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
     }
 
@@ -51,8 +52,9 @@ object TrackScheduler : AudioEventAdapter() {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title,
             description = audioPlayer.playingTrack.info.author,
-            Color.GREEN,
-            audioPlayer.volume
+            color = Color.decode("#2F3136"),
+            volume = audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
     }
 
@@ -60,8 +62,9 @@ object TrackScheduler : AudioEventAdapter() {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title,
             description = audioPlayer.playingTrack.info.author,
-            Color.GREEN,
-            audioPlayer.volume
+            color = Color.decode("#2F3136"),
+            volume = audioPlayer.volume,
+            audioTrack = track
         ).also { staticMessageService.set(it) }
     }
 

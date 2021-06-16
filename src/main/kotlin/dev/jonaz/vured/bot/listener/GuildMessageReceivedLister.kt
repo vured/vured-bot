@@ -10,6 +10,7 @@ import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.awt.Color
+import java.util.concurrent.TimeUnit
 
 class GuildMessageReceivedLister : ListenerAdapter() {
     private val musicService by genericInject<MusicService>()
@@ -40,7 +41,7 @@ class GuildMessageReceivedLister : ListenerAdapter() {
             return event.message.delete().queue()
         }
 
-        event.message.delete().queue()
+        event.message.delete().delay(1500, TimeUnit.MILLISECONDS).queue()
 
         musicService.loadItem(event.member, event.message.contentDisplay)
         musicService.setResume()

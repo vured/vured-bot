@@ -16,6 +16,7 @@ object Translation {
 
     const val VOLUME = "Volume"
     const val QUEUE = "Queue"
+    const val CHANNEL = "Channel"
 
     const val NO_PERMISSIONS = "You do not have permission to do this."
     const val NO_VOICE_CHANNEL = "Please go to a voice channel first."

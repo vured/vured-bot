@@ -76,8 +76,9 @@ class PlaylistService {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title ?: Translation.NO_TRACK_TITLE,
             description = null,
-            color = Color.GREEN,
-            volume = audioPlayer.volume
+            color = Color.decode("#2F3136"),
+            volume = audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
     }
 
