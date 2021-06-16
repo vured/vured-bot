@@ -3,13 +3,7 @@ package dev.jonaz.vured.bot.application
 object Translation {
     /** User Messages **/
     const val NO_TRACK_TITLE = "Nothing is currently playing."
-    const val NO_TRACK_DESCRIPTION =
-        "Send a YouTube, SoundCloud, Bandcamp, Vimeo, Twitch Link or a direct URL to this channel to start music.\n" +
-                "\n" +
-                "You can also use the following commands to search:\n" +
-                "\n" +
-                "yscsearch: <search term>\n" +
-                "scsearch: <search term>"
+    const val NO_TRACK_DESCRIPTION = "Send a link in this channel to start."
 
     const val UNKNOWN_TITLE = "Unknown title"
     const val UNKNOWN_DESCRIPTION = "Unknown description"
@@ -67,9 +61,9 @@ object Translation {
     const val LOG_TRACK_LOADED_TITLE = "Song loaded"
     const val LOG_TRACK_LOADED_DESCRIPTION = "%v loaded a song."
 
-    const val LOG_VOICECHANNEL_LEFT = "Left automatically"
+    const val LOG_VOICE_CHANNEL_LEFT = "Left automatically"
 
-    const val LOG_VOICECHANNEL_EMPTY_DESCRIPTION = "The bot left the voice channel as no one was inside."
+    const val LOG_VOICE_CHANNEL_EMPTY_DESCRIPTION = "The bot left the voice channel as no one was inside."
     const val LOG_PLAYLIST_ENDED = "The bot left the voice channel as the playlist ended."
 
     const val LOG_TRACK_EXCEPTION = "An error occurred while playing the current song."

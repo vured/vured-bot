@@ -25,7 +25,7 @@ object TrackScheduler : AudioEventAdapter() {
         if (queue.size <= 0 && endReason.name != "REPLACED") {
             voiceChannelService.leave()
             logService.sendLog(
-                title = Translation.LOG_VOICECHANNEL_LEFT,
+                title = Translation.LOG_VOICE_CHANNEL_LEFT,
                 description = Translation.LOG_PLAYLIST_ENDED,
                 member = null,
                 color = Color.ORANGE
@@ -71,7 +71,7 @@ object TrackScheduler : AudioEventAdapter() {
     override fun onTrackException(player: AudioPlayer, track: AudioTrack, exception: FriendlyException?) {
         voiceChannelService.leave()
         logService.sendLog(
-            title = Translation.LOG_VOICECHANNEL_LEFT,
+            title = Translation.LOG_VOICE_CHANNEL_LEFT,
             description = Translation.LOG_TRACK_EXCEPTION,
             member = null,
             color = Color.RED
@@ -81,7 +81,7 @@ object TrackScheduler : AudioEventAdapter() {
     override fun onTrackStuck(player: AudioPlayer, track: AudioTrack, thresholdMs: Long) {
         voiceChannelService.leave()
         logService.sendLog(
-            title = Translation.LOG_VOICECHANNEL_LEFT,
+            title = Translation.LOG_VOICE_CHANNEL_LEFT,
             description = Translation.LOG_TRACK_STUCK,
             member = null,
             color = Color.RED
