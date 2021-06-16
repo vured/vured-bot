@@ -4,9 +4,16 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vured/vured-bot)
 
-Updated description coming soon
+Vured is a self-hosted music bot for your discord server. 
+Say goodbye to commands and hello to enjoyable ui control thanks to a static message in your music text channel.
+Just send a link or search on YouTube.
 
-![example-gif](https://i.imgur.com/pEhxoqc.gif)
+![example-gif](https://i.imgur.com/uW0sJik.gif)
+
+#### Want to import a playlist?
+Just send the link to a playlist or import YouTube search results in no time.
+
+![example-playlist-import](https://i.imgur.com/YVnwEOH.png)
 
 ### 🚢 Instant deploy with Docker
 
