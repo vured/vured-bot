@@ -1,19 +1,21 @@
 package dev.jonaz.vured.bot.service.discord
 
-import dev.jonaz.vured.bot.reaction.ReactionMessageCase
-import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.application.Translation
+import dev.jonaz.vured.bot.control.ControlMessageCase
+import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.util.extensions.genericInject
 import dev.jonaz.vured.util.extensions.ifFalse
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
+import net.dv8tion.jda.api.interactions.components.Button
 import java.awt.Color
 
 class StaticMessageService {
     private val musicChannelService by genericInject<MusicChannelService>()
     private val reactionService by genericInject<ReactionService>()
     private val musicService by genericInject<MusicService>()
+    private val buttonService by genericInject<ButtonService>()
 
     private lateinit var message: Message
 
@@ -28,6 +30,7 @@ class StaticMessageService {
         musicChannelService.clearMessages()
         channel?.sendMessage(it)?.queue { message ->
             this.message = message
+            setButtons()
             setReactions()
         }
     }
@@ -83,8 +86,14 @@ class StaticMessageService {
     }.getOrNull()
 
     private fun setReactions() {
-        reactionService.getReactions(ReactionMessageCase.STATIC).run {
+        reactionService.getReactions(ControlMessageCase.STATIC).run {
             this.forEach { reactionService.addReaction(message, it.emote) }
+        }
+    }
+
+    private fun setButtons() {
+        buttonService.getButtons(ControlMessageCase.STATIC).run {
+            buttonService.addButtons(message, this)
         }
     }
 }

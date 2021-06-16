@@ -1,7 +1,7 @@
 package dev.jonaz.vured.bot.service.music
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import dev.jonaz.vured.bot.reaction.ReactionMessageCase
+import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.discord.MusicChannelService
 import dev.jonaz.vured.bot.service.discord.ReactionService
@@ -104,7 +104,7 @@ class PlaylistService {
     }
 
     private fun createMessageReactions(message: Message) {
-        reactionService.getReactions(ReactionMessageCase.PLAYLIST).run {
+        reactionService.getReactions(ControlMessageCase.PLAYLIST).run {
             this.forEach { reactionService.addReaction(message, it.emote) }
         }
     }

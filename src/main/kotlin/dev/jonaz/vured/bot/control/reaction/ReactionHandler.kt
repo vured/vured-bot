@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.reaction
+package dev.jonaz.vured.bot.control.reaction
 
 import net.dv8tion.jda.api.entities.Member
 

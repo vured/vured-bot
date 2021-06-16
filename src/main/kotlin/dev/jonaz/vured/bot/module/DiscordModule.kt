@@ -11,4 +11,5 @@ val discordModule = module {
     single { ReactionService() }
     single { StaticMessageService() }
     single { VoiceChannelService() }
+    single { ButtonService() }
 }

@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.service.discord
 
+import dev.jonaz.vured.bot.listener.ButtonClickListener
 import dev.jonaz.vured.bot.listener.GuildMessageReceivedLister
 import dev.jonaz.vured.bot.listener.GuildVoiceUpdateListener
 import dev.jonaz.vured.bot.listener.MessageReactionListener
@@ -26,7 +27,8 @@ class DiscordClientService {
             .addEventListeners(
                 GuildMessageReceivedLister(),
                 GuildVoiceUpdateListener(),
-                MessageReactionListener()
+                MessageReactionListener(),
+                ButtonClickListener()
             )
             .build()
             .awaitReady()
