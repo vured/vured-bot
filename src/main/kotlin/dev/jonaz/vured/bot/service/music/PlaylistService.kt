@@ -7,6 +7,7 @@ import dev.jonaz.vured.bot.service.discord.MusicChannelService
 import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.application.Translation
+import dev.jonaz.vured.bot.service.discord.ButtonService
 import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
@@ -18,9 +19,9 @@ import java.awt.Color
 class PlaylistService {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val musicChannelService by genericInject<MusicChannelService>()
-    private val reactionService by genericInject<ReactionService>()
     private val musicService by genericInject<MusicService>()
     private val logService by genericInject<LogService>()
+    private val buttonService by genericInject<ButtonService>()
 
     private var questionMessage: Message? = null
     private var questionJob: Deferred<Unit>? = null
@@ -104,8 +105,8 @@ class PlaylistService {
     }
 
     private fun createMessageReactions(message: Message) {
-        reactionService.getReactions(ControlMessageCase.PLAYLIST).run {
-            this.forEach { reactionService.addReaction(message, it.emote) }
+        buttonService.getButtons(ControlMessageCase.PLAYLIST).run {
+            buttonService.addButtons(message, this)
         }
     }
 }
