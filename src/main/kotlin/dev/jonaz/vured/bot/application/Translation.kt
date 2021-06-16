@@ -17,16 +17,18 @@ object Translation {
     const val VOLUME = "Volume"
     const val QUEUE = "Queue"
 
-    const val NO_VOICECHANNEL = "Please go to a voice channel first."
+    const val NO_PERMISSIONS = "You do not have permission to do this."
+    const val NO_VOICE_CHANNEL = "Please go to a voice channel first."
+    const val NOT_SAME_VOICE_CHANNEL = "You have to be in the same voice channel to to this."
 
     const val PLAYLIST_IMPORT_QUESTION = "Add a playlist?"
     const val PLAYLIST_IMPORT_DESCRIPTION =
         "Currently only one song from the playlist is played. Would you like to add the entire playlist (%v songs) to the queue?"
+    const val PLAYLIST_IMPORT_BUTTON_CONFIRM = "Yep, import it"
+    const val PLAYLIST_IMPORT_BUTTON_CANCEL = "Nah, cancel it"
 
     const val NO_MATCHES = "No song was found."
     const val LOAD_FAILED = "Error at loading."
-    const val TRACK_ADDED = "Song added."
-
 
     /** Logging Messages **/
     const val LOG_DATE = "Time: %v"

@@ -29,7 +29,7 @@ class VoiceChannelService {
         member.voiceState?.inVoiceChannel()?.ifNotTrue {
             musicChannelService.sendMessage(
                 color = Color.BLUE,
-                text = Translation.NO_VOICECHANNEL,
+                text = Translation.NO_VOICE_CHANNEL,
                 timeout = 5000
             )
             return null

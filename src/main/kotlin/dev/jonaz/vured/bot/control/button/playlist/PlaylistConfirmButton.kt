@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.control.button.playlist
 
+import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
@@ -13,7 +14,7 @@ import net.dv8tion.jda.api.interactions.components.ButtonStyle
     identifier = "playlist-confirm",
     style = ButtonStyle.SUCCESS,
     messageCase = ControlMessageCase.PLAYLIST,
-    content = "Yep, import it"
+    content = Translation.PLAYLIST_IMPORT_BUTTON_CONFIRM
 )
 class PlaylistConfirmButton : ButtonHandler {
     private val playlistService by genericInject<PlaylistService>()

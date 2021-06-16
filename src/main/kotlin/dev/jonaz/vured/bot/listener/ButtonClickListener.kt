@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.listener
 
+import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.discord.ButtonService
 import dev.jonaz.vured.bot.service.discord.MemberService
@@ -19,14 +20,14 @@ class ButtonClickListener : ListenerAdapter() {
         }
 
         if (memberService.isPermitted(event.member).not()) {
-            event.reply("You are not permitted to do this")
+            event.reply(Translation.NO_PERMISSIONS)
                 .setEphemeral(true)
                 .complete()
             return
         }
 
         if (memberService.isInChannel(event.member).not()) {
-            event.reply("You are not permitted to do this")
+            event.reply(Translation.NOT_SAME_VOICE_CHANNEL)
                 .setEphemeral(true)
                 .queue()
             return
