@@ -34,8 +34,8 @@ class GuildVoiceUpdateListener : ListenerAdapter() {
             if (it <= 1) {
                 voiceChannelService.leave()
                 logService.sendLog(
-                    title = Translation.LOG_VOICECHANNEL_LEFT,
-                    description = Translation.LOG_VOICECHANNEL_EMPTY_DESCRIPTION,
+                    title = Translation.LOG_VOICE_CHANNEL_LEFT,
+                    description = Translation.LOG_VOICE_CHANNEL_EMPTY_DESCRIPTION,
                     member = null,
                     color = Color.RED
                 )

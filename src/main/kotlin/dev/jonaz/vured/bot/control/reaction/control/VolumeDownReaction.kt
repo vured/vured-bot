@@ -1,15 +1,15 @@
-package dev.jonaz.vured.bot.reaction.control
+package dev.jonaz.vured.bot.control.reaction.control
 
-import dev.jonaz.vured.bot.reaction.Reaction
-import dev.jonaz.vured.bot.reaction.ReactionHandler
-import dev.jonaz.vured.bot.reaction.ReactionMessageCase
+import dev.jonaz.vured.bot.control.reaction.Reaction
+import dev.jonaz.vured.bot.control.reaction.ReactionHandler
+import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 
-@Reaction(5, "U+2796", ReactionMessageCase.STATIC)
+@Reaction(1, "U+1f508", ControlMessageCase.STATIC)
 class VolumeDownReaction : ReactionHandler {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val musicService by genericInject<MusicService>()
@@ -17,10 +17,6 @@ class VolumeDownReaction : ReactionHandler {
     override fun execute(member: Member) {
         val volume = musicService.getVolume()
         val audioPlayer = musicService.getAudioPlayer()
-
-        if(audioPlayer.isPaused) {
-            return
-        }
 
         val newVolume = if (volume > 5) {
             volume - 5
@@ -33,8 +29,9 @@ class VolumeDownReaction : ReactionHandler {
         staticMessageService.build(
             title = audioPlayer.playingTrack.info.title,
             description = audioPlayer.playingTrack.info.author,
-            color = Color.GREEN,
-            volume = newVolume
+            color = Color.decode("#2F3136"),
+            volume = newVolume,
+            audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
     }
 }

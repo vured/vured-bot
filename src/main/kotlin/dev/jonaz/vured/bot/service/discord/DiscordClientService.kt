@@ -1,8 +1,6 @@
 package dev.jonaz.vured.bot.service.discord
 
-import dev.jonaz.vured.bot.listener.GuildMessageReceivedLister
-import dev.jonaz.vured.bot.listener.GuildVoiceUpdateListener
-import dev.jonaz.vured.bot.listener.MessageReactionListener
+import dev.jonaz.vured.bot.listener.*
 import dev.jonaz.vured.bot.service.application.ConfigService
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -26,7 +24,9 @@ class DiscordClientService {
             .addEventListeners(
                 GuildMessageReceivedLister(),
                 GuildVoiceUpdateListener(),
-                MessageReactionListener()
+                MessageReactionListener(),
+                ButtonClickListener(),
+                SlashCommandListener()
             )
             .build()
             .awaitReady()

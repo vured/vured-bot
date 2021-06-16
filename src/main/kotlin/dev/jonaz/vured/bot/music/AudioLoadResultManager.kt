@@ -4,15 +4,15 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.application.ConfigService
+import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.discord.MusicChannelService
+import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
-import dev.jonaz.vured.bot.service.discord.VoiceChannelService
-import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.util.extensions.genericInject
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
 
@@ -23,6 +23,7 @@ class AudioLoadResultManager(
     private val musicChannelService by genericInject<MusicChannelService>()
     private val playlistService by genericInject<PlaylistService>()
     private val musicService by genericInject<MusicService>()
+    private val logService by genericInject<LogService>()
     private val config by ConfigService
 
     override fun trackLoaded(track: AudioTrack) {
@@ -45,7 +46,7 @@ class AudioLoadResultManager(
             }?.run {
                 musicService.queue(playlist.selectedTrack ?: playlist.tracks[0])
 
-                GlobalScope.launch {
+                runBlocking {
                     playlistService.askToAdd(member, newTracks)
                 }
             }
@@ -57,5 +58,14 @@ class AudioLoadResultManager(
 
     override fun loadFailed(exception: FriendlyException) {
         musicChannelService.sendMessage(Color.RED, Translation.LOAD_FAILED, 3000)
+
+        runCatching {
+            this.logService.sendLog(
+                title = Translation.LOAD_FAILED,
+                description = exception.localizedMessage,
+                member = null,
+                color = Color.RED
+            )
+        }
     }
 }

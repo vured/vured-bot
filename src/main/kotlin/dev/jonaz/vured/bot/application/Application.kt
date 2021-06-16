@@ -4,10 +4,8 @@ import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.application.SentryService
 import dev.jonaz.vured.bot.service.application.WebService
-import dev.jonaz.vured.bot.service.discord.DiscordClientService
+import dev.jonaz.vured.bot.service.discord.*
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.bot.service.discord.ReactionService
-import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
@@ -22,6 +20,8 @@ class Application(koinApplication: KoinApplication) {
     private val sentryService by genericInject<SentryService>()
     private val discordClientService by genericInject<DiscordClientService>()
     private val webService by genericInject<WebService>()
+    private val buttonService by genericInject<ButtonService>()
+    private val slashCommandService by genericInject<SlashCommandService>()
 
     companion object {
         lateinit var koin: KoinApplication
@@ -38,7 +38,9 @@ class Application(koinApplication: KoinApplication) {
         discordClientService.start()
         sentryService.init()
         musicService.createAudioPlayer()
+        buttonService.initButtons()
         reactionService.initReactions()
+        slashCommandService.initCommands()
         staticMessageService.createBaseMessage()
         webService.startServer()
         logService.sendStartupMessage()

@@ -29,7 +29,7 @@ class VoiceChannelService {
         member.voiceState?.inVoiceChannel()?.ifNotTrue {
             musicChannelService.sendMessage(
                 color = Color.BLUE,
-                text = Translation.NO_VOICECHANNEL,
+                text = Translation.NO_VOICE_CHANNEL,
                 timeout = 5000
             )
             return null
@@ -52,7 +52,7 @@ class VoiceChannelService {
         staticMessageService.build(
             title = Translation.NO_TRACK_TITLE,
             description = Translation.NO_TRACK_DESCRIPTION,
-            color = Color.RED,
+            color = Color.decode("#2F3136"),
             volume = null
         ).also { staticMessageService.set(it) }
     }

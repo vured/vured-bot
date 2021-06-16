@@ -1,0 +1,17 @@
+name: Deploy to Fly
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy proxy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: superfly/flyctl-actions@master
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        with:
+          args: "deploy"

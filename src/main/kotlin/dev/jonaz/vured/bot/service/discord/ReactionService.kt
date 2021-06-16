@@ -1,9 +1,9 @@
 package dev.jonaz.vured.bot.service.discord
 
-import dev.jonaz.vured.bot.reaction.Reaction
-import dev.jonaz.vured.bot.reaction.ReactionHandler
-import dev.jonaz.vured.bot.reaction.ReactionMessageCase
-import dev.jonaz.vured.bot.reaction.ReactionModel
+import dev.jonaz.vured.bot.control.reaction.Reaction
+import dev.jonaz.vured.bot.control.reaction.ReactionHandler
+import dev.jonaz.vured.bot.control.ControlMessageCase
+import dev.jonaz.vured.bot.control.reaction.ReactionModel
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
 import org.atteo.classindex.ClassIndex
@@ -12,17 +12,13 @@ import kotlin.system.exitProcess
 class ReactionService {
     private val reactions = mutableListOf<ReactionModel>()
 
-    fun getReactions(messageCase: ReactionMessageCase): List<ReactionModel> {
+    fun getReactions(messageCase: ControlMessageCase): List<ReactionModel> {
         return reactions.filter { it.messageCase == messageCase }
-    }
-
-    fun getReactions(): MutableList<ReactionModel> {
-        return reactions
     }
 
     fun addReaction(message: Message, emote: String) = runCatching {
         message.addReaction(emote).queue()
-    }.getOrElse { exitProcess(0) }
+    }.getOrElse { exitProcess(1) }
 
     fun initReactions() {
         val annotation = Reaction::class.java
