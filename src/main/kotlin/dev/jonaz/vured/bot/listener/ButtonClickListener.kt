@@ -15,6 +15,8 @@ class ButtonClickListener : ListenerAdapter() {
     private val config by ConfigService
 
     override fun onButtonClick(event: ButtonClickEvent) {
+        event.deferReply()
+
         if (event.channel.idLong != config.discord.musicChannel) {
             return
         }
