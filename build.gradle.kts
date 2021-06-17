@@ -47,8 +47,12 @@ dependencies {
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
     implementation("com.sksamuel.hoplite", "hoplite-hocon", Versions.HOPLITE)
+
+    /** Ktor **/
     implementation("io.ktor", "ktor-server-core", Versions.KTOR)
     implementation("io.ktor", "ktor-server-netty", Versions.KTOR)
+    implementation("io.ktor", "ktor-auth", Versions.KTOR)
+    implementation("io.ktor", "ktor-auth-jwt", Versions.KTOR)
 }
 
 tasks {

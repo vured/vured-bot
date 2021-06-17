@@ -3,9 +3,9 @@ package dev.jonaz.vured.bot.application
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.application.SentryService
-import dev.jonaz.vured.bot.service.application.WebService
 import dev.jonaz.vured.bot.service.discord.*
 import dev.jonaz.vured.bot.service.music.MusicService
+import dev.jonaz.vured.bot.service.web.WebService
 import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
@@ -42,7 +42,7 @@ class Application(koinApplication: KoinApplication) {
         reactionService.initReactions()
         slashCommandService.initCommands()
         staticMessageService.createBaseMessage()
-        webService.startServer()
         logService.sendStartupMessage()
+        webService.startServer()
     }
 }
