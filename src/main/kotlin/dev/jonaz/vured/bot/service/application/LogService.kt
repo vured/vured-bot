@@ -57,7 +57,7 @@ class LogService {
         )
     }
 
-    private fun getImplementationVersion(): String? {
+    fun getImplementationVersion(): String? {
         return this::class.java.`package`.implementationVersion
     }
 
