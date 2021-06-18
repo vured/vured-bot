@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.model.config
+package dev.jonaz.vured.bot.persistence.config
 
 import dev.jonaz.vured.util.environment.Environment
 

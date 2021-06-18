@@ -2,7 +2,7 @@ package dev.jonaz.vured.bot.service.web
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import dev.jonaz.vured.bot.web.authentication.UserPrincipal
+import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import java.util.*
 
 class JwtService {

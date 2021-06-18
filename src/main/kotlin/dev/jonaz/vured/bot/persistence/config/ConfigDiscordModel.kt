@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.model.config
+package dev.jonaz.vured.bot.persistence.config
 
 data class ConfigDiscordModel(
     val guild: Long,

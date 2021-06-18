@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.web.authentication
+package dev.jonaz.vured.bot.persistence.web
 
 import io.ktor.auth.*
 
