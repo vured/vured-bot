@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.web.configuration
 
+import com.fasterxml.jackson.databind.node.TextNode
 import dev.jonaz.vured.bot.service.web.JwtService
 import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import dev.jonaz.vured.util.extensions.genericInject
@@ -15,7 +16,8 @@ fun configureAuthentication(configure: Authentication.Configuration) {
         validate {
             UserPrincipal(
                 it.payload.getClaim("discord").asLong(),
-                it.payload.getClaim("name").asString()
+                it.payload.getClaim("name").asString(),
+                it.payload.getClaim("avatar").`as`(TextNode::class.java).asText()
             )
         }
     }

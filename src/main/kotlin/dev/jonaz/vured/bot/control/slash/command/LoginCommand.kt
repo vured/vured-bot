@@ -3,9 +3,9 @@ package dev.jonaz.vured.bot.control.slash.command
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.slash.CommandHandler
 import dev.jonaz.vured.bot.control.slash.SlashCommand
+import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import dev.jonaz.vured.bot.service.discord.MemberService
 import dev.jonaz.vured.bot.service.web.JwtService
-import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
@@ -31,15 +31,16 @@ class LoginCommand : CommandHandler {
         }
 
         val token = UserPrincipal(
-            discord = event.member?.idLong ?: return,
-            name = event.member?.effectiveName ?: return
+            discord = event.user.idLong,
+            name = event.user.name,
+            avatar = event.user.effectiveAvatarUrl
         ).run { jwtService.createToken(this) }
 
         val message = EmbedBuilder().apply {
             this.setColor(Color.GREEN)
 
             this.setTitle("Login created")
-            this.setDescription("Go to https://xxx.tld and enter the token.")
+            this.setDescription("Go to https://vured-ui.jonaz.dev/ and enter the token after connecting.")
 
             this.addField("Token", "||$token||", false)
         }.run { this.build() }

@@ -1,6 +1,7 @@
 package dev.jonaz.vured.bot.service.web
 
 import com.auth0.jwt.JWT
+import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import java.util.*
@@ -19,6 +20,7 @@ class JwtService {
         .withIssuer("vured")
         .withClaim("discord", user.discord)
         .withClaim("name", user.name)
+        .withClaim("avatar", user.avatar)
         .withExpiresAt(
             Date(System.currentTimeMillis() + validity)
         )
@@ -26,7 +28,7 @@ class JwtService {
             Algorithm.HMAC512(secret)
         )
 
-    fun getVerifier() = JWT
+    fun getVerifier(): JWTVerifier = JWT
         .require(
             Algorithm.HMAC512(secret)
         )
