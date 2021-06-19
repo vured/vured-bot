@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.web
+package dev.jonaz.vured.bot.web.configuration
 
 import dev.jonaz.vured.bot.service.web.JwtService
 import dev.jonaz.vured.bot.persistence.web.UserPrincipal
