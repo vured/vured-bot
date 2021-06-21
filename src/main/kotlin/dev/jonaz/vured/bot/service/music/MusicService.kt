@@ -4,8 +4,8 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import dev.jonaz.vured.bot.music.AudioPlayerSendHandler
 import dev.jonaz.vured.bot.music.AudioLoadResultManager
+import dev.jonaz.vured.bot.music.AudioPlayerSendHandler
 import dev.jonaz.vured.bot.music.TrackScheduler
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
@@ -72,7 +72,19 @@ class MusicService {
     }
 
     fun setVolume(value: Int) {
+        val playingTrack = getAudioPlayer().playingTrack
+
         audioPlayer.volume = value
+
+        playingTrack?.let {
+            staticMessageService.build(
+                title = playingTrack.info.title,
+                description = playingTrack.info.author,
+                color = Color.decode("#2F3136"),
+                volume = value,
+                audioTrack = playingTrack
+            ).also { staticMessageService.set(it) }
+        }
     }
 
     fun getVolume(): Int {

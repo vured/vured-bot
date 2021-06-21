@@ -27,15 +27,6 @@ class VolumeDownReaction : ReactionHandler {
         }
 
         musicService.setVolume(newVolume)
-
-        staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title,
-            description = audioPlayer.playingTrack.info.author,
-            color = Color.decode("#2F3136"),
-            volume = newVolume,
-            audioTrack = audioPlayer.playingTrack
-        ).also { staticMessageService.set(it) }
-
         playerService.sendEvent(audioPlayer)
     }
 }

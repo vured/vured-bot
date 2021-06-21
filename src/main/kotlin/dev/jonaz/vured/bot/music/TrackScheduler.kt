@@ -44,8 +44,8 @@ object TrackScheduler : AudioEventAdapter() {
 
     override fun onPlayerPause(audioPlayer: AudioPlayer) {
         staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title,
-            description = audioPlayer.playingTrack.info.author,
+            title = audioPlayer.playingTrack?.info?.title,
+            description = audioPlayer.playingTrack?.info?.author,
             color = Color.ORANGE,
             volume = audioPlayer.volume,
             audioTrack = audioPlayer.playingTrack
@@ -56,8 +56,8 @@ object TrackScheduler : AudioEventAdapter() {
 
     override fun onPlayerResume(audioPlayer: AudioPlayer) {
         staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title,
-            description = audioPlayer.playingTrack.info.author,
+            title = audioPlayer.playingTrack?.info?.title,
+            description = audioPlayer.playingTrack?.info?.author,
             color = Color.decode("#2F3136"),
             volume = audioPlayer.volume,
             audioTrack = audioPlayer.playingTrack
@@ -68,8 +68,8 @@ object TrackScheduler : AudioEventAdapter() {
 
     override fun onTrackStart(audioPlayer: AudioPlayer, track: AudioTrack) {
         staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title,
-            description = audioPlayer.playingTrack.info.author,
+            title = audioPlayer.playingTrack?.info?.title,
+            description = audioPlayer.playingTrack?.info?.author,
             color = Color.decode("#2F3136"),
             volume = audioPlayer.volume,
             audioTrack = track

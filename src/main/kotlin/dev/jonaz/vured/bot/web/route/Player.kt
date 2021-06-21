@@ -1,35 +1,26 @@
 package dev.jonaz.vured.bot.web.route
 
-import com.auth0.jwt.exceptions.JWTVerificationException
-import dev.jonaz.vured.bot.service.web.JwtService
-import dev.jonaz.vured.bot.service.web.PlayerService
+import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.util.extensions.genericInject
+import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.websocket.*
-import kotlinx.coroutines.flow.collect
+import kotlinx.serialization.Serializable
 
 fun Route.player() {
-    val jwtService by genericInject<JwtService>()
-    val playerService by genericInject<PlayerService>()
+    val musicService by genericInject<MusicService>()
 
-    webSocket("/player/{token}") {
-        val token = call.parameters["token"]
-        val verifier = jwtService.getVerifier()
-
-        try {
-            verifier.verify(token)
-        } catch (_: JWTVerificationException) {
-            call.respond(HttpStatusCode.Unauthorized)
-        }
-
-        playerService.getEvent().let {
-            playerService.convertEventToFrame(it).run { outgoing.send(this) }
-        }
-
-        playerService.events.collect {
-            playerService.convertEventToFrame(it).run { outgoing.send(this) }
-        }
+    patch("/player/volume") {
+       call.receive<PlayerVolumeChangeDto>()
+           .runCatching { musicService.setVolume(newVolume)  }
+           .onFailure { call.respond(HttpStatusCode.BadRequest) }
+           .onSuccess { call.respond(HttpStatusCode.OK) }
     }
 }
+
+@Serializable
+data class PlayerVolumeChangeDto(
+    val newVolume: Int
+)
