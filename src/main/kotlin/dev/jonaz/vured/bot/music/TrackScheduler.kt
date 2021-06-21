@@ -10,6 +10,7 @@ import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.application.Translation
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import java.awt.Color
 
@@ -18,6 +19,7 @@ object TrackScheduler : AudioEventAdapter() {
     private val voiceChannelService by genericInject<VoiceChannelService>()
     private val staticMessageService by genericInject<StaticMessageService>()
     private val logService by genericInject<LogService>()
+    private val playerService by genericInject<PlayerService>()
 
     override fun onTrackEnd(audioPlayer: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
         val queue = musicService.getQueue()
@@ -36,6 +38,8 @@ object TrackScheduler : AudioEventAdapter() {
         if (endReason.mayStartNext) {
             musicService.nextTrack()
         }
+
+        playerService.sendEvent(audioPlayer)
     }
 
     override fun onPlayerPause(audioPlayer: AudioPlayer) {
@@ -46,6 +50,8 @@ object TrackScheduler : AudioEventAdapter() {
             volume = audioPlayer.volume,
             audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
+
+        playerService.sendEvent(audioPlayer)
     }
 
     override fun onPlayerResume(audioPlayer: AudioPlayer) {
@@ -56,6 +62,8 @@ object TrackScheduler : AudioEventAdapter() {
             volume = audioPlayer.volume,
             audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
+
+        playerService.sendEvent(audioPlayer)
     }
 
     override fun onTrackStart(audioPlayer: AudioPlayer, track: AudioTrack) {
@@ -66,6 +74,8 @@ object TrackScheduler : AudioEventAdapter() {
             volume = audioPlayer.volume,
             audioTrack = track
         ).also { staticMessageService.set(it) }
+
+        playerService.sendEvent(audioPlayer)
     }
 
     override fun onTrackException(player: AudioPlayer, track: AudioTrack, exception: FriendlyException?) {

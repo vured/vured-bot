@@ -32,6 +32,6 @@ class YoutubeCommand : CommandHandler {
             musicService.loadItem(event.member, "ytsearch:$this")
         }
 
-        event.hook.sendMessage(Translation.COMMAND_YOUTUBE_RESPONSE).queue()
+        event.hook.sendMessage(Translation.COMMAND_YOUTUBE_RESPONSE).setEphemeral(true).queue()
     }
 }

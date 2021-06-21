@@ -5,6 +5,7 @@ import dev.jonaz.vured.bot.control.reaction.ReactionHandler
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
@@ -13,6 +14,7 @@ import java.awt.Color
 class VolumeDownReaction : ReactionHandler {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val musicService by genericInject<MusicService>()
+    private val playerService by genericInject<PlayerService>()
 
     override fun execute(member: Member) {
         val volume = musicService.getVolume()
@@ -33,5 +35,7 @@ class VolumeDownReaction : ReactionHandler {
             volume = newVolume,
             audioTrack = audioPlayer.playingTrack
         ).also { staticMessageService.set(it) }
+
+        playerService.sendEvent(audioPlayer)
     }
 }
