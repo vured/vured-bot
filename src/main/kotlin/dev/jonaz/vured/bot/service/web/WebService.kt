@@ -9,6 +9,7 @@ import io.ktor.features.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.websocket.*
 
 class WebService {
     fun startServer() = embeddedServer(
@@ -17,6 +18,7 @@ class WebService {
         host = "0.0.0.0"
     ) {
         install(DefaultHeaders)
+        install(WebSockets)
         install(CORS, ::configureCors)
         install(Authentication, ::configureAuthentication)
 

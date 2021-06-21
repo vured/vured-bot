@@ -55,6 +55,7 @@ dependencies {
     implementation("io.ktor", "ktor-auth", Versions.KTOR)
     implementation("io.ktor", "ktor-auth-jwt", Versions.KTOR)
     implementation("io.ktor", "ktor-serialization", Versions.KTOR)
+    implementation("io.ktor", "ktor-websockets", Versions.KTOR)
 }
 
 tasks {
