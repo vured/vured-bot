@@ -5,7 +5,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 
 fun Route.index() {
-    get("/") {
+    get {
         call.respondRedirect("https://github.com/vured/vured-bot/wiki", true)
     }
 }

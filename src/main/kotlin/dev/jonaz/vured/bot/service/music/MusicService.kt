@@ -9,6 +9,7 @@ import dev.jonaz.vured.bot.music.AudioLoadResultManager
 import dev.jonaz.vured.bot.music.TrackScheduler
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import dev.jonaz.vured.util.extensions.ifNotTrue
 import net.dv8tion.jda.api.entities.Member
@@ -20,6 +21,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class MusicService {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val guildService by genericInject<GuildService>()
+    private val playerService by genericInject<PlayerService>()
 
     private lateinit var playerManager: DefaultAudioPlayerManager
     private lateinit var audioPlayer: AudioPlayer

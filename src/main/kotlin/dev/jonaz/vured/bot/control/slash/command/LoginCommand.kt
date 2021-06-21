@@ -45,6 +45,6 @@ class LoginCommand : CommandHandler {
             this.addField("Token", "||$token||", false)
         }.run { this.build() }
 
-        event.hook.sendMessageEmbeds(message).queue()
+        event.hook.sendMessageEmbeds(message).setEphemeral(true).queue()
     }
 }

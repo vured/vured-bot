@@ -19,7 +19,7 @@ object TrackScheduler : AudioEventAdapter() {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val logService by genericInject<LogService>()
 
-    override fun onTrackEnd(player: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
+    override fun onTrackEnd(audioPlayer: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
         val queue = musicService.getQueue()
 
         if (queue.size <= 0 && endReason.name != "REPLACED") {

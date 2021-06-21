@@ -15,28 +15,26 @@ class ButtonClickListener : ListenerAdapter() {
     private val config by ConfigService
 
     override fun onButtonClick(event: ButtonClickEvent) {
-        event.deferReply()
+        event.deferEdit().queue()
 
         if (event.channel.idLong != config.discord.musicChannel) {
             return
         }
 
         if (memberService.isPermitted(event.member).not()) {
-            event.reply(Translation.NO_PERMISSIONS)
+            event.hook.sendMessage(Translation.NO_PERMISSIONS)
                 .setEphemeral(true)
                 .complete()
             return
         }
 
         if (memberService.isInChannel(event.member).not()) {
-            event.reply(Translation.NOT_SAME_VOICE_CHANNEL)
+            event.hook.sendMessage(Translation.NOT_SAME_VOICE_CHANNEL)
                 .setEphemeral(true)
                 .complete()
             return
         }
 
         buttonService.execute(event)
-
-        event.deferEdit().queue()
     }
 }

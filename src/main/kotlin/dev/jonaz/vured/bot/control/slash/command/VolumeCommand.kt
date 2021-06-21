@@ -52,6 +52,6 @@ class VolumeCommand : CommandHandler {
 
         }
 
-        event.hook.sendMessage(Translation.COMMAND_VOLUME_RESPONSE).queue()
+        event.hook.sendMessage(Translation.COMMAND_VOLUME_RESPONSE).setEphemeral(true).queue()
     }
 }
