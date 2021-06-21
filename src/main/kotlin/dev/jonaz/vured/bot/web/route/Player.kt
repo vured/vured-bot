@@ -13,14 +13,36 @@ fun Route.player() {
     val musicService by genericInject<MusicService>()
 
     patch("/player/volume") {
-       call.receive<PlayerVolumeChangeDto>()
-           .runCatching { musicService.setVolume(newVolume)  }
-           .onFailure { call.respond(HttpStatusCode.BadRequest) }
-           .onSuccess { call.respond(HttpStatusCode.OK) }
+        call.receive<PlayerVolumeChangeDto>()
+            .runCatching { musicService.setVolume(newVolume) }
+            .onFailure { call.respond(HttpStatusCode.BadRequest) }
+            .onSuccess { call.respond(HttpStatusCode.OK) }
+    }
+
+    patch("/player/pause") {
+        call.receive<PlayerPauseChangeDto>()
+            .runCatching {
+                if (pause) musicService.setPause()
+                else musicService.setResume()
+            }
+            .onFailure { call.respond(HttpStatusCode.BadRequest) }
+            .onSuccess { call.respond(HttpStatusCode.OK) }
+    }
+
+    get("/player/next") {
+        musicService.nextTrack()
+        musicService.setResume()
+
+        call.respond(HttpStatusCode.OK)
     }
 }
 
 @Serializable
 data class PlayerVolumeChangeDto(
     val newVolume: Int
+)
+
+@Serializable
+data class PlayerPauseChangeDto(
+    val pause: Boolean
 )
