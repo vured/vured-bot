@@ -55,16 +55,12 @@ class MusicService {
             this.ifNotTrue { offerToQueue(track) }
         }
 
-        val playingTrack = getAudioPlayer().playingTrack
-        val volume = getVolume()
+        refreshStaticMessage(audioPlayer)
+    }
 
-        staticMessageService.build(
-            title = playingTrack.info.title,
-            description = playingTrack.info.author,
-            color = Color.decode("#2F3136"),
-            volume = volume,
-            audioTrack = playingTrack
-        ).also { staticMessageService.set(it) }
+    fun removeFromQueue(identifier: String?) {
+        this.queue.removeIf { it.identifier == identifier }
+        refreshStaticMessage(audioPlayer)
     }
 
     fun getGuildAudioManager(): AudioManager? {
@@ -72,18 +68,24 @@ class MusicService {
     }
 
     fun setVolume(value: Int) {
-        val playingTrack = getAudioPlayer().playingTrack
-
         audioPlayer.volume = value
+        refreshStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
+    }
 
-        playingTrack?.let {
-            staticMessageService.build(
-                title = playingTrack.info.title,
-                description = playingTrack.info.author,
-                color = Color.decode("#2F3136"),
-                volume = value,
-                audioTrack = playingTrack
-            ).also { staticMessageService.set(it) }
+    fun refreshStaticMessage(
+        audioPlayer: AudioPlayer,
+        volume: Int? = null,
+        color: Color? = null
+    ) = audioPlayer.playingTrack?.let {
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title,
+            description = audioPlayer.playingTrack.info.author,
+            color = color,
+            volume = volume ?: audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
+        ).also {
+            staticMessageService.set(it)
+            playerService.sendEvent(audioPlayer)
         }
     }
 

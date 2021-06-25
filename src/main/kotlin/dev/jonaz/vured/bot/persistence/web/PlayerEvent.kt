@@ -11,5 +11,7 @@ data class PlayerEvent(
     val isStream: Boolean?,
     val uri: String?,
     val duration: Long?,
-    val position: Long?
+    val position: Long?,
+    val identifier: String?,
+    var queue: List<PlayerEventQueueItem>? = null
 )

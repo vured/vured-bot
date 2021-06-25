@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.web.route
 
+import dev.jonaz.vured.bot.persistence.web.PlayerEventQueueItem
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.util.extensions.genericInject
 import io.ktor.application.*
@@ -34,6 +35,13 @@ fun Route.player() {
         musicService.setResume()
 
         call.respond(HttpStatusCode.OK)
+    }
+
+    post("/player/remove") {
+        call.receive<PlayerEventQueueItem>()
+            .runCatching { musicService.removeFromQueue(identifier) }
+            .onFailure { call.respond(HttpStatusCode.BadRequest) }
+            .onSuccess { call.respond(HttpStatusCode.OK) }
     }
 }
 
