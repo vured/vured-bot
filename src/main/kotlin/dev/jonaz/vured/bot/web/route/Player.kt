@@ -2,6 +2,7 @@ package dev.jonaz.vured.bot.web.route
 
 import dev.jonaz.vured.bot.persistence.web.PlayerEventQueueItem
 import dev.jonaz.vured.bot.service.discord.GuildService
+import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.util.extensions.genericInject
 import io.ktor.application.*
@@ -14,6 +15,7 @@ import kotlinx.serialization.Serializable
 fun Route.player() {
     val musicService by genericInject<MusicService>()
     val guildService by genericInject<GuildService>()
+    val voiceChannelService by genericInject<VoiceChannelService>()
 
     patch("/player/volume") {
         call.receive<PlayerVolumeChangeDto>()
@@ -35,6 +37,12 @@ fun Route.player() {
     get("/player/next") {
         musicService.nextTrack()
         musicService.setResume()
+
+        call.respond(HttpStatusCode.OK)
+    }
+
+    get("/player/stop") {
+        voiceChannelService.leave()
 
         call.respond(HttpStatusCode.OK)
     }
