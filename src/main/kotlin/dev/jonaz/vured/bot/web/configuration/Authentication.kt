@@ -15,7 +15,7 @@ fun configureAuthentication(configure: Authentication.Configuration) {
         verifier(jwtService.getVerifier())
         validate {
             UserPrincipal(
-                it.payload.getClaim("discord").asLong(),
+                it.payload.getClaim("discord").asString(),
                 it.payload.getClaim("name").asString(),
                 it.payload.getClaim("avatar").`as`(TextNode::class.java).asText()
             )

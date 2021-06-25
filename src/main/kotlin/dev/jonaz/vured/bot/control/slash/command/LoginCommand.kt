@@ -31,7 +31,7 @@ class LoginCommand : CommandHandler {
         }
 
         val token = UserPrincipal(
-            discord = event.user.idLong,
+            discord = event.user.id,
             name = event.user.name,
             avatar = event.user.effectiveAvatarUrl
         ).run { jwtService.createToken(this) }

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserPrincipal(
-    val discord: Long,
+    val discord: String,
     val name: String,
     val avatar: String
 ): Principal
