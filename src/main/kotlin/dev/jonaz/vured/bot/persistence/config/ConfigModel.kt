@@ -5,5 +5,6 @@ import dev.jonaz.vured.util.environment.Environment
 data class ConfigModel(
     val env: Environment,
     val discord: ConfigDiscordModel,
-    val bot: ConfigBotModel
+    val bot: ConfigBotModel,
+    val port: Int
 )

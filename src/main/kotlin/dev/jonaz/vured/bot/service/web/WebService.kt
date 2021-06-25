@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.service.web
 
+import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.web.configuration.configureAuthentication
 import dev.jonaz.vured.bot.web.configuration.configureCors
 import dev.jonaz.vured.bot.web.configuration.configureRouting
@@ -12,9 +13,11 @@ import io.ktor.server.netty.*
 import io.ktor.websocket.*
 
 class WebService {
+    private val config by ConfigService
+
     fun startServer() = embeddedServer(
         factory = Netty,
-        port = 8080,
+        port = config.port,
         host = "0.0.0.0"
     ) {
         install(DefaultHeaders)
