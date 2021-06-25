@@ -1,8 +1,9 @@
 package dev.jonaz.vured.bot.service.discord
 
+import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
-import dev.jonaz.vured.bot.application.Translation
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import dev.jonaz.vured.util.extensions.ifNotTrue
 import dev.jonaz.vured.util.extensions.ifTrue
@@ -17,6 +18,7 @@ class VoiceChannelService {
     private val playlistService by genericInject<PlaylistService>()
     private val guildService by genericInject<GuildService>()
     private val musicService by genericInject<MusicService>()
+    private val playerService by genericInject<PlayerService>()
 
     fun join(member: Member): AudioManager? {
         val selfMember = guildService.getSelfMember()
@@ -55,6 +57,10 @@ class VoiceChannelService {
             color = Color.decode("#2F3136"),
             volume = null
         ).also { staticMessageService.set(it) }
+
+        musicService.getAudioPlayer().run {
+            playerService.sendEvent(this)
+        }
     }
 
     private fun join(channel: VoiceChannel?): AudioManager? {
