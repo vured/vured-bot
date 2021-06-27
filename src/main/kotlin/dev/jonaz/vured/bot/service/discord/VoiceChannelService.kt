@@ -58,7 +58,7 @@ class VoiceChannelService {
             volume = null
         ).also { staticMessageService.set(it) }
 
-        musicService.getAudioPlayer().run {
+        musicService.getAudioPlayer().runCatching {
             playerService.sendEvent(this)
         }
     }

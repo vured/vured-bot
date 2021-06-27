@@ -5,11 +5,11 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
+import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.application.LogService
-import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
-import dev.jonaz.vured.bot.application.Translation
+import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import java.awt.Color
@@ -86,6 +86,10 @@ object TrackScheduler : AudioEventAdapter() {
             member = null,
             color = Color.RED
         )
+
+        exception?.message?.let {
+            playerService.sendMessageEvent(true, it)
+        }
     }
 
     override fun onTrackStuck(player: AudioPlayer, track: AudioTrack, thresholdMs: Long) {
@@ -96,5 +100,6 @@ object TrackScheduler : AudioEventAdapter() {
             member = null,
             color = Color.RED
         )
+        playerService.sendMessageEvent(true, Translation.LOG_TRACK_STUCK)
     }
 }

@@ -11,6 +11,7 @@ import dev.jonaz.vured.bot.service.discord.MusicChannelService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.entities.Member
@@ -22,6 +23,7 @@ class AudioLoadResultManager(
     private val voiceChannelService by genericInject<VoiceChannelService>()
     private val musicChannelService by genericInject<MusicChannelService>()
     private val playlistService by genericInject<PlaylistService>()
+    private val playerService by genericInject<PlayerService>()
     private val musicService by genericInject<MusicService>()
     private val logService by genericInject<LogService>()
     private val config by ConfigService
@@ -54,6 +56,7 @@ class AudioLoadResultManager(
 
     override fun noMatches() {
         musicChannelService.sendMessage(Color.RED, Translation.NO_MATCHES, 3000)
+        playerService.sendMessageEvent(false, Translation.NO_MATCHES)
     }
 
     override fun loadFailed(exception: FriendlyException) {
@@ -66,6 +69,7 @@ class AudioLoadResultManager(
                 member = null,
                 color = Color.RED
             )
+            playerService.sendMessageEvent(true, exception.localizedMessage)
         }
     }
 }
