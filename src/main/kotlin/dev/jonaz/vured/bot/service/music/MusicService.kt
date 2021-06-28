@@ -4,11 +4,12 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import dev.jonaz.vured.bot.music.AudioPlayerSendHandler
 import dev.jonaz.vured.bot.music.AudioLoadResultManager
+import dev.jonaz.vured.bot.music.AudioPlayerSendHandler
 import dev.jonaz.vured.bot.music.TrackScheduler
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
+import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.util.extensions.genericInject
 import dev.jonaz.vured.util.extensions.ifNotTrue
 import net.dv8tion.jda.api.entities.Member
@@ -20,6 +21,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class MusicService {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val guildService by genericInject<GuildService>()
+    private val playerService by genericInject<PlayerService>()
 
     private lateinit var playerManager: DefaultAudioPlayerManager
     private lateinit var audioPlayer: AudioPlayer
@@ -53,16 +55,12 @@ class MusicService {
             this.ifNotTrue { offerToQueue(track) }
         }
 
-        val playingTrack = getAudioPlayer().playingTrack
-        val volume = getVolume()
+        refreshStaticMessage(audioPlayer)
+    }
 
-        staticMessageService.build(
-            title = playingTrack.info.title,
-            description = playingTrack.info.author,
-            color = Color.decode("#2F3136"),
-            volume = volume,
-            audioTrack = playingTrack
-        ).also { staticMessageService.set(it) }
+    fun removeFromQueue(identifier: String?) {
+        this.queue.removeIf { it.identifier == identifier }
+        refreshStaticMessage(audioPlayer)
     }
 
     fun getGuildAudioManager(): AudioManager? {
@@ -71,6 +69,24 @@ class MusicService {
 
     fun setVolume(value: Int) {
         audioPlayer.volume = value
+        refreshStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
+    }
+
+    fun refreshStaticMessage(
+        audioPlayer: AudioPlayer,
+        volume: Int? = null,
+        color: Color? = null
+    ) = audioPlayer.playingTrack?.let {
+        staticMessageService.build(
+            title = audioPlayer.playingTrack.info.title,
+            description = audioPlayer.playingTrack.info.author,
+            color = color,
+            volume = volume ?: audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
+        ).also {
+            staticMessageService.set(it)
+            playerService.sendEvent(audioPlayer)
+        }
     }
 
     fun getVolume(): Int {
@@ -101,7 +117,7 @@ class MusicService {
         pollQueue()?.let { startTrack(it, false) }
     }
 
-    fun setPause() = true.also { audioPlayer.isPaused = it }
+    fun setPause() = true.let { audioPlayer.isPaused = it }
 
     fun setResume() = false.also { audioPlayer.isPaused = it }
 

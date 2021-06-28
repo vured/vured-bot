@@ -36,6 +36,10 @@ object Translation {
     const val COMMAND_YOUTUBE_OPTION_DESC = "Video name"
     const val COMMAND_YOUTUBE_RESPONSE = "Successfully searched on youtube"
 
+    const val COMMAND_LOGIN_DESC = "Creates a token for the Web UI"
+    const val COMMAND_LOGIN_RESPONSE =
+        "Go to https://xxx.tld and enter the token. It's recommend to delete this message after using it."
+
     /** Logging Messages **/
     const val LOG_DATE = "Time: %v"
 

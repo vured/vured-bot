@@ -1,52 +1,94 @@
-# Vured Music Bot ![CI](https://github.com/vured/vured-bot/workflows/CI/badge.svg)
+<h1 align="center">Vured - A command-less music bot for Discord</h1>
 
-<img align="right" src="https://i.imgur.com/oRkMRah.png" width=25%>
+<p align="center">
+  <img src="https://i.imgur.com/oRkMRah.png" width="120px"/>
+  <br>
+  <i>
+    Vured is a self-hosted music bot you can interact with by clicking buttons or using a web interface.<br>
+    Say goodbye to commands and hello to enjoyable ui control.</i>
+  <br>
+</p>
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vured/vured-bot)
+<p align="center">
+  <a href="https://github.com/vured/vured-bot/wiki">Wiki</a>
+  ·
+  <a href="https://vured-ui.jonaz.dev/">Web UI</a>
+  <br>
+  <br>
+</p>
 
-Vured is a self-hosted music bot for your discord server. 
-Say goodbye to commands and hello to enjoyable ui control thanks to a static message in your music text channel.
-Just send a link or search on YouTube.
+<p align="center">
+    <a href="https://heroku.com/deploy?template=https://github.com/vured/vured-bot">
+        <img src="https://www.herokucdn.com/deploy/button.svg" alt="heroku" />
+    </a>
+</p>
 
-![example-gif](https://i.imgur.com/uW0sJik.gif)
+<hr>
 
-#### Want to import a playlist?
-Just send the link to a playlist or import YouTube search results in no time.
+Vured will be expanded in the future and new features will be added
 
-![example-playlist-import](https://i.imgur.com/YVnwEOH.png)
+#### Features
+* [x] Static message
+* [x] Discord buttons
+* [x] Slash commands
+* [x] Playlist import
+* [x] YouTube search
+* [x] Web UI
+
+<br>
+
+<img align="left" src="https://i.imgur.com/9p43DSl.png" width=39%>
+
+<br>
+
+<h3 align="center">A single text channel to control everything</h3>
+<br>
+<br>
+<br>
+
+<p align="center">
+    A static message in your music text channel. Just send a link or search on YouTube.
+    Change the volume or import an entire YouTube playlist with just one more click.
+</p>
+
+<br>
+
+<img align="center" src="https://i.imgur.com/YVnwEOH.png">
+
+<hr>
+
+# A powerful web ui
+
+<p>
+    Some features cannot be comfortably used in a discord message.<br>
+    <a href="https://github.com/vured/vured-bot/wiki/Access-web-ui">Learn more</a>
+</p>
+
+<img align="center" src="https://i.imgur.com/8uDavUf.png" >
+
+<hr>
+
+# It's self-hosted
+Thanks to modern serverless platforms, however, it is easy and cheap or free of charge.<br>
+Here are some services to deploy it.
+
+- [Heroku](https://heroku.com/)
+- [Fly](https://fly.io/)
+- [Replit](https://replit.com/)
+- [AppEngine](https://cloud.google.com/appengine)
 
 ### 🚢 Instant deploy with Docker
 
-```console
-docker run -d \
-    --name vured-bot \
-    -e BOT__TOKEN="" \
-    -e DISCORD__GUILD=0 \
-    -e DISCORD__MUSIC_CHANNEL=0 \
-    -e DISCORD__ACCESS_ROLE=0 \
-    jonaznas/vured-bot:latest
-```
+    docker run -d \
+        --name vured-bot \
+        -e BOT__TOKEN="" \
+        -e DISCORD__GUILD=0 \
+        -e DISCORD__MUSIC_CHANNEL=0 \
+        -e DISCORD__ACCESS_ROLE=0 \
+        jonaznas/vured-bot:latest
 
+# Contributors
 
-### 🛠 Development
-
-You have to set the environment as a jvm argument. Choose between ``-Denv=dev`` and ``-Denv=prod``.
-
-```
-./gradlew build
-```
-
-
-### 📝 Config variables
-
-Variable | Required | Description
--------- | ------------ | ------------
-**BOT__TOKEN** | Yes | The discord bot token
-**DISCORD__GUILD** | No* | Discord Guild ID
-**DISCORD__LOG_CHANNEL** | No* | Text-Channel ID for logs
-**DISCORD__MUSIC_CHANNEL** | No* | Text-Channel ID for static message
-**DISCORD__ACCESS_ROLE** | No* | Role ID that can access the bot
-**BOT__MAX_PLAYLIST_TRACKS** | No* | The maximum Tracks that can be in the queue
-**SENTRY_DSN** | No | DSN for [Sentry](https://sentry.io)
-
-*You can set all config variables in the [application.conf](https://github.com/vured/vured-bot/tree/master/src/main/resources) and optionally override it as an environment variable but **never put your Discord bot token into the config file**.
+<a href = "https://github.com/vured/vured-bot/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=vured/vured-bot"/>
+</a>

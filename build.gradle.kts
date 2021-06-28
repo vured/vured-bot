@@ -5,6 +5,7 @@ import dev.jonaz.vured.bot.gradle.Versions
 plugins {
     kotlin("jvm") version "1.5.0"
     kotlin("kapt") version "1.5.0"
+    kotlin("plugin.serialization") version "1.5.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
@@ -47,8 +48,14 @@ dependencies {
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
     implementation("com.sksamuel.hoplite", "hoplite-hocon", Versions.HOPLITE)
+
+    /** Ktor **/
     implementation("io.ktor", "ktor-server-core", Versions.KTOR)
     implementation("io.ktor", "ktor-server-netty", Versions.KTOR)
+    implementation("io.ktor", "ktor-auth", Versions.KTOR)
+    implementation("io.ktor", "ktor-auth-jwt", Versions.KTOR)
+    implementation("io.ktor", "ktor-serialization", Versions.KTOR)
+    implementation("io.ktor", "ktor-websockets", Versions.KTOR)
 }
 
 tasks {

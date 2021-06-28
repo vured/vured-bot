@@ -33,12 +33,13 @@ class GuildMessageReceivedLister : ListenerAdapter() {
         }
 
         if (memberService.isPermitted(event.member).not()) {
-            event.message.delete().queue()
+            event.message.delete().complete()
             return
         }
 
         if (audioManager.isConnected && memberService.isInChannel(event.member).not()) {
-            return event.message.delete().queue()
+            event.message.delete().complete()
+            return
         }
 
         event.message.delete().delay(1500, TimeUnit.MILLISECONDS).queue()
