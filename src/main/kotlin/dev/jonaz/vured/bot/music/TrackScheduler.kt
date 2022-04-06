@@ -11,7 +11,7 @@ import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import java.awt.Color
 
 object TrackScheduler : AudioEventAdapter() {

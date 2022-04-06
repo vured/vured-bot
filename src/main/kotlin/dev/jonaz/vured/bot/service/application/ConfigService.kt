@@ -5,8 +5,8 @@ import com.sksamuel.hoplite.ConfigResult
 import com.sksamuel.hoplite.EnvironmentVariablesPropertySource
 import com.sksamuel.hoplite.PropertySource
 import dev.jonaz.vured.bot.persistence.config.ConfigModel
-import dev.jonaz.vured.util.environment.Environment
-import dev.jonaz.vured.util.environment.EnvironmentDecoder
+import dev.jonaz.vured.bot.util.environment.Environment
+import dev.jonaz.vured.bot.util.environment.EnvironmentDecoder
 import kotlin.reflect.KProperty
 
 class ConfigService {

@@ -4,9 +4,9 @@ import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifNotTrue
-import dev.jonaz.vured.util.extensions.ifTrue
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.ifNotTrue
+import dev.jonaz.vured.bot.util.extensions.ifTrue
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.VoiceChannel
 import net.dv8tion.jda.api.managers.AudioManager

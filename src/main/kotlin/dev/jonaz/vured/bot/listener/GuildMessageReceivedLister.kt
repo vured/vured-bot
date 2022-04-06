@@ -6,7 +6,7 @@ import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.application.Translation
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.awt.Color

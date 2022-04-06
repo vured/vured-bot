@@ -12,7 +12,7 @@ import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color

@@ -4,8 +4,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifFalse
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.ifFalse
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed

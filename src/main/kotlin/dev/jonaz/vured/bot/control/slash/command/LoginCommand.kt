@@ -6,7 +6,7 @@ import dev.jonaz.vured.bot.control.slash.SlashCommand
 import dev.jonaz.vured.bot.persistence.web.UserPrincipal
 import dev.jonaz.vured.bot.service.discord.MemberService
 import dev.jonaz.vured.bot.service.web.JwtService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction

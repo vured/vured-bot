@@ -3,7 +3,7 @@ package dev.jonaz.vured.bot.service.discord
 import dev.jonaz.vured.bot.control.slash.CommandHandler
 import dev.jonaz.vured.bot.control.slash.CommandModel
 import dev.jonaz.vured.bot.control.slash.SlashCommand
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction
 import org.atteo.classindex.ClassIndex

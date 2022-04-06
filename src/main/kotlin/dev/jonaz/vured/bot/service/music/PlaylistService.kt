@@ -8,7 +8,7 @@ import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.discord.ButtonService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import net.dv8tion.jda.api.EmbedBuilder

@@ -5,7 +5,7 @@ import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
 import dev.jonaz.vured.bot.service.music.PlaylistService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
 import net.dv8tion.jda.api.interactions.components.ButtonStyle
 

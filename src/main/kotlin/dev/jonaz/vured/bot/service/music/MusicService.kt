@@ -10,8 +10,8 @@ import dev.jonaz.vured.bot.music.TrackScheduler
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifNotTrue
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.ifNotTrue
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color

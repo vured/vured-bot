@@ -3,7 +3,7 @@ package dev.jonaz.vured.bot.listener
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.discord.MemberService
 import dev.jonaz.vured.bot.service.discord.ReactionService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 

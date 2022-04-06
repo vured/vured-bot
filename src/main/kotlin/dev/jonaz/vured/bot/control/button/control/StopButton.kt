@@ -8,7 +8,7 @@ import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
 import net.dv8tion.jda.api.interactions.components.ButtonStyle
 import java.awt.Color
