@@ -3,9 +3,9 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import dev.jonaz.vured.bot.gradle.Versions
 
 plugins {
-    kotlin("jvm") version "1.5.0"
-    kotlin("kapt") version "1.5.0"
-    kotlin("plugin.serialization") version "1.5.0"
+    kotlin("jvm") version "1.6.0"
+    kotlin("kapt") version "1.6.0"
+    kotlin("plugin.serialization") version "1.6.0"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
     }
 }
 
@@ -43,7 +43,6 @@ dependencies {
     implementation("io.sentry", "sentry-logback", Versions.SENTRY)
 
     /** Application **/
-    implementation("dev.jonaz.vured.util", "vured-util", Versions.VURED_UTILS)
     implementation("io.insert-koin", "koin-core", Versions.KOIN)
     implementation("org.atteo.classindex", "classindex", Versions.CLASSINDEX)
     implementation("com.sksamuel.hoplite", "hoplite-core", Versions.HOPLITE)
