@@ -9,8 +9,8 @@ import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.bot.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 import java.awt.Color
 
 @Button(
@@ -26,7 +26,7 @@ class StopButton : ButtonHandler {
     private val musicService by genericInject<MusicService>()
     private val playerService by genericInject<PlayerService>()
 
-    override fun execute(event: ButtonClickEvent) {
+    override fun execute(event: ButtonInteractionEvent) {
         voiceChannelService.leave()
         logService.sendLog(
             title = Translation.LOG_STOPPED_TITLE,

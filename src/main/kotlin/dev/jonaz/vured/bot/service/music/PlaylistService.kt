@@ -4,7 +4,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.discord.MusicChannelService
-import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.discord.ButtonService
@@ -39,7 +38,7 @@ class PlaylistService {
         val message = eb.build()
 
         deleteQuestionMessage()
-        channel?.sendMessage(message)?.complete()?.let {
+        channel?.sendMessageEmbeds(message)?.complete()?.let {
             questionMessage = it
             createMessageReactions(it)
         }

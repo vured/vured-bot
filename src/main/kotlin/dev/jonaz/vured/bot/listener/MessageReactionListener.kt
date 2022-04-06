@@ -4,7 +4,7 @@ import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.discord.MemberService
 import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.util.extensions.genericInject
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class MessageReactionListener : ListenerAdapter() {
@@ -13,8 +13,8 @@ class MessageReactionListener : ListenerAdapter() {
 
     private val config by ConfigService
 
-    override fun onGuildMessageReactionAdd(event: GuildMessageReactionAddEvent) {
-        if (event.user.isBot) {
+    override fun onMessageReactionAdd(event: MessageReactionAddEvent) {
+        if (event.user?.isBot == true) {
             return
         }
 
@@ -23,22 +23,22 @@ class MessageReactionListener : ListenerAdapter() {
         }
 
         if (event.reactionEmote.isEmote) {
-            event.reaction.removeReaction(event.member.user).queue()
+            event.user?.let { event.reaction.removeReaction(it).queue() }
             return
         }
 
-        if(memberService.isPermitted(event.member).not()) {
-            event.reaction.removeReaction(event.member.user).queue()
+        if (memberService.isPermitted(event.member).not()) {
+            event.user?.let { event.reaction.removeReaction(it).queue() }
             return
         }
 
-        if(memberService.isInChannel(event.member).not()) {
-            event.reaction.removeReaction(event.member.user).queue()
+        if (memberService.isInChannel(event.member).not()) {
+            event.user?.let { event.reaction.removeReaction(it).queue() }
             return
         }
 
-        event.reaction.removeReaction(event.member.user).queue()
+        event.user?.let { event.reaction.removeReaction(it).queue() }
 
-        reactionService.execute(event.reactionEmote.asCodepoints, event.member)
+        event.member?.let { reactionService.execute(event.reactionEmote.asCodepoints, it) }
     }
 }

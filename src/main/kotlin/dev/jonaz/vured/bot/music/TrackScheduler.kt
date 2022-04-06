@@ -82,7 +82,7 @@ object TrackScheduler : AudioEventAdapter() {
         voiceChannelService.leave()
         logService.sendLog(
             title = Translation.LOG_VOICE_CHANNEL_LEFT,
-            description = Translation.LOG_TRACK_EXCEPTION,
+            description = exception?.message ?: Translation.LOG_TRACK_EXCEPTION,
             member = null,
             color = Color.RED
         )

@@ -1,7 +1,7 @@
 package dev.jonaz.vured.bot.control.button
 
 import dev.jonaz.vured.bot.control.ControlMessageCase
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 
 data class ButtonModel(
     val order: Int,

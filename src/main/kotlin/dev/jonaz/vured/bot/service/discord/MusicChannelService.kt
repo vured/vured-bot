@@ -2,9 +2,7 @@ package dev.jonaz.vured.bot.service.discord
 
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.util.extensions.genericInject
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
@@ -15,7 +13,7 @@ class MusicChannelService {
     private val config by ConfigService
 
     fun getTextChannel(): TextChannel? {
-        return discordClientService.JDA.getTextChannelById(config.discord.musicChannel)
+        return discordClientService.jda.getTextChannelById(config.discord.musicChannel)
     }
 
     fun clearMessages() {
@@ -33,13 +31,15 @@ class MusicChannelService {
             this.setDescription(text)
         }.run { this.build() }
 
-        channel.sendMessage(message).queue {
+        channel.sendMessageEmbeds(message).queue {
             timeout?.run { deleteAfterTimeout(timeout, it) }
         }
     }
 
-    private fun deleteAfterTimeout(timeout: Long, message: Message) = GlobalScope.launch {
-        delay(timeout)
-        message.delete().queue()
+    private fun deleteAfterTimeout(timeout: Long, message: Message) {
+        runBlocking(Dispatchers.IO) {
+            delay(timeout)
+            message.delete().queue()
+        }
     }
 }

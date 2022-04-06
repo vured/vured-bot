@@ -42,7 +42,7 @@ class LogService {
             this.build()
         }
 
-        channel.sendMessage(message).queue()
+        channel.sendMessageEmbeds(message).queue()
     }
 
     fun sendStartupMessage() = when (config.env) {
@@ -62,6 +62,6 @@ class LogService {
     }
 
     private fun getTextChannel(): TextChannel? {
-        return discordClientService.JDA.getTextChannelById(config.discord.logChannel)
+        return discordClientService.jda.getTextChannelById(config.discord.logChannel)
     }
 }

@@ -8,7 +8,7 @@ import dev.jonaz.vured.bot.service.discord.MemberService
 import dev.jonaz.vured.bot.service.web.JwtService
 import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.EmbedBuilder
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction
 import java.awt.Color
 
@@ -24,7 +24,7 @@ class LoginCommand : CommandHandler {
         return commandCreateAction
     }
 
-    override fun execute(event: SlashCommandEvent) {
+    override fun execute(event: SlashCommandInteractionEvent) {
         if (memberService.isPermitted(event.member).not()) {
             event.hook.sendMessage(Translation.NO_PERMISSIONS).complete()
             return

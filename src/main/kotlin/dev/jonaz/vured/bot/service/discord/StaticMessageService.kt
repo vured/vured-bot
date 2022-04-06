@@ -28,7 +28,7 @@ class StaticMessageService {
         val channel = musicChannelService.getTextChannel()
 
         musicChannelService.clearMessages()
-        channel?.sendMessage(it)?.queue { message ->
+        channel?.sendMessageEmbeds(it)?.queue { message ->
             this.message = message
             setButtons()
             setReactions()
@@ -94,7 +94,7 @@ class StaticMessageService {
     }
 
     fun set(messageEmbed: MessageEmbed) = runCatching {
-        message.editMessage(messageEmbed).complete()
+        message.editMessageEmbeds(messageEmbed).complete()
     }.getOrNull()
 
     private fun setReactions() {

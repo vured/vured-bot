@@ -10,7 +10,7 @@ class GuildService {
     private val config by ConfigService
 
     fun getCurrentGuild(): Guild? {
-        return discordClientService.JDA.getGuildById(config.discord.guild)
+        return discordClientService.jda.getGuildById(config.discord.guild)
     }
 
     fun getSelfMember(): Member? {

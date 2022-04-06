@@ -117,9 +117,9 @@ class MusicService {
         pollQueue()?.let { startTrack(it, false) }
     }
 
-    fun setPause() = true.let { audioPlayer.isPaused = it }
+    fun setPause() = let { audioPlayer.isPaused = true }
 
-    fun setResume() = false.also { audioPlayer.isPaused = it }
+    fun setResume() = let { audioPlayer.isPaused = false }
 
     fun getQueue() = queue
 

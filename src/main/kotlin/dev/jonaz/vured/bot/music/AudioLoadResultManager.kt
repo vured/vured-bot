@@ -60,7 +60,7 @@ class AudioLoadResultManager(
     }
 
     override fun loadFailed(exception: FriendlyException) {
-        musicChannelService.sendMessage(Color.RED, Translation.LOAD_FAILED, 3000)
+        musicChannelService.sendMessage(Color.RED, exception.localizedMessage ?: Translation.LOAD_FAILED, 3000)
 
         runCatching {
             this.logService.sendLog(
