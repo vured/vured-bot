@@ -6,9 +6,9 @@ import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 import java.awt.Color
 
 @Button(
@@ -22,7 +22,9 @@ class SkipButton : ButtonHandler {
     private val musicService by genericInject<MusicService>()
     private val logService by genericInject<LogService>()
 
-    override fun execute(event: ButtonClickEvent) {
+    override fun execute(event: ButtonInteractionEvent) {
+        musicService.setRepeatTrack(false)
+        musicService.setShuffleTrack(false)
         musicService.nextTrack()
         musicService.setResume()
         logService.sendLog(

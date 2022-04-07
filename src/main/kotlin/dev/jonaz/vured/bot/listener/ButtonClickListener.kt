@@ -4,8 +4,8 @@ import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.discord.ButtonService
 import dev.jonaz.vured.bot.service.discord.MemberService
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class ButtonClickListener : ListenerAdapter() {
@@ -14,7 +14,7 @@ class ButtonClickListener : ListenerAdapter() {
 
     private val config by ConfigService
 
-    override fun onButtonClick(event: ButtonClickEvent) {
+    override fun onButtonInteraction(event: ButtonInteractionEvent) {
         event.deferEdit().queue()
 
         if (event.channel.idLong != config.discord.musicChannel) {

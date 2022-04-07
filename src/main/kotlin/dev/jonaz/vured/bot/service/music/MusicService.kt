@@ -10,8 +10,8 @@ import dev.jonaz.vured.bot.music.TrackScheduler
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifNotTrue
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.ifNotTrue
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color
@@ -28,6 +28,9 @@ class MusicService {
     private lateinit var sendHandler: AudioPlayerSendHandler
 
     private val queue: BlockingQueue<AudioTrack> = LinkedBlockingQueue()
+
+    private var isRepeat: Boolean = false
+    private var isShuffle: Boolean = false
 
     fun createAudioPlayer() {
         playerManager = DefaultAudioPlayerManager()
@@ -55,12 +58,12 @@ class MusicService {
             this.ifNotTrue { offerToQueue(track) }
         }
 
-        refreshStaticMessage(audioPlayer)
+        updateStaticMessage(audioPlayer)
     }
 
     fun removeFromQueue(identifier: String?) {
         this.queue.removeIf { it.identifier == identifier }
-        refreshStaticMessage(audioPlayer)
+        updateStaticMessage(audioPlayer)
     }
 
     fun getGuildAudioManager(): AudioManager? {
@@ -69,10 +72,20 @@ class MusicService {
 
     fun setVolume(value: Int) {
         audioPlayer.volume = value
-        refreshStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
+        updateStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
     }
 
-    fun refreshStaticMessage(
+    fun setRepeatTrack(value: Boolean) {
+        isRepeat = value
+        updateStaticMessage(audioPlayer)
+    }
+
+    fun setShuffleTrack(value: Boolean) {
+        isShuffle = value
+        updateStaticMessage(audioPlayer)
+    }
+
+    fun updateStaticMessage(
         audioPlayer: AudioPlayer,
         volume: Int? = null,
         color: Color? = null
@@ -105,6 +118,14 @@ class MusicService {
         return queue.poll()
     }
 
+    fun pollQueueRandom(): AudioTrack? {
+        val nextIndex = (0..queue.size).random()
+        val nextTrack = queue.elementAtOrElse(nextIndex) { queue.poll() }
+
+        queue.remove(nextTrack)
+        return nextTrack
+    }
+
     fun clearQueue() {
         queue.clear()
     }
@@ -117,13 +138,21 @@ class MusicService {
         pollQueue()?.let { startTrack(it, false) }
     }
 
-    fun setPause() = true.let { audioPlayer.isPaused = it }
+    fun nextShuffleTrack() {
+        pollQueueRandom()?.let { startTrack(it, false) }
+    }
 
-    fun setResume() = false.also { audioPlayer.isPaused = it }
+    fun setPause() = let { audioPlayer.isPaused = true }
+
+    fun setResume() = let { audioPlayer.isPaused = false }
 
     fun getQueue() = queue
 
     fun getSendHandler() = sendHandler
 
     fun getAudioPlayer() = audioPlayer
+
+    fun getRepeatTrack() = isRepeat
+
+    fun getShuffleTrack() = isShuffle
 }

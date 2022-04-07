@@ -1,7 +1,7 @@
 package dev.jonaz.vured.bot.web.route
 
 import dev.jonaz.vured.bot.service.application.LogService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.http.*

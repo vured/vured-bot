@@ -3,7 +3,7 @@ package dev.jonaz.vured.bot.web.configuration
 import com.fasterxml.jackson.databind.node.TextNode
 import dev.jonaz.vured.bot.service.web.JwtService
 import dev.jonaz.vured.bot.persistence.web.UserPrincipal
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
 

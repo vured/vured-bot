@@ -23,7 +23,7 @@ object Translation {
     const val PLAYLIST_IMPORT_BUTTON_CANCEL = "Nah, cancel it"
 
     const val NO_MATCHES = "No song was found."
-    const val LOAD_FAILED = "Error at loading."
+    const val LOAD_FAILED = "There was an error loading the track."
 
     /** Command Descriptions **/
     const val COMMAND_VOLUME_DESC = "Individually set the volume"
@@ -37,8 +37,7 @@ object Translation {
     const val COMMAND_YOUTUBE_RESPONSE = "Successfully searched on youtube"
 
     const val COMMAND_LOGIN_DESC = "Creates a token for the Web UI"
-    const val COMMAND_LOGIN_RESPONSE =
-        "Go to https://xxx.tld and enter the token. It's recommend to delete this message after using it."
+    const val COMMAND_SHUTDOWN_DESC = "Shuts down the bot instance"
 
     /** Logging Messages **/
     const val LOG_DATE = "Time: %v"

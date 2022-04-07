@@ -4,8 +4,8 @@ import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.slash.CommandHandler
 import dev.jonaz.vured.bot.control.slash.SlashCommand
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction
 
@@ -25,7 +25,7 @@ class YoutubeCommand : CommandHandler {
         )
     }
 
-    override fun execute(event: SlashCommandEvent) {
+    override fun execute(event: SlashCommandInteractionEvent) {
         val query = event.getOption("query")?.asString
 
         query?.run {

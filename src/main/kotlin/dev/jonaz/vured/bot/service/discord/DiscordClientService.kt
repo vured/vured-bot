@@ -13,12 +13,12 @@ class DiscordClientService {
     private val logger = LoggerFactory.getLogger(this::class.java)
     private val config by ConfigService
 
-    lateinit var JDA: JDA
+    lateinit var jda: JDA
 
     fun start() = try {
         val intents = getRequiredIntents()
 
-        JDA = JDABuilder
+        jda = JDABuilder
             .createDefault(config.bot.token, intents)
             .setMemberCachePolicy(MemberCachePolicy.ALL)
             .addEventListeners(

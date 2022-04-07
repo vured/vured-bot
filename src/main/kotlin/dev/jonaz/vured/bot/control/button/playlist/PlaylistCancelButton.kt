@@ -5,9 +5,9 @@ import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
 import dev.jonaz.vured.bot.service.music.PlaylistService
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 
 @Button(
     order = 1,
@@ -19,7 +19,7 @@ import net.dv8tion.jda.api.interactions.components.ButtonStyle
 class PlaylistCancelButton : ButtonHandler {
     private val playlistService by genericInject<PlaylistService>()
 
-    override fun execute(event: ButtonClickEvent) {
+    override fun execute(event: ButtonInteractionEvent) {
         val member = event.member ?: return
         val answer = Pair(false, member)
 

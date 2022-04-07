@@ -3,8 +3,8 @@ package dev.jonaz.vured.bot.control.button.control
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 
 @Button(
     order = 5,
@@ -14,6 +14,6 @@ import net.dv8tion.jda.api.interactions.components.ButtonStyle
     content = "Help"
 )
 class HelpButton : ButtonHandler {
-    override fun execute(event: ButtonClickEvent) {
+    override fun execute(event: ButtonInteractionEvent) {
     }
 }

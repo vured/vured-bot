@@ -1,7 +1,7 @@
 package dev.jonaz.vured.bot.service.discord
 
 import dev.jonaz.vured.bot.service.application.ConfigService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 
@@ -10,7 +10,7 @@ class GuildService {
     private val config by ConfigService
 
     fun getCurrentGuild(): Guild? {
-        return discordClientService.JDA.getGuildById(config.discord.guild)
+        return discordClientService.jda.getGuildById(config.discord.guild)
     }
 
     fun getSelfMember(): Member? {

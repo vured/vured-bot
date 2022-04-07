@@ -4,11 +4,10 @@ import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.button.Button
 import dev.jonaz.vured.bot.control.button.ButtonHandler
 import dev.jonaz.vured.bot.control.button.ButtonModel
-import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.events.interaction.ButtonClickEvent
-import net.dv8tion.jda.api.interactions.components.Button as ButtonComponent
-import net.dv8tion.jda.api.interactions.components.ButtonStyle
+import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
+import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
+import net.dv8tion.jda.api.interactions.components.buttons.Button as ButtonComponent
 import org.atteo.classindex.ClassIndex
 
 class ButtonService {
@@ -46,9 +45,9 @@ class ButtonService {
         buttons.sortBy { it.order }
     }
 
-    fun execute(event: ButtonClickEvent) {
+    fun execute(event: ButtonInteractionEvent) {
         buttons.findLast { it.identifier == event.componentId }?.run {
-            val method = clazz.getMethod(ButtonHandler::execute.name, ButtonClickEvent::class.java)
+            val method = clazz.getMethod(ButtonHandler::execute.name, ButtonInteractionEvent::class.java)
             val instance = clazz.getDeclaredConstructor().newInstance()
 
             method.invoke(instance, event)

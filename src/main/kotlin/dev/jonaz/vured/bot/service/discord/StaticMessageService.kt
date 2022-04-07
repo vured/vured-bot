@@ -4,8 +4,8 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifFalse
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.ifFalse
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.MessageEmbed
@@ -28,7 +28,7 @@ class StaticMessageService {
         val channel = musicChannelService.getTextChannel()
 
         musicChannelService.clearMessages()
-        channel?.sendMessage(it)?.queue { message ->
+        channel?.sendMessageEmbeds(it)?.queue { message ->
             this.message = message
             setButtons()
             setReactions()
@@ -71,8 +71,15 @@ class StaticMessageService {
             }
 
             volume?.let {
+                val options = mutableListOf<String>()
+
+                if(musicService.getRepeatTrack()) options.add(":repeat:")
+                if(musicService.getShuffleTrack()) options.add(":twisted_rightwards_arrows:")
+
                 this.addField(Translation.VOLUME, "$volume%", true)
+                this.addField("Options", options.joinToString(" "), true)
             }
+
 
             audioTrack?.info?.let {
                 this.setThumbnail("https://www.google.com/s2/favicons?sz=24&domain_url=${it.uri}")
@@ -93,8 +100,20 @@ class StaticMessageService {
         }.run { return@run this.build() }
     }
 
+    fun refreshMessage() {
+        val audioPlayer = musicService.getAudioPlayer()
+
+        build(
+            title = audioPlayer.playingTrack.info.title ?: Translation.NO_TRACK_TITLE,
+            description = null,
+            color = Color.decode("#2F3136"),
+            volume = audioPlayer.volume,
+            audioTrack = audioPlayer.playingTrack
+        ).also { set(it) }
+    }
+
     fun set(messageEmbed: MessageEmbed) = runCatching {
-        message.editMessage(messageEmbed).complete()
+        message.editMessageEmbeds(messageEmbed).complete()
     }.getOrNull()
 
     private fun setReactions() {

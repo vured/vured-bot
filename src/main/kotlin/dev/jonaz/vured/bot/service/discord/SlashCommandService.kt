@@ -3,8 +3,8 @@ package dev.jonaz.vured.bot.service.discord
 import dev.jonaz.vured.bot.control.slash.CommandHandler
 import dev.jonaz.vured.bot.control.slash.CommandModel
 import dev.jonaz.vured.bot.control.slash.SlashCommand
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction
 import org.atteo.classindex.ClassIndex
 
@@ -38,9 +38,9 @@ class SlashCommandService {
         guild.updateCommands()
     }
 
-    fun execute(event: SlashCommandEvent) {
+    fun execute(event: SlashCommandInteractionEvent) {
         commands.findLast { it.name == event.name }?.run {
-            val method = clazz.getMethod(CommandHandler::execute.name, SlashCommandEvent::class.java)
+            val method = clazz.getMethod(CommandHandler::execute.name, SlashCommandInteractionEvent::class.java)
             val instance = clazz.getDeclaredConstructor().newInstance()
 
             method.invoke(instance, event)

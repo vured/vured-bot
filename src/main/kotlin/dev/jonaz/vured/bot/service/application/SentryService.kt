@@ -1,6 +1,6 @@
 package dev.jonaz.vured.bot.service.application
 
-import dev.jonaz.vured.util.environment.Environment
+import dev.jonaz.vured.bot.util.environment.Environment
 import io.sentry.Sentry
 import io.sentry.SentryOptions
 import org.slf4j.LoggerFactory

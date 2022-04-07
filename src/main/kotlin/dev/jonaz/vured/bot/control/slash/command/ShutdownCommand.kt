@@ -4,41 +4,30 @@ import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.slash.CommandHandler
 import dev.jonaz.vured.bot.control.slash.SlashCommand
 import dev.jonaz.vured.bot.service.discord.MemberService
-import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
-import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction
+import kotlin.system.exitProcess
 
 @SlashCommand(
-    name = "volume",
-    description = Translation.COMMAND_VOLUME_DESC
+    name = "shutdown",
+    description = Translation.COMMAND_SHUTDOWN_DESC
 )
-class VolumeCommand : CommandHandler {
-    private val musicService by genericInject<MusicService>()
+class ShutdownCommand : CommandHandler {
     private val memberService by genericInject<MemberService>()
 
     override fun upsertCommand(commandCreateAction: CommandCreateAction): CommandCreateAction {
-        return commandCreateAction.addOption(
-            OptionType.INTEGER,
-            Translation.COMMAND_VOLUME_OPTION_NAME,
-            Translation.COMMAND_VOLUME_OPTION_DESC,
-            true
-        )
+        return commandCreateAction
     }
 
     override fun execute(event: SlashCommandInteractionEvent) {
-        if (memberService.isInChannel(event.member).not()) {
+        if (memberService.isPermitted(event.member).not()) {
             event.hook.sendMessage(Translation.NO_PERMISSIONS).complete()
             return
         }
 
-        val newVolume = event.getOption("percent")?.asLong?.toInt()
+        event.hook.sendMessage(":thumbsup:").setEphemeral(true).complete()
 
-        newVolume?.run {
-            musicService.setVolume(this)
-        }
-
-        event.hook.sendMessage(Translation.COMMAND_VOLUME_RESPONSE).setEphemeral(true).queue()
+        exitProcess(0)
     }
 }

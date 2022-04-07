@@ -12,7 +12,7 @@ import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.entities.Member
 import java.awt.Color
@@ -41,6 +41,11 @@ class AudioLoadResultManager(
     override fun playlistLoaded(playlist: AudioPlaylist) {
         val newTracks = playlist.tracks.take(config.bot.maxPlaylistTracks)
 
+        if(playlist.tracks.isEmpty()) {
+            musicChannelService.sendMessage(Color.RED, "No tracks found in playlist", 3000)
+            return
+        }
+
         voiceChannelService
             .join(member)
             ?.apply {
@@ -60,7 +65,7 @@ class AudioLoadResultManager(
     }
 
     override fun loadFailed(exception: FriendlyException) {
-        musicChannelService.sendMessage(Color.RED, Translation.LOAD_FAILED, 3000)
+        musicChannelService.sendMessage(Color.RED, exception.localizedMessage ?: Translation.LOAD_FAILED, 3000)
 
         runCatching {
             this.logService.sendLog(

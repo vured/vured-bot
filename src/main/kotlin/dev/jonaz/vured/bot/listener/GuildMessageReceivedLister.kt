@@ -6,8 +6,8 @@ import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.application.Translation
-import dev.jonaz.vured.util.extensions.genericInject
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.awt.Color
 import java.util.concurrent.TimeUnit
@@ -20,7 +20,7 @@ class GuildMessageReceivedLister : ListenerAdapter() {
 
     private val config by ConfigService
 
-    override fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
+    override fun onMessageReceived(event: MessageReceivedEvent) {
         val guild = guildService.getCurrentGuild()
         val audioManager = guild?.audioManager ?: return
 

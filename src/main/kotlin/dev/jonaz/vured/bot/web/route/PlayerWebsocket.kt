@@ -2,10 +2,9 @@ package dev.jonaz.vured.bot.web.route
 
 import dev.jonaz.vured.bot.service.web.JwtService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import io.ktor.routing.*
 import io.ktor.websocket.*
-import kotlinx.coroutines.flow.collect
 
 fun Route.playerWebsocket() {
     val jwtService by genericInject<JwtService>()

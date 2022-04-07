@@ -4,11 +4,10 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.service.application.LogService
 import dev.jonaz.vured.bot.service.discord.MusicChannelService
-import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.discord.ButtonService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import net.dv8tion.jda.api.EmbedBuilder
@@ -39,7 +38,7 @@ class PlaylistService {
         val message = eb.build()
 
         deleteQuestionMessage()
-        channel?.sendMessage(message)?.complete()?.let {
+        channel?.sendMessageEmbeds(message)?.complete()?.let {
             questionMessage = it
             createMessageReactions(it)
         }
@@ -68,18 +67,10 @@ class PlaylistService {
     }
 
     private fun addToQueue(tracks: List<AudioTrack>) {
-        val audioPlayer = musicService.getAudioPlayer()
         deleteQuestionMessage()
 
         tracks.forEach(musicService::offerToQueue)
-
-        staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title ?: Translation.NO_TRACK_TITLE,
-            description = null,
-            color = Color.decode("#2F3136"),
-            volume = audioPlayer.volume,
-            audioTrack = audioPlayer.playingTrack
-        ).also { staticMessageService.set(it) }
+        staticMessageService.refreshMessage()
     }
 
     private suspend fun listenForAnswer(member: Member, tracks: List<AudioTrack>) {

@@ -2,8 +2,8 @@ package dev.jonaz.vured.bot.service.application
 
 import dev.jonaz.vured.bot.service.discord.DiscordClientService
 import dev.jonaz.vured.bot.application.Translation
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.environment.Environment
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.environment.Environment
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.TextChannel
@@ -42,7 +42,7 @@ class LogService {
             this.build()
         }
 
-        channel.sendMessage(message).queue()
+        channel.sendMessageEmbeds(message).queue()
     }
 
     fun sendStartupMessage() = when (config.env) {
@@ -62,6 +62,6 @@ class LogService {
     }
 
     private fun getTextChannel(): TextChannel? {
-        return discordClientService.JDA.getTextChannelById(config.discord.logChannel)
+        return discordClientService.jda.getTextChannelById(config.discord.logChannel)
     }
 }

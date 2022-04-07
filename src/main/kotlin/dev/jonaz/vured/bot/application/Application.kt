@@ -6,7 +6,7 @@ import dev.jonaz.vured.bot.service.application.SentryService
 import dev.jonaz.vured.bot.service.discord.*
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.web.WebService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinApplication
 import org.koin.core.logger.Level

@@ -6,7 +6,7 @@ import dev.jonaz.vured.bot.persistence.web.PlayerEvent
 import dev.jonaz.vured.bot.persistence.web.PlayerEventQueueItem
 import dev.jonaz.vured.bot.persistence.web.PlayerMessageEvent
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import io.ktor.http.cio.websocket.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.MutableSharedFlow

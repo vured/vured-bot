@@ -4,7 +4,7 @@ import dev.jonaz.vured.bot.persistence.web.PlayerEventQueueItem
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
-import dev.jonaz.vured.util.extensions.genericInject
+import dev.jonaz.vured.bot.util.extensions.genericInject
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*

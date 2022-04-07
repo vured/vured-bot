@@ -4,11 +4,9 @@ import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
 import dev.jonaz.vured.bot.service.web.PlayerService
-import dev.jonaz.vured.util.extensions.genericInject
-import dev.jonaz.vured.util.extensions.ifNotTrue
-import dev.jonaz.vured.util.extensions.ifTrue
+import dev.jonaz.vured.bot.util.extensions.genericInject
+import net.dv8tion.jda.api.entities.AudioChannel
 import net.dv8tion.jda.api.entities.Member
-import net.dv8tion.jda.api.entities.VoiceChannel
 import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color
 
@@ -24,11 +22,11 @@ class VoiceChannelService {
         val selfMember = guildService.getSelfMember()
         val selfVoiceState = selfMember?.voiceState
 
-        selfVoiceState?.inVoiceChannel().ifTrue {
+        if (selfVoiceState?.inAudioChannel() == true) {
             return musicService.getGuildAudioManager()
         }
 
-        member.voiceState?.inVoiceChannel()?.ifNotTrue {
+        if (member.voiceState?.inAudioChannel() == false) {
             musicChannelService.sendMessage(
                 color = Color.BLUE,
                 text = Translation.NO_VOICE_CHANNEL,
@@ -63,7 +61,7 @@ class VoiceChannelService {
         }
     }
 
-    private fun join(channel: VoiceChannel?): AudioManager? {
+    private fun join(channel: AudioChannel?): AudioManager? {
         val audioManager = musicService.getGuildAudioManager()
 
         audioManager?.openAudioConnection(channel)
