@@ -25,8 +25,10 @@ object TrackScheduler : AudioEventAdapter() {
 
     override fun onTrackEnd(audioPlayer: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
         val queue = musicService.getQueue()
+        val repeatTrack = musicService.getRepeatTrack()
+        val shuffleTrack = musicService.getShuffleTrack()
 
-        if (queue.size <= 0 && endReason.name != "REPLACED") {
+        if (queue.size <= 0 && endReason.name != "REPLACED" && !repeatTrack) {
             voiceChannelService.leave()
             logService.sendLog(
                 title = Translation.LOG_VOICE_CHANNEL_LEFT,
@@ -37,7 +39,11 @@ object TrackScheduler : AudioEventAdapter() {
             return
         }
 
-        if (endReason.mayStartNext) {
+        if (repeatTrack) {
+            musicService.startTrack(track.makeClone(), true)
+        } else if (shuffleTrack) {
+            musicService.nextShuffleTrack()
+        } else if (endReason.mayStartNext) {
             musicService.nextTrack()
         }
 

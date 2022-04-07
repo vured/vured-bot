@@ -29,6 +29,9 @@ class MusicService {
 
     private val queue: BlockingQueue<AudioTrack> = LinkedBlockingQueue()
 
+    private var isRepeat: Boolean = false
+    private var isShuffle: Boolean = false
+
     fun createAudioPlayer() {
         playerManager = DefaultAudioPlayerManager()
         audioPlayer = playerManager.createPlayer()
@@ -55,12 +58,12 @@ class MusicService {
             this.ifNotTrue { offerToQueue(track) }
         }
 
-        refreshStaticMessage(audioPlayer)
+        updateStaticMessage(audioPlayer)
     }
 
     fun removeFromQueue(identifier: String?) {
         this.queue.removeIf { it.identifier == identifier }
-        refreshStaticMessage(audioPlayer)
+        updateStaticMessage(audioPlayer)
     }
 
     fun getGuildAudioManager(): AudioManager? {
@@ -69,10 +72,20 @@ class MusicService {
 
     fun setVolume(value: Int) {
         audioPlayer.volume = value
-        refreshStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
+        updateStaticMessage(audioPlayer, value, Color.decode("#2F3136"))
     }
 
-    fun refreshStaticMessage(
+    fun setRepeatTrack(value: Boolean) {
+        isRepeat = value
+        updateStaticMessage(audioPlayer)
+    }
+
+    fun setShuffleTrack(value: Boolean) {
+        isShuffle = value
+        updateStaticMessage(audioPlayer)
+    }
+
+    fun updateStaticMessage(
         audioPlayer: AudioPlayer,
         volume: Int? = null,
         color: Color? = null
@@ -105,6 +118,14 @@ class MusicService {
         return queue.poll()
     }
 
+    fun pollQueueRandom(): AudioTrack? {
+        val nextIndex = (0..queue.size).random()
+        val nextTrack = queue.elementAtOrElse(nextIndex) { queue.poll() }
+
+        queue.remove(nextTrack)
+        return nextTrack
+    }
+
     fun clearQueue() {
         queue.clear()
     }
@@ -117,6 +138,10 @@ class MusicService {
         pollQueue()?.let { startTrack(it, false) }
     }
 
+    fun nextShuffleTrack() {
+        pollQueueRandom()?.let { startTrack(it, false) }
+    }
+
     fun setPause() = let { audioPlayer.isPaused = true }
 
     fun setResume() = let { audioPlayer.isPaused = false }
@@ -126,4 +151,8 @@ class MusicService {
     fun getSendHandler() = sendHandler
 
     fun getAudioPlayer() = audioPlayer
+
+    fun getRepeatTrack() = isRepeat
+
+    fun getShuffleTrack() = isShuffle
 }

@@ -23,6 +23,8 @@ class SkipButton : ButtonHandler {
     private val logService by genericInject<LogService>()
 
     override fun execute(event: ButtonInteractionEvent) {
+        musicService.setRepeatTrack(false)
+        musicService.setShuffleTrack(false)
         musicService.nextTrack()
         musicService.setResume()
         logService.sendLog(

@@ -67,18 +67,10 @@ class PlaylistService {
     }
 
     private fun addToQueue(tracks: List<AudioTrack>) {
-        val audioPlayer = musicService.getAudioPlayer()
         deleteQuestionMessage()
 
         tracks.forEach(musicService::offerToQueue)
-
-        staticMessageService.build(
-            title = audioPlayer.playingTrack.info.title ?: Translation.NO_TRACK_TITLE,
-            description = null,
-            color = Color.decode("#2F3136"),
-            volume = audioPlayer.volume,
-            audioTrack = audioPlayer.playingTrack
-        ).also { staticMessageService.set(it) }
+        staticMessageService.refreshMessage()
     }
 
     private suspend fun listenForAnswer(member: Member, tracks: List<AudioTrack>) {

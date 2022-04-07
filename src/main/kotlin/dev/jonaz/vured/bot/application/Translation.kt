@@ -37,8 +37,7 @@ object Translation {
     const val COMMAND_YOUTUBE_RESPONSE = "Successfully searched on youtube"
 
     const val COMMAND_LOGIN_DESC = "Creates a token for the Web UI"
-    const val COMMAND_SHUTDOWN_DESC =
-        "If the bot is hosted on a system with multiple instances from other clients, such as heroku, it may be blacklisted from youtube. A shutdown will restart it to resolve this."
+    const val COMMAND_SHUTDOWN_DESC = "Shuts down the bot instance"
 
     /** Logging Messages **/
     const val LOG_DATE = "Time: %v"

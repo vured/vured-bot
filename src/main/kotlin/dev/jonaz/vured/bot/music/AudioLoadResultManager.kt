@@ -41,6 +41,11 @@ class AudioLoadResultManager(
     override fun playlistLoaded(playlist: AudioPlaylist) {
         val newTracks = playlist.tracks.take(config.bot.maxPlaylistTracks)
 
+        if(playlist.tracks.isEmpty()) {
+            musicChannelService.sendMessage(Color.RED, "No tracks found in playlist", 3000)
+            return
+        }
+
         voiceChannelService
             .join(member)
             ?.apply {
