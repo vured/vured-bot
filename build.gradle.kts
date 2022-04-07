@@ -22,6 +22,7 @@ group = "dev.jonaz.vured.bot"
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
     maven("https://m2.dv8tion.net/releases")
 }
 
@@ -36,7 +37,7 @@ dependencies {
 
     /** Discord **/
     implementation("net.dv8tion", "JDA", Versions.JDA)
-    implementation("com.sedmelluq", "lavaplayer", Versions.LAVAPLAYER)
+    implementation("com.github.idpromnut", "lavaplayer", Versions.LAVAPLAYER)
 
     /** Logging **/
     implementation("ch.qos.logback", "logback-classic", Versions.LOGBACK)

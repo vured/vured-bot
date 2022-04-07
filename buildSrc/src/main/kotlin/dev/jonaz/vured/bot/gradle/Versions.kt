@@ -6,7 +6,7 @@ object Versions {
 
     /** Discord **/
     const val JDA = "5.0.0-alpha.9"
-    const val LAVAPLAYER = "1.3.78"
+    const val LAVAPLAYER = "youtube_details_parse_bug-SNAPSHOT"
 
     /** Application **/
     const val KOIN = "3.1.5"
