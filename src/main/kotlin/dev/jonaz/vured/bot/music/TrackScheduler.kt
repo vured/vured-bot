@@ -7,6 +7,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.service.application.LogService
+import dev.jonaz.vured.bot.service.discord.MusicChannelService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.discord.VoiceChannelService
 import dev.jonaz.vured.bot.service.music.MusicService
@@ -20,6 +21,7 @@ object TrackScheduler : AudioEventAdapter() {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val logService by genericInject<LogService>()
     private val playerService by genericInject<PlayerService>()
+    private val musicChannelService by genericInject<MusicChannelService>()
 
     override fun onTrackEnd(audioPlayer: AudioPlayer, track: AudioTrack, endReason: AudioTrackEndReason) {
         val queue = musicService.getQueue()
@@ -79,7 +81,8 @@ object TrackScheduler : AudioEventAdapter() {
     }
 
     override fun onTrackException(player: AudioPlayer, track: AudioTrack, exception: FriendlyException?) {
-        voiceChannelService.leave()
+        musicChannelService.sendMessage(Color.RED, exception?.message ?: Translation.LOG_TRACK_EXCEPTION, 5000)
+
         logService.sendLog(
             title = Translation.LOG_VOICE_CHANNEL_LEFT,
             description = exception?.message ?: Translation.LOG_TRACK_EXCEPTION,
