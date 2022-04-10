@@ -1,8 +1,8 @@
 package dev.jonaz.vured.bot.gradle
 
 object Versions {
-    const val KOTLIN = "1.6.0"
-    const val KOTLIN_COROUTINES = "1.6.0-native-mt"
+    const val KOTLIN = "1.6.20"
+    const val KOTLIN_COROUTINES = "1.6.0"
 
     /** Discord **/
     const val JDA = "5.0.0-alpha.9"
