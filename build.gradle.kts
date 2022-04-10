@@ -3,9 +3,9 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import dev.jonaz.vured.bot.gradle.Versions
 
 plugins {
-    kotlin("jvm") version "1.6.0"
-    kotlin("kapt") version "1.6.0"
-    kotlin("plugin.serialization") version "1.6.0"
+    kotlin("jvm") version "1.6.20"
+    kotlin("kapt") version "1.6.20"
+    kotlin("plugin.serialization") version "1.6.20"
     id("com.github.johnrengelman.shadow") version "6.1.0"
 }
 
@@ -14,7 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20")
     }
 }
 
@@ -60,7 +60,7 @@ dependencies {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "17"
     }
 
     build {
@@ -78,7 +78,7 @@ tasks {
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    languageVersion = "1.4"
+    languageVersion = "1.7"
 }
 
 task("stage") {
