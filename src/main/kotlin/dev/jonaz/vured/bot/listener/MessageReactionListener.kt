@@ -6,6 +6,7 @@ import dev.jonaz.vured.bot.service.discord.ReactionService
 import dev.jonaz.vured.bot.util.extensions.genericInject
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
+import net.dv8tion.jda.api.entities.emoji.Emoji.Type
 
 class MessageReactionListener : ListenerAdapter() {
     private val reactionService by genericInject<ReactionService>()
@@ -22,7 +23,7 @@ class MessageReactionListener : ListenerAdapter() {
             return
         }
 
-        if (event.reactionEmote.isEmote) {
+        if (event.emoji.getType() == Type.CUSTOM) {
             event.user?.let { event.reaction.removeReaction(it).queue() }
             return
         }
@@ -39,6 +40,6 @@ class MessageReactionListener : ListenerAdapter() {
 
         event.user?.let { event.reaction.removeReaction(it).queue() }
 
-        event.member?.let { reactionService.execute(event.reactionEmote.asCodepoints, it) }
+        event.member?.let { reactionService.execute(event.emoji.asUnicode().getAsCodepoints(), it) }
     }
 }
