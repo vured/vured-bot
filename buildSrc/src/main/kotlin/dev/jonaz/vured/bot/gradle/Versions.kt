@@ -5,8 +5,8 @@ object Versions {
     const val KOTLIN_COROUTINES = "1.6.0"
 
     /** Discord **/
-    const val JDA = "5.0.0-alpha.9"
-    const val LAVAPLAYER = "youtube_details_parse_bug-SNAPSHOT"
+    const val JDA = "5.0.0-beta.6"
+    const val LAVAPLAYER = "1.4.0"
 
     /** Application **/
     const val KOIN = "3.1.5"

@@ -6,7 +6,7 @@ import dev.jonaz.vured.bot.util.extensions.genericInject
 import dev.jonaz.vured.bot.util.environment.Environment
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Member
-import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
 import java.awt.Color
 import java.text.SimpleDateFormat
 import java.util.*

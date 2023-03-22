@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
 import net.dv8tion.jda.api.interactions.components.buttons.ButtonStyle
 import net.dv8tion.jda.api.interactions.components.buttons.Button as ButtonComponent
 import org.atteo.classindex.ClassIndex
+import net.dv8tion.jda.api.utils.messages.MessageEditBuilder
 
 class ButtonService {
     private val buttons = mutableListOf<ButtonModel>()
@@ -22,7 +23,8 @@ class ButtonService {
             getComponentFromButton(it)
         }
 
-        message.editMessage(message).setActionRow(buttonComponents).queue()
+        val edit  = MessageEditBuilder.fromMessage(message).build()
+        message.editMessage(edit).setActionRow(buttonComponents).queue()
     }
 
     fun initButtons() {

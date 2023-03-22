@@ -5,7 +5,7 @@ import dev.jonaz.vured.bot.util.extensions.genericInject
 import kotlinx.coroutines.*
 import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel
 import java.awt.Color
 
 class MusicChannelService {

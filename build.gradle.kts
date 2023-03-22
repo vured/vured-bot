@@ -37,7 +37,7 @@ dependencies {
 
     /** Discord **/
     implementation("net.dv8tion", "JDA", Versions.JDA)
-    implementation("com.github.idpromnut", "lavaplayer", Versions.LAVAPLAYER)
+    implementation("com.github.walkyst", "lavaplayer-fork", Versions.LAVAPLAYER)
 
     /** Logging **/
     implementation("ch.qos.logback", "logback-classic", Versions.LOGBACK)

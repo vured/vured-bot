@@ -6,6 +6,7 @@ import dev.jonaz.vured.bot.control.ControlMessageCase
 import dev.jonaz.vured.bot.control.reaction.ReactionModel
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Message
+import net.dv8tion.jda.api.entities.emoji.Emoji
 import org.atteo.classindex.ClassIndex
 import kotlin.system.exitProcess
 
@@ -17,7 +18,7 @@ class ReactionService {
     }
 
     fun addReaction(message: Message, emote: String) = runCatching {
-        message.addReaction(emote).queue()
+        message.addReaction(Emoji.fromUnicode(emote)).queue()
     }.getOrElse { exitProcess(1) }
 
     fun initReactions() {

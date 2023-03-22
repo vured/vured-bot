@@ -5,7 +5,8 @@ import dev.jonaz.vured.bot.service.music.MusicService
 import dev.jonaz.vured.bot.service.music.PlaylistService
 import dev.jonaz.vured.bot.service.web.PlayerService
 import dev.jonaz.vured.bot.util.extensions.genericInject
-import net.dv8tion.jda.api.entities.AudioChannel
+import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel
+import net.dv8tion.jda.api.entities.channel.unions.AudioChannelUnion
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.managers.AudioManager
 import java.awt.Color
@@ -35,12 +36,13 @@ class VoiceChannelService {
             return null
         }
 
-        return member.voiceState?.channel.run(::join)
+        return member.voiceState?.channel.run(::join_channel)
     }
 
     fun leave() {
         val audioManager = musicService.getGuildAudioManager()
-
+        musicService.setRepeatTrack(false)
+        musicService.setShuffleTrack(false)
         musicService.stopTrack()
         playlistService.deleteQuestionMessage()
 
@@ -61,7 +63,7 @@ class VoiceChannelService {
         }
     }
 
-    private fun join(channel: AudioChannel?): AudioManager? {
+    private fun join_channel(channel: AudioChannelUnion?): AudioManager? {
         val audioManager = musicService.getGuildAudioManager()
 
         audioManager?.openAudioConnection(channel)
