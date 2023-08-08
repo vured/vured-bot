@@ -1,0 +1,17 @@
+name: Publish Docker Package
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push to GHCR
+        run: |
+          docker login --username dascanard --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build . -t ghcr.io/vured/vured-bot:latest
+          docker push ghcr.io/vured/vured-bot:latest
