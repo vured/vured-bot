@@ -1,3 +1,5 @@
+<h3 align="center">🔴 Currently not actively maintained 🔴</h1>
+<br>
 <h1 align="center">Vured - A command-less music bot for Discord</h1>
 
 <p align="center">
